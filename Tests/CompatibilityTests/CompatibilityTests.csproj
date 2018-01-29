@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9510B542-FEEB-410E-B0F6-B0DF0D3E1F3D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CompatibilityTests</RootNamespace>
+    <AssemblyName>CompatibilityTests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="nunit.framework, Version=3.9.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.3.9.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CompatibilityTests.cs" />
+    <Compile Include="CompatibilityTests.generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompatibilityTests.generated.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GeneratedTests\CompatibilityTests_Array.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_Array_1.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_Array_2.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_Array_3.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_Array_4.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_Array_5.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_Array_6.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_1.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_2.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_3.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_4.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_5.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_6.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion_1.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion_2.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion_3.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion_4.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion_5.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_IEnumerable_SkipCheckListVersion_6.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_1.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_2.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_3.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_4.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_5.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_6.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion_1.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion_2.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion_3.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion_4.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion_5.generated.cs" />
+    <Compile Include="GeneratedTests\CompatibilityTests_List_SkipCheckListVersion_6.generated.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\LowCostLinq\LowCostLinq.csproj">
+      <Project>{21c7b562-3d41-4d3e-9bcc-e0665beb0392}</Project>
+      <Name>LowCostLinq</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CompatibilityTests.generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CompatibilityTests.generated.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

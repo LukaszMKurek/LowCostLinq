@@ -1,0 +1,228 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ output extension=".cs" #>
+
+<# TestNameGenerator.Count = 0; #>
+
+<# GenerateTestClassFor(false, CollectionType.Array); #>
+<# GenerateTestClassFor(false, CollectionType.Array, possibleExpressions1, "1"); #>
+<# GenerateTestClassFor(false, CollectionType.Array, possibleExpressions2, "2"); #>
+<# GenerateTestClassFor(false, CollectionType.Array, possibleExpressions3, "3"); #>
+<# GenerateTestClassFor(false, CollectionType.Array, possibleExpressions4, "4"); #>
+<# GenerateTestClassFor(false, CollectionType.Array, possibleExpressions5, "5"); #>
+<# GenerateTestClassFor(false, CollectionType.Array, possibleExpressions6, "6"); #>
+
+
+
+<# GenerateTestClassFor(false, CollectionType.List); #>
+<# GenerateTestClassFor(false, CollectionType.List, possibleExpressions1, "1"); #>
+<# GenerateTestClassFor(false, CollectionType.List, possibleExpressions2, "2"); #>
+<# GenerateTestClassFor(false, CollectionType.List, possibleExpressions3, "3"); #>
+<# GenerateTestClassFor(false, CollectionType.List, possibleExpressions4, "4"); #>
+<# GenerateTestClassFor(false, CollectionType.List, possibleExpressions5, "5"); #>
+<# GenerateTestClassFor(false, CollectionType.List, possibleExpressions6, "6"); #>
+
+<# GenerateTestClassFor(true, CollectionType.List); #>
+<# GenerateTestClassFor(true, CollectionType.List, possibleExpressions1, "1"); #>
+<# GenerateTestClassFor(true, CollectionType.List, possibleExpressions2, "2"); #>
+<# GenerateTestClassFor(true, CollectionType.List, possibleExpressions3, "3"); #>
+<# GenerateTestClassFor(true, CollectionType.List, possibleExpressions4, "4"); #>
+<# GenerateTestClassFor(true, CollectionType.List, possibleExpressions5, "5"); #>
+<# GenerateTestClassFor(true, CollectionType.List, possibleExpressions6, "6"); #>
+
+
+
+<# GenerateTestClassFor(false, CollectionType.IEnumerable); #>
+<# GenerateTestClassFor(false, CollectionType.IEnumerable, possibleExpressions1, "1"); #>
+<# GenerateTestClassFor(false, CollectionType.IEnumerable, possibleExpressions2, "2"); #>
+<# GenerateTestClassFor(false, CollectionType.IEnumerable, possibleExpressions3, "3"); #>
+<# GenerateTestClassFor(false, CollectionType.IEnumerable, possibleExpressions4, "4"); #>
+<# GenerateTestClassFor(false, CollectionType.IEnumerable, possibleExpressions5, "5"); #>
+<# GenerateTestClassFor(false, CollectionType.IEnumerable, possibleExpressions6, "6"); #>
+
+<# GenerateTestClassFor(true, CollectionType.IEnumerable); #>
+<# GenerateTestClassFor(true, CollectionType.IEnumerable, possibleExpressions1, "1"); #>
+<# GenerateTestClassFor(true, CollectionType.IEnumerable, possibleExpressions2, "2"); #>
+<# GenerateTestClassFor(true, CollectionType.IEnumerable, possibleExpressions3, "3"); #>
+<# GenerateTestClassFor(true, CollectionType.IEnumerable, possibleExpressions4, "4"); #>
+<# GenerateTestClassFor(true, CollectionType.IEnumerable, possibleExpressions5, "5"); #>
+<# GenerateTestClassFor(true, CollectionType.IEnumerable, possibleExpressions6, "6"); #>
+
+<#+
+	
+	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions1 = new []
+        {
+            (".Where(i => i != XXX)", ".Where(i => i != XXX)"),
+            (".Select(i => i - 1)", ".Select(i => i - 1)"),
+            (".Where(i => i == XXX)", ".Where(i => i == XXX)"),
+        };
+
+	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions2 = new []
+        {
+            (".Where(i => i != XXX)", ".Where(i => i != XXX)"),
+            (".Select(i => i + 1)", ".Select(i => i + 1)"),
+            (".Take(4)", ".Take(4)"),
+        };
+
+	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions3 = new []
+        {
+			(".Select(i => i)", ".Select(i => i)"),
+            (".Where(i => i != XXX)", ".Where(i => i != XXX)"),
+            (".Skip(4)", ".Skip(4)"),
+        };
+		
+	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions4 = new []
+        {
+			(".Select(i => i)", ".Select(i => i)"),
+            (".Where(i => i != XXX)", ".Where(i => i != XXX)"),
+            (".TakeWhile(i => i != XXX)", ".TakeWhile(i => i != XXX)"),
+        };
+
+	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions5 = new []
+        {
+			(".Select(i => i)", ".Select(i => i)"),
+            (".Where(i => i != XXX)", ".Where(i => i != XXX)"),
+            (".SkipWhile(i => i != XXX)", ".SkipWhile(i => i != XXX)"),
+        };
+
+	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions6 = new []
+        {
+			(".Select(i => i)", ".Select(i => i)"),
+            (".Where(i => i != XXX)", ".Where(Item.AreNotEqualTo(XXX))"),
+        };
+
+	public enum CollectionType
+	{
+		Array,
+		List,
+		IEnumerable
+	}
+
+	void SaveOutput(string outputFileName)
+	{
+		string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+		string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+		File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+
+		this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+	}
+
+	void GenerateTestClassFor(bool skipCheckListVersion, CollectionType collectionType)
+    {
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using LowCostLinq;
+using NUnit.Framework;
+
+namespace CompatibilityTests
+{
+	public sealed class CompatibilityTests_<#= collectionType.ToString() #><#= skipCheckListVersion ? "_SkipCheckListVersion" : "" #> : CompatibilityTests_<#= collectionType.ToString() #>Base
+	{
+<#+ GenerateTest(false, collectionType); #>
+	}
+}
+<#+
+		SaveOutput("GeneratedTests/CompatibilityTests_" + collectionType.ToString() + (skipCheckListVersion ? "_SkipCheckListVersion" : "") + ".generated.cs");
+    }
+
+	void GenerateTestClassFor(bool skipCheckListVersion, CollectionType collectionType, (string LinqExpression, string LowCostLinqExpression)[] possibleExpressions, string testNameSuffix)
+    {
+#>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using LowCostLinq;
+using NUnit.Framework;
+
+namespace CompatibilityTests
+{
+	public sealed class CompatibilityTests_<#= collectionType.ToString() #><#= skipCheckListVersion ? "_SkipCheckListVersion" : "" #>_<#= testNameSuffix #> : CompatibilityTests_<#= collectionType.ToString() #>Base
+	{
+<#+ GenerateCombinedTests(possibleExpressions, skipCheckListVersion, collectionType); #>
+	}
+}
+<#+
+		SaveOutput("GeneratedTests/CompatibilityTests_" + collectionType.ToString() + (skipCheckListVersion ? "_SkipCheckListVersion" : "") + "_" + testNameSuffix + ".generated.cs");
+    }
+
+	void GenerateCombinedTests((string LinqExpression, string LowCostLinqExpression)[] expressions, bool skipCheckListVersion, CollectionType collectionType)
+	{
+		foreach(var e1 in expressions)
+		{
+			GenerateTest(skipCheckListVersion, collectionType, e1);
+
+			foreach(var e2 in expressions)
+			{
+				GenerateTest(skipCheckListVersion, collectionType, e1, e2);
+
+				foreach(var e3 in expressions)
+				{
+					GenerateTest(skipCheckListVersion, collectionType, e1, e2, e3);
+
+					foreach(var e4 in expressions)
+					{
+						GenerateTest(skipCheckListVersion, collectionType, e1, e2, e3, e4);
+
+						foreach(var e5 in expressions)
+						{
+							GenerateTest(skipCheckListVersion, collectionType, e1, e2, e3, e4, e5);
+
+							/*foreach(var e6 in expressions)
+							{
+								GenerateTest(skipCheckListVersion, collectionType, e1, e2, e3, e4, e5, e6);
+							}*/
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public static class TestNameGenerator
+	{
+		public static int Count = 0;
+	}
+
+    void GenerateTest(bool skipCheckListVersion, CollectionType collectionType, params (string LinqExpression, string LowCostLinqExpression)[] expressions)
+    {
+#>
+        [TestCaseSource(SourceName)]
+        public void Test_<#= (TestNameGenerator.Count++).ToString() #>(<#= collectionType == CollectionType.Array ? "int[]" : (collectionType == CollectionType.List ? "List<int>" : "IEnumerable<int>") #> items)
+        {
+            IEnumerable<int> reference = items.AsEnumerable()
+                <#= string.Join("", expressions.Select((i, n) => i.LinqExpression.Replace("XXX", n.ToString()))) #>;
+            var tested = items.AsLowCostLinq<#= skipCheckListVersion ? "WithoutChecks" : "" #>()
+                <#= string.Join("", expressions.Select((i, n) => i.LowCostLinqExpression.Replace("XXX", n.ToString()))) #>;
+            
+			AssertThatTypeIsImmutableStruct(tested);
+
+			AssertLowCostMethod<int[]>(tested.ToArray);
+			AssertEnumerable(reference, tested, tested.ToArray(), tested.ToArray());
+			
+			AssertLowCostMethod<int>(tested.FirstOrDefault);
+			Assert.AreEqual(reference.FirstOrDefault(), tested.FirstOrDefault());
+
+			AssertLowCostMethod<int>(tested.Count);
+			Assert.AreEqual(reference.Count(), tested.Count());
+
+			AssertLowCostMethod<Func<int, bool>, int>(tested.Count);
+			Assert.AreEqual(reference.Count(i => i != 8), tested.Count(i => i != 8));
+			
+			var referenceEnumerator = reference.GetEnumerator();
+			AssertLowCostMethod(tested.GetEnumerator);
+			var testedEnumerator = tested.GetEnumerator();
+			AssertThatTypeIsStruct(testedEnumerator);
+
+			AssertCorrectEnumeratorBehaviour(referenceEnumerator, testedEnumerator);
+        }
+
+
+<#+
+    }
+#>
