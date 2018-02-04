@@ -92,7 +92,7 @@
 	(string LinqExpression, string LowCostLinqExpression)[] possibleExpressions6 = new []
         {
 			(".Select(i => i)", ".Select(i => i)"),
-            (".Where(i => i != XXX)", ".Where(Item.AreNotEqualTo(XXX))"),
+            (".Where(i => i != XXX)", ".Where(Items.AreNotEqualTo(XXX))"),
         };
 
 	public enum CollectionType
