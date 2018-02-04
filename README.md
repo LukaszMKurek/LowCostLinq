@@ -4,6 +4,7 @@ LowCostLinq is a library that deliver interface similar to LINQ but better perfo
 Example LINQ expression:
 
 ```C#
+// LinqExample
 var result = collection
 	.Where(i => i != 0)
 	.Select(i => i + 2)
@@ -15,6 +16,7 @@ var result = collection
 Can be optimized by adding invocation of extension method **AsLowCostLinq**:
 
 ```C#
+// LowCostLinqExample
 var result = collection.AsLowCostLinq() // <-- HERE is magic!
 	.Where(i => i != 0)
 	.Select(i => i + 2)
@@ -28,7 +30,6 @@ Second expression will allocate less objects and will be noticably faster than L
 Performance results for this example:
 
 ``` ini
-
 BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.192)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
 Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
@@ -40,8 +41,8 @@ Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
 ```
 |                            Method |      Mean |     Error |    StdDev |    Gen 0 | Allocated |
 |---------------------------------- |----------:|----------:|----------:|---------:|----------:|
-|                       **LinqExample** | 636.43 us | 1.0966 us | 0.9157 us | 158.2031 | 648.44 KB |
-|                **LowCostLinqExample** | 411.18 us | 0.4115 us | 0.3436 us |  80.0781 | 328.13 KB |
+|                   **LinqExample** | 636.43 us | 1.0966 us | 0.9157 us | 158.2031 | 648.44 KB |
+|            **LowCostLinqExample** | 411.18 us | 0.4115 us | 0.3436 us |  80.0781 | 328.13 KB |
 |      EvenBetterLowCostLinqExample | 168.19 us | 0.1566 us | 0.1388 us |  80.0781 | 328.13 KB |
 | NearOptimalSolutionUsingDelegates | 216.66 us | 0.0791 us | 0.0702 us |  81.7871 | 335.94 KB |
 |               NearOptimalSolution |  49.57 us | 0.3881 us | 0.3631 us |  38.0859 | 156.25 KB |
@@ -57,6 +58,7 @@ In above results we can see that:
 Example 2:
 
 ```C#
+// LinqExample
 var result = collection
 		.Where(i => i != 0)
 		.Where(i => i != 1)
@@ -67,6 +69,7 @@ var result = collection
 and optimized with new API:
 
 ```C#
+// EvenBetterLowCostLinqExample
 var result = collection.AsLowCostLinq()
 		.Where(Item.AreNotEqualTo(0)) // instead delegate, this magic can be inlined during jitting
 		.Where(Item.AreNotEqualTo(1))
@@ -77,7 +80,6 @@ var result = collection.AsLowCostLinq()
 Performance results for this example:
 
 ``` ini
-
 BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.192)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
 Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
@@ -89,9 +91,9 @@ Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
 ```
 |                            Method |       Mean |      Error |     StdDev |    Gen 0 | Allocated |
 |---------------------------------- |-----------:|-----------:|-----------:|---------:|----------:|
-|                       **LinqExample** | 7,486.5 us |  6.7709 us |  6.3335 us | 109.3750 |  480000 B |
+|                   **LinqExample** | 7,486.5 us |  6.7709 us |  6.3335 us | 109.3750 |  480000 B |
 |                LowCostLinqExample | 6,856.0 us | 17.5388 us | 16.4058 us |        - |       0 B |
-|      **EvenBetterLowCostLinqExample** | 1,587.9 us |  3.1845 us |  2.9787 us |        - |       0 B |
+|  **EvenBetterLowCostLinqExample** | 1,587.9 us |  3.1845 us |  2.9787 us |        - |       0 B |
 | NearOptimalSolutionUsingDelegates | 4,134.5 us | 43.8768 us | 41.0424 us |        - |       0 B |
 |               NearOptimalSolution |   486.0 us |  0.8945 us |  0.8368 us |        - |       0 B |
 
@@ -103,6 +105,7 @@ We see that LowCostLinq:
 Example 3:
 
 ```C#
+// LinqExample
 for (int n = 0; n < Iterations; n++)
 {
     int p1 = n;
@@ -126,6 +129,7 @@ for (int n = 0; n < Iterations; n++)
 and optimized with new API:
 
 ```C#
+// EvenBetterLowCostLinqExample
 for (int n = 0; n < Iterations; n++)
 {
     int p1 = n;
@@ -149,7 +153,6 @@ for (int n = 0; n < Iterations; n++)
 Performance test results:
 
 ``` ini
-
 BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.192)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
 Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
@@ -161,9 +164,9 @@ Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
 ```
 |                            Method |        Mean |      Error |     StdDev |     Gen 0 | Allocated |
 |---------------------------------- |------------:|-----------:|-----------:|----------:|----------:|
-|                      ** LinqExample** | 14,384.6 us | 90.2034 us | 84.3763 us | 1828.1250 | 7680000 B |
+|                   **LinqExample** | 14,384.6 us | 90.2034 us | 84.3763 us | 1828.1250 | 7680000 B |
 |                LowCostLinqExample | 10,135.3 us |  2.8324 us |  2.6494 us |  671.8750 | 2880000 B |
-|      **EvenBetterLowCostLinqExample** | 10,944.9 us | 20.1747 us | 18.8714 us |         - |       0 B |
+|  **EvenBetterLowCostLinqExample** | 10,944.9 us | 20.1747 us | 18.8714 us |         - |       0 B |
 |            BestLowCostLinqExample |  2,211.4 us |  1.4088 us |  1.2488 us |         - |       0 B |
 | NearOptimalSolutionUsingDelegates |  6,000.1 us |  1.4933 us |  1.1659 us |         - |       0 B |
 |               NearOptimalSolution |    790.1 us |  0.2530 us |  0.2366 us |         - |       0 B |
