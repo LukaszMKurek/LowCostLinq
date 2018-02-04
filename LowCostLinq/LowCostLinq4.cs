@@ -187,6 +187,8 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LowCostLinq<TIn, TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TM2, TFilter3, TM3, CombineFilters<TM3, TFilter4, TOut, TakeWhile<TOut>, TOut>, TOut> TakeWhile(Func<TOut, bool> @while)
         {
+            if (@while == null) ThrowHelper.TakeWhileDelegateIsNull();
+
             var next = new CombineFilters<TM3, TFilter4, TOut, TakeWhile<TOut>, TOut>(_filter4, new TakeWhile<TOut>(@while));
             return new LowCostLinq<TIn, TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TM2, TFilter3, TM3, CombineFilters<TM3, TFilter4, TOut, TakeWhile<TOut>, TOut>, TOut>(_collection, _filter1, _filter2, _filter3, next);
         }
@@ -201,6 +203,8 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LowCostLinq<TIn, TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TM2, TFilter3, TM3, CombineFilters<TM3, TFilter4, TOut, SkipWhile<TOut>, TOut>, TOut> SkipWhile(Func<TOut, bool> @while)
         {
+            if (@while == null) ThrowHelper.SkipWhileDelegateIsNull();
+
             var next = new CombineFilters<TM3, TFilter4, TOut, SkipWhile<TOut>, TOut>(_filter4, new SkipWhile<TOut>(@while));
             return new LowCostLinq<TIn, TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TM2, TFilter3, TM3, CombineFilters<TM3, TFilter4, TOut, SkipWhile<TOut>, TOut>, TOut>(_collection, _filter1, _filter2, _filter3, next);
         }

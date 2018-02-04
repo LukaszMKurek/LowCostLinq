@@ -24,6 +24,16 @@ namespace LowCostLinq.Internals
             throw new ArgumentNullException("select delegate");
         }
 
+        internal static void TakeWhileDelegateIsNull()
+        {
+            throw new ArgumentNullException("take delegate");
+        }
+
+        internal static void SkipWhileDelegateIsNull()
+        {
+            throw new ArgumentNullException("skip delegate");
+        }
+
         internal static void ElementNotFound()
         {
             throw new InvalidOperationException("Element not found");
@@ -36,12 +46,12 @@ namespace LowCostLinq.Internals
 
         internal static void ArgumentCountCannotBeLessThanZero()
         {
-            throw new InvalidOperationException("Argument 'count' can not be less than zero");
+            throw new ArgumentOutOfRangeException("Argument 'count' can not be less than zero");
         }
 
         internal static void InvalidRangeArgument()
         {
-            throw new InvalidOperationException("Arguments must met start + count < Int32.MaxValue");
+            throw new ArgumentOutOfRangeException("Arguments must met start + count < Int32.MaxValue");
         }
     }
 }

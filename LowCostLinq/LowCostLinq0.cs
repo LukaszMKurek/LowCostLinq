@@ -138,6 +138,8 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LowCostLinq<T, TCollectionWrapper, TCollectionIterator, TakeWhile<T>, T> TakeWhile(Func<T, bool> @while)
         {
+            if (@while == null) ThrowHelper.TakeWhileDelegateIsNull();
+
             return new LowCostLinq<T, TCollectionWrapper, TCollectionIterator, TakeWhile<T>, T>(_collection, new TakeWhile<T>(@while));
         }
 
@@ -150,6 +152,8 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LowCostLinq<T, TCollectionWrapper, TCollectionIterator, SkipWhile<T>, T> SkipWhile(Func<T, bool> @while)
         {
+            if (@while == null) ThrowHelper.SkipWhileDelegateIsNull();
+
             return new LowCostLinq<T, TCollectionWrapper, TCollectionIterator, SkipWhile<T>, T>(_collection, new SkipWhile<T>(@while));
         }
 
