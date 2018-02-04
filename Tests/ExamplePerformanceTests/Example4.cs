@@ -113,10 +113,10 @@ namespace PerformanceTests
             for (int n = 0; n < Iterations; n++)
             {
                 var result = collection.AsLowCostLinq()
-                    .Where(Item.AreNotEqualTo(0))
-                    .Where(Item.AreNotEqualTo(1))
-                    .Where(Item.AreNotEqualTo(2))
-                    .Where(Item.AreNotEqualTo(3));
+                    .Where(Items.AreNotEqualTo(0))
+                    .Where(Items.AreNotEqualTo(1))
+                    .Where(Items.AreNotEqualTo(2))
+                    .Where(Items.AreNotEqualTo(3));
 
                 foreach (var item in result)
                 {
@@ -152,7 +152,7 @@ namespace PerformanceTests
             return preventOptimize;
         }
 
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public int NearOptimalSolution()
         {
             var collection = _array;

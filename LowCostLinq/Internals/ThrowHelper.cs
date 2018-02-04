@@ -4,6 +4,11 @@ namespace LowCostLinq.Internals
 {
     internal static class ThrowHelper
     {
+        internal static void ArgumentIsNull()
+        {
+            throw new ArgumentNullException();
+        }
+
         internal static void CollectionIsNull()
         {
             throw new ArgumentNullException("collection");

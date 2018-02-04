@@ -72,18 +72,19 @@ namespace PerformanceTests
             for (int n = 0; n < Iterations; n++)
             {
                 var result = collection.AsLowCostLinq()
-                    .Where(Item.AreNotEqualTo(0)) // instead delegate, this magic can be inlined during jitting
-                    .Where(Item.AreNotEqualTo(1))
-                    .Where(Item.AreNotEqualTo(2))
-                    .Where(Item.AreNotEqualTo(3))
-                    .First(i => i > SomeMagicNumber); // faster version not yet implemented
-                
+                    .Where(Items.AreNotEqualTo(0)) // instead delegate, this magic can be inlined during jitting
+                    .Where(Items.AreNotEqualTo(1))
+                    .Where(Items.AreNotEqualTo(2))
+                    .Where(Items.AreNotEqualTo(3))
+                    .Where(Items.AreGreatherThan(SomeMagicNumber))
+                    .First(); // currently I am going to not implement faster wersion of First. I do not want blow API even more
+
                 preventOptimize += result;
             }
 
             return preventOptimize;
         }
-
+        
         [Benchmark]
         public int NearOptimalSolutionUsingDelegates()
         {
@@ -118,7 +119,7 @@ namespace PerformanceTests
             return preventOptimize;
         }
 
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public int NearOptimalSolution()
         {
             var collection = _array;

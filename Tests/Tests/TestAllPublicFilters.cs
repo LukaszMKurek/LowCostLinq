@@ -12,7 +12,7 @@ namespace Tests
         {
             var tested = new[] { 1, 2, 5 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i + 10)
                 ,
@@ -20,7 +20,7 @@ namespace Tests
                     .Select(i => i + 10)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i + 10)
                     .Select(i => i + 100)
@@ -30,7 +30,7 @@ namespace Tests
                     .Select(i => i + 100)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i + 10)
                     .Select(i => i + 100)
@@ -42,7 +42,7 @@ namespace Tests
                     .Select(i => i + 1000)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i + 10)
                     .Select(i => i + 100)
@@ -56,23 +56,23 @@ namespace Tests
                     .Select(i => i + 10000)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
-                    .Select(i => i + 10)
-                    .Select(i => i + 100)
-                    .Select(i => i + 1000)
-                    .Select(i => i + 10000)
-                    .Select(i => i + 100000)
-                ,
-                tested.AsLowCostLinq()
                     .Select(i => i + 10)
                     .Select(i => i + 100)
                     .Select(i => i + 1000)
                     .Select(i => i + 10000)
                     .Select(i => i + 100000)
+                ,
+                tested.AsLowCostLinq()
+                    .Select(i => i + 10)
+                    .Select(i => i + 100)
+                    .Select(i => i + 1000)
+                    .Select(i => i + 10000)
+                    .Select(i => i + 100000)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i + 10)
                     .Select(i => i + 100)
@@ -96,7 +96,7 @@ namespace Tests
         {
             var tested = new[] { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Where(item => item == 1)
                 ,
@@ -104,7 +104,7 @@ namespace Tests
                     .Where(1, (param, item) => item == param)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Where(item => item == 1)
@@ -114,7 +114,7 @@ namespace Tests
                     .Where(1, (param, item) => item == param)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -126,23 +126,8 @@ namespace Tests
                     .Where(1, (param, item) => item == param)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Where(item => item == 1)
-                ,
-                tested.AsLowCostLinq()
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Where(1, (param, item) => item == param)
-            );
-
-            CollectionAssert.AreEquivalent(
-                tested
-                    .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
@@ -152,11 +137,26 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
+                    .Where(1, (param, item) => item == param)
+            );
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Where(item => item == 1)
+                ,
+                tested.AsLowCostLinq()
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
                     .Select(i => i)
                     .Where(1, (param, item) => item == param)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -180,25 +180,25 @@ namespace Tests
         {
             var tested = new[] { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Where(i => i == 1)
                 ,
                 tested.AsLowCostLinq()
-                    .Where(Item.AreEqualTo(1))
+                    .Where(Items.AreEqualTo(1))
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Where(i => i == 1)
                 ,
                 tested.AsLowCostLinq()
                     .Select(i => i)
-                    .Where(Item.AreEqualTo(1))
+                    .Where(Items.AreEqualTo(1))
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -207,10 +207,10 @@ namespace Tests
                 tested.AsLowCostLinq()
                     .Select(i => i)
                     .Select(i => i)
-                    .Where(Item.AreEqualTo(1))
+                    .Where(Items.AreEqualTo(1))
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -221,10 +221,10 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
-                    .Where(Item.AreEqualTo(1))
+                    .Where(Items.AreEqualTo(1))
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -237,10 +237,10 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
-                    .Where(Item.AreEqualTo(1))
+                    .Where(Items.AreEqualTo(1))
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -255,7 +255,7 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
-                    .Where(Item.AreEqualTo(1))
+                    .Where(Items.AreEqualTo(1))
             );
         }
 
@@ -264,7 +264,7 @@ namespace Tests
         {
             var tested = new[] { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Take(4)
                 ,
@@ -272,7 +272,7 @@ namespace Tests
                     .Take(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Take(4)
@@ -282,7 +282,7 @@ namespace Tests
                     .Take(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -294,23 +294,8 @@ namespace Tests
                     .Take(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Take(4)
-                ,
-                tested.AsLowCostLinq()
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Take(4)
-            );
-
-            CollectionAssert.AreEquivalent(
-                tested
-                    .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
@@ -320,11 +305,26 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
+                    .Take(4)
+            );
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Take(4)
+                ,
+                tested.AsLowCostLinq()
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
                     .Select(i => i)
                     .Take(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -348,7 +348,7 @@ namespace Tests
         {
             var tested = new[] { 0, 1, 1, 0, 4, 0, 1, 1, 0, 1 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .TakeWhile(i => i != 4)
                 ,
@@ -356,7 +356,7 @@ namespace Tests
                     .TakeWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .TakeWhile(i => i != 4)
@@ -366,7 +366,7 @@ namespace Tests
                     .TakeWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -378,23 +378,8 @@ namespace Tests
                     .TakeWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .TakeWhile(i => i != 4)
-                ,
-                tested.AsLowCostLinq()
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .TakeWhile(i => i != 4)
-            );
-
-            CollectionAssert.AreEquivalent(
-                tested
-                    .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
@@ -404,11 +389,26 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
+                    .TakeWhile(i => i != 4)
+            );
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .TakeWhile(i => i != 4)
+                ,
+                tested.AsLowCostLinq()
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
                     .Select(i => i)
                     .TakeWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -432,7 +432,7 @@ namespace Tests
         {
             var tested = new[] { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Skip(4)
                 ,
@@ -440,7 +440,7 @@ namespace Tests
                     .Skip(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Skip(4)
@@ -450,7 +450,7 @@ namespace Tests
                     .Skip(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -462,23 +462,8 @@ namespace Tests
                     .Skip(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Skip(4)
-                ,
-                tested.AsLowCostLinq()
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Skip(4)
-            );
-
-            CollectionAssert.AreEquivalent(
-                tested
-                    .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
@@ -488,11 +473,26 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
+                    .Skip(4)
+            );
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Skip(4)
+                ,
+                tested.AsLowCostLinq()
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
                     .Select(i => i)
                     .Skip(4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -516,7 +516,7 @@ namespace Tests
         {
             var tested = new[] { 0, 1, 1, 0, 4, 0, 1, 1, 0, 1 };
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .SkipWhile(i => i != 4)
                 ,
@@ -524,7 +524,7 @@ namespace Tests
                     .SkipWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .SkipWhile(i => i != 4)
@@ -534,7 +534,7 @@ namespace Tests
                     .SkipWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)
@@ -546,23 +546,8 @@ namespace Tests
                     .SkipWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .SkipWhile(i => i != 4)
-                ,
-                tested.AsLowCostLinq()
-                    .Select(i => i)
-                    .Select(i => i)
-                    .Select(i => i)
-                    .SkipWhile(i => i != 4)
-            );
-
-            CollectionAssert.AreEquivalent(
-                tested
-                    .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
@@ -572,11 +557,26 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .Select(i => i)
+                    .SkipWhile(i => i != 4)
+            );
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
+                    .SkipWhile(i => i != 4)
+                ,
+                tested.AsLowCostLinq()
+                    .Select(i => i)
+                    .Select(i => i)
+                    .Select(i => i)
                     .Select(i => i)
                     .SkipWhile(i => i != 4)
             );
 
-            CollectionAssert.AreEquivalent(
+            CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
                     .Select(i => i)

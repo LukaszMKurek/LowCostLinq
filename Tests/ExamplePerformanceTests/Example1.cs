@@ -72,7 +72,7 @@ namespace PerformanceTests
             for (int n = 0; n < Iterations; n++)
             {
                 var result = collection.AsLowCostLinq() // <-- HERE is magic!
-                    .Where(Item.AreNotEqualTo(0)) // <-- HERE is more fantastic magic!
+                    .Where(Items.AreNotEqualTo(0)) // <-- HERE is more fantastic magic!
                     .Filter<int, MyUltraFastHelpers.AddTwo>(MyUltraFastHelpers.IncreaseByTwo()) // inference now not work as good as we want
                     .Skip(16)
                     .Take(32)
@@ -142,7 +142,7 @@ namespace PerformanceTests
             return preventOptimize;
         }
         
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public int NearOptimalSolution()
         {
             var collection = _array;

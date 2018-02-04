@@ -30,22 +30,22 @@ Second expression will allocate less objects and will be noticably faster than L
 Performance results for this example:
 
 ``` ini
-BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.192)
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.214)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
-Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
+Frequency=3914065 Hz, Resolution=255.4889 ns, Timer=TSC
 .NET Core SDK=2.1.4
   [Host]     : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
   DefaultJob : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
 
 
 ```
-|                            Method |      Mean |     Error |    StdDev |    Gen 0 | Allocated |
-|---------------------------------- |----------:|----------:|----------:|---------:|----------:|
-|                   **LinqExample** | 636.43 us | 1.0966 us | 0.9157 us | 158.2031 | 648.44 KB |
-|            **LowCostLinqExample** | 411.18 us | 0.4115 us | 0.3436 us |  80.0781 | 328.13 KB |
-|      EvenBetterLowCostLinqExample | 168.19 us | 0.1566 us | 0.1388 us |  80.0781 | 328.13 KB |
-| NearOptimalSolutionUsingDelegates | 216.66 us | 0.0791 us | 0.0702 us |  81.7871 | 335.94 KB |
-|               NearOptimalSolution |  49.57 us | 0.3881 us | 0.3631 us |  38.0859 | 156.25 KB |
+|                            Method |      Mean |     Error |    StdDev | Scaled |    Gen 0 | Allocated |
+|---------------------------------- |----------:|----------:|----------:|-------:|---------:|----------:|
+|                   **LinqExample** | 746.18 us | 4.0816 us | 3.8180 us |  15.09 | 158.2031 | 648.44 KB |
+|            **LowCostLinqExample** | 421.96 us | 1.5564 us | 1.4558 us |   8.53 |  80.0781 | 328.13 KB |
+|      EvenBetterLowCostLinqExample | 184.84 us | 2.5107 us | 2.0965 us |   3.74 |  80.0781 | 328.13 KB |
+| NearOptimalSolutionUsingDelegates | 218.92 us | 0.3353 us | 0.2618 us |   4.43 |  81.7871 | 335.94 KB |
+|               NearOptimalSolution |  49.46 us | 0.0765 us | 0.0715 us |   1.00 |  38.0859 | 156.25 KB |
 
 For details look at **ExamplePerformanceTests** project.
 
@@ -71,31 +71,32 @@ and optimized with new API:
 ```C#
 // EvenBetterLowCostLinqExample
 var result = collection.AsLowCostLinq()
-		.Where(Item.AreNotEqualTo(0)) // instead delegate, this magic can be inlined during jitting
-		.Where(Item.AreNotEqualTo(1))
-		.Where(Item.AreNotEqualTo(2))
-		.Where(Item.AreNotEqualTo(3))
-		.First(i => i > SomeMagicNumber); // faster version is not yet implemented
+		.Where(Items.AreNotEqualTo(0)) // instead delegate, this magic can be inlined during jitting
+		.Where(Items.AreNotEqualTo(1))
+		.Where(Items.AreNotEqualTo(2))
+		.Where(Items.AreNotEqualTo(3))
+		.Where(Items.AreGreatherThan(SomeMagicNumber))
+		.First(); // currently I am going to not implement faster wersion of First. I do not want blow API even more
 ```					
 Performance results for this example:
 
 ``` ini
-BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.192)
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.214)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
-Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
+Frequency=3914065 Hz, Resolution=255.4889 ns, Timer=TSC
 .NET Core SDK=2.1.4
   [Host]     : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
   DefaultJob : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
 
 
 ```
-|                            Method |       Mean |      Error |     StdDev |    Gen 0 | Allocated |
-|---------------------------------- |-----------:|-----------:|-----------:|---------:|----------:|
-|                   **LinqExample** | 7,486.5 us |  6.7709 us |  6.3335 us | 109.3750 |  480000 B |
-|                LowCostLinqExample | 6,856.0 us | 17.5388 us | 16.4058 us |        - |       0 B |
-|  **EvenBetterLowCostLinqExample** | 1,587.9 us |  3.1845 us |  2.9787 us |        - |       0 B |
-| NearOptimalSolutionUsingDelegates | 4,134.5 us | 43.8768 us | 41.0424 us |        - |       0 B |
-|               NearOptimalSolution |   486.0 us |  0.8945 us |  0.8368 us |        - |       0 B |
+|                            Method |       Mean |      Error |     StdDev | Scaled |    Gen 0 | Allocated |
+|---------------------------------- |-----------:|-----------:|-----------:|-------:|---------:|----------:|
+|                   **LinqExample** | 7,451.6 us |  9.4269 us |  7.3599 us |  15.37 | 109.3750 |  480000 B |
+|                LowCostLinqExample | 6,852.7 us | 14.0379 us | 13.1311 us |  14.13 |        - |       0 B |
+|  **EvenBetterLowCostLinqExample** | 1,180.0 us |  1.6694 us |  1.5616 us |   2.43 |        - |       0 B |
+| NearOptimalSolutionUsingDelegates | 4,100.3 us | 36.4034 us | 34.0518 us |   8.46 |        - |       0 B |
+|               NearOptimalSolution |   484.8 us |  0.2729 us |  0.2419 us |   1.00 |        - |       0 B |
 
 We see that LowCostLinq:
 1. 0 bytes allocated!
@@ -153,23 +154,23 @@ for (int n = 0; n < Iterations; n++)
 Performance test results:
 
 ``` ini
-BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.192)
+BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.214)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
-Frequency=3914061 Hz, Resolution=255.4891 ns, Timer=TSC
+Frequency=3914065 Hz, Resolution=255.4889 ns, Timer=TSC
 .NET Core SDK=2.1.4
   [Host]     : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
   DefaultJob : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
 
 
 ```
-|                            Method |        Mean |      Error |     StdDev |     Gen 0 | Allocated |
-|---------------------------------- |------------:|-----------:|-----------:|----------:|----------:|
-|                   **LinqExample** | 14,384.6 us | 90.2034 us | 84.3763 us | 1828.1250 | 7680000 B |
-|                LowCostLinqExample | 10,135.3 us |  2.8324 us |  2.6494 us |  671.8750 | 2880000 B |
-|  **EvenBetterLowCostLinqExample** | 10,944.9 us | 20.1747 us | 18.8714 us |         - |       0 B |
-|            BestLowCostLinqExample |  2,211.4 us |  1.4088 us |  1.2488 us |         - |       0 B |
-| NearOptimalSolutionUsingDelegates |  6,000.1 us |  1.4933 us |  1.1659 us |         - |       0 B |
-|               NearOptimalSolution |    790.1 us |  0.2530 us |  0.2366 us |         - |       0 B |
+|                            Method |        Mean |      Error | Scaled |     Gen 0 | Allocated |
+|---------------------------------- |------------:|-----------:|-------:|----------:|----------:|
+|                   **LinqExample** | 14,354.8 us | 13.8292 us |  18.16 | 1828.1250 | 7680000 B |
+|                LowCostLinqExample | 10,168.0 us |  5.6586 us |  12.86 |  671.8750 | 2880000 B |
+|  **EvenBetterLowCostLinqExample** | 10,921.9 us |  2.0310 us |  13.82 |         - |       0 B |
+|            BestLowCostLinqExample |  2,951.8 us | 16.7860 us |   3.73 |         - |       0 B |
+| NearOptimalSolutionUsingDelegates |  5,994.3 us |  2.0709 us |   7.58 |         - |       0 B |
+|               NearOptimalSolution |    790.5 us |  0.6989 us |   1.00 |         - |       0 B |
 
 As we can see with new API we can reduce number of delegate allocation to zero.
 
