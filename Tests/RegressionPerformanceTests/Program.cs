@@ -1,5 +1,4 @@
-﻿using System;
-using BenchmarkDotNet.Running;
+﻿using BenchmarkDotNet.Running;
 
 namespace PerformanceTests
 {
@@ -7,16 +6,11 @@ namespace PerformanceTests
     {
         static void Main(string[] args)
         {
-            var summary = BenchmarkRunner.Run<ArrayWhere<int>>();
-            Console.WriteLine(summary);
-            summary = BenchmarkRunner.Run<ListWhere<int>>();
-            Console.WriteLine(summary);
-            summary = BenchmarkRunner.Run<EnumerableArrayWhere<int>>();
-            Console.WriteLine(summary);
-            summary = BenchmarkRunner.Run<EnumerableListWhere<int>>();
-            Console.WriteLine(summary);
-            summary = BenchmarkRunner.Run<EnumerableReadonlyCollectionWhere<int>>();
-            Console.WriteLine(summary);
+            BenchmarkRunner.Run<ArrayWhere<int>>();
+            BenchmarkRunner.Run<ListWhere<int>>();
+            BenchmarkRunner.Run<EnumerableArrayWhere<int>>();
+            BenchmarkRunner.Run<EnumerableListWhere<int>>();
+            BenchmarkRunner.Run<EnumerableReadonlyCollectionWhere<int>>();
         }
     }
 }

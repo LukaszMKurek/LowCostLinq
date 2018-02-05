@@ -44,7 +44,6 @@ namespace Tests
             TestCasesIEnumerable = TestCasesArray
                 .Select(i => new[] { (IEnumerable<int>)i[0] })
                 .Union(TestCasesList)
-                .Union(TestCasesArray.Select(i => new IEnumerable<int>[] { new HashSet<int>(i[0]) }))
                 .Union(TestCasesArray.Select(i => new IEnumerable<int>[] { new ReadOnlyCollection<int>(i[0]) }))
                 .ToArray();
         }

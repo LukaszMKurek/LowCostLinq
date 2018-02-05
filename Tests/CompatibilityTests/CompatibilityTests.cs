@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using LowCostLinq;
 using NUnit.Framework;
 
@@ -10,29 +11,30 @@ namespace CompatibilityTests
     [TestFixture]
     public abstract class BaseTest
     {
-        public static readonly int[][] TestCasesArray =
-         {
-             new int[0],
-             new[] {-1},
-             new[] {0},
-             new[] {1},
-             new[] {2},
-             new[] {3},
-             new[] {4},
-             new[] {8},
-             new[] {0, 0},
-             new[] {0, 1},
-             new[] {0, 2},
-             new[] {0, 3},
-             new[] {0, 4},
-             new[] {0, 5},
-             new[] {0, 8},
-             new[] {0, 0, 0},
-             new[] {11, 11, 11},
-             new[] {-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, Int32.MaxValue, Int32.MinValue},
-             new[] {-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8 }
-         };
+        public static readonly int[][][] TestCasesArray =
+        {
+            new[] { new int[0] },
+            new[] { new[] { -1 } },
+            new[] { new[] { 0 } },
+            new[] { new[] { 1 } },
+            new[] { new[] { 2 } },
+            new[] { new[] { 3 } },
+            new[] { new[] { 4 } },
+            new[] { new[] { 8 } },
+            new[] { new[] { 0, 0 } },
+            new[] { new[] { 0, 1 } },
+            new[] { new[] { 0, 2 } },
+            new[] { new[] { 0, 3 } },
+            new[] { new[] { 0, 4 } },
+            new[] { new[] { 0, 5 } },
+            new[] { new[] { 0, 8 } },
+            new[] { new[] { 0, 0, 0 } },
+            new[] { new[] { 11, 11, 11 } },
+            new[] { new[] { -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, Int32.MaxValue, Int32.MinValue } },
+            new[] { new[] { -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8 } }
+        };
 
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         protected static void AssertEnumerable(IEnumerable<int> reference, IEnumerable<int> testedEnumerable, int[] testedToArray, int[] testedToArraySecond)
         {
             Test(reference, testedEnumerable);
@@ -93,7 +95,7 @@ namespace CompatibilityTests
             Assert.False(reference.MoveNext(), "reference.MoveNext()");
             Assert.False(tested.MoveNext(), "tested.MoveNext()");
         }
-        
+
         protected static void AssertThatTypeIsImmutableStruct<T>(T t)
             where T : struct
         {
@@ -112,7 +114,7 @@ namespace CompatibilityTests
         {
             Assert.AreEqual(typeof(LowCostEnumerable).Assembly.FullName, f.Target.GetType().Assembly.FullName);
         }
-        
+
         protected static void AssertLowCostMethod<TIn, TOut>(Func<TIn, TOut> f)
         {
             Assert.AreEqual(typeof(LowCostEnumerable).Assembly.FullName, f.Target.GetType().Assembly.FullName);
@@ -126,12 +128,12 @@ namespace CompatibilityTests
 
     public abstract class CompatibilityTests_ListBase : BaseTest
     {
-        public static readonly List<int>[] TestCasesList;
+        public static readonly List<int>[][] TestCasesList;
 
         static CompatibilityTests_ListBase()
         {
             TestCasesList = TestCasesArray
-                .Select(i => i.ToList())
+                .Select(i => new[] { i[0].ToList() })
                 .ToArray();
         }
 
@@ -140,21 +142,20 @@ namespace CompatibilityTests
 
     public abstract class CompatibilityTests_IEnumerableBase : BaseTest
     {
-        public static readonly List<int>[] TestCasesList;
-        public static readonly IEnumerable<int>[] TestCasesIEnumerable;
+        public static readonly List<int>[][] TestCasesList;
+        public static readonly IEnumerable<int>[][] TestCasesIEnumerable;
 
         static CompatibilityTests_IEnumerableBase()
         {
             TestCasesList = TestCasesArray
-                .Select(i => i.ToList())
+                .Select(i => new[] { i[0].ToList() })
                 .ToArray();
 
             TestCasesIEnumerable = TestCasesArray
-                .Where(i => i.Length != 1) // todo probably bug in NUnit!!! No problem is that I do not wrap items in array
-                .Select(i => (IEnumerable<int>)i)
-                .Union(TestCasesList)
-                .Union(TestCasesArray.Select(i => new HashSet<int>(i)))
-                .Union(TestCasesArray.Select(i => new ReadOnlyCollection<int>(i)))
+                .Select(i => (IEnumerable<int>)i[0])
+                .Union(TestCasesList.Select(i => i[0]))
+                .Union(TestCasesArray.Select(i => new ReadOnlyCollection<int>(i[0])))
+                .Select(i => new[] { i })
                 .ToArray();
         }
 
