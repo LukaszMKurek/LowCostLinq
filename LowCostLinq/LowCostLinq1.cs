@@ -236,8 +236,8 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TOut FirstOrDefault()
         {
-            var acc = new FirstWithFlagAccumulator<TOut>();
-            _collection.Iterate<TFilter1, TOut, FirstWithFlagAccumulator<TOut>>(_filter1, ref acc);
+            var acc = new FirstAccumulator<TOut>();
+            _collection.Iterate<TFilter1, TOut, FirstAccumulator<TOut>>(_filter1, ref acc);
 
             return acc.Item;
         }
@@ -260,8 +260,8 @@ namespace LowCostLinq
         {
             if (@where == null) ThrowHelper.WhereDelegateIsNull();
 
-            var acc = new FirstWithFlagWhereAccumulator<TOut>(@where);
-            _collection.Iterate<TFilter1, TOut, FirstWithFlagWhereAccumulator<TOut>>(_filter1, ref acc);
+            var acc = new FirstWhereAccumulator<TOut>(@where);
+            _collection.Iterate<TFilter1, TOut, FirstWhereAccumulator<TOut>>(_filter1, ref acc);
 
             return acc.Item;
         }

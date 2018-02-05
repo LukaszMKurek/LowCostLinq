@@ -214,7 +214,7 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T FirstOrDefault()
         {
-            var acc = new FirstWithFlagAccumulator<T>();
+            var acc = new FirstAccumulator<T>();
             _collection.Iterate(ref acc);
             
             return acc.Item;
@@ -238,7 +238,7 @@ namespace LowCostLinq
         {
             if (@where == null) ThrowHelper.WhereDelegateIsNull();
 
-            var acc = new FirstWithFlagWhereAccumulator<T>(@where);
+            var acc = new FirstWhereAccumulator<T>(@where);
             _collection.Iterate(ref acc);
             
             return acc.Item;

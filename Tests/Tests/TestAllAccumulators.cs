@@ -26,8 +26,9 @@ namespace Tests
             TestCasesArray.Add(new[] { new[] { 2, 3, 4 } });
             TestCasesArray.Add(new[] { new[] { 1, 2, 3 } });
             TestCasesArray.Add(new[] { new[] { 1, 2, 4 } });
-            TestCasesArray.Add(new[] { new[] { 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 7, 1, 1, 2, 3, 2, 3, 2, 7 } });
+            TestCasesArray.Add(new[] { new[] { 1, 4, 5, 1 } });
             TestCasesArray.Add(new[] { new[] { 1, 4, 5, 1, 5 } });
+            TestCasesArray.Add(new[] { new[] { 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 7, 1, 1, 2, 3, 2, 3, 2, 7 } });
         }
 
         [TestCaseSource(nameof(TestCasesArray))]
@@ -104,6 +105,42 @@ namespace Tests
         }
 
         [TestCaseSource(nameof(TestCasesArray))]
+        public void SingleOrDefault(int[] input)
+        {
+            if (input.Length > 1)
+            {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                Assert.Throws<InvalidOperationException>(() => input.SingleOrDefault());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().SingleOrDefault());
+
+                return;
+            }
+
+            Assert.AreEqual(
+                input.SingleOrDefault(),
+                input.AsLowCostLinq().SingleOrDefault()
+            );
+        }
+
+        [TestCaseSource(nameof(TestCasesArray))]
+        public void SingleOrDefaultWhere(int[] input)
+        {
+            if (input.Count(Predicate) > 1)
+            {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+                Assert.Throws<InvalidOperationException>(() => input.SingleOrDefault(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().SingleOrDefault(Predicate));
+
+                return;
+            }
+
+            Assert.AreEqual(
+                input.SingleOrDefault(Predicate),
+                input.AsLowCostLinq().SingleOrDefault(Predicate)
+            );
+        }
+
+        [TestCaseSource(nameof(TestCasesArray))]
         public void Single(int[] input)
         {
             if (input.Length == 0 || input.Length > 1)
@@ -163,6 +200,15 @@ namespace Tests
             Assert.AreEqual(
                 input.All(Predicate),
                 input.AsLowCostLinq().All(Predicate)
+            );
+        }
+
+        [TestCaseSource(nameof(TestCasesArray))]
+        public void ToArray(int[] input)
+        {
+            Assert.AreEqual(
+                input.ToArray(),
+                input.AsLowCostLinq().ToArray()
             );
         }
     }
