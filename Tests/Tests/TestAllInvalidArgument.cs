@@ -85,6 +85,76 @@ namespace Tests
         }
 
         [Test]
+        public void FirstMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().First(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).First(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).First(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).First(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).First(null));
+        }
+
+        [Test]
+        public void FirstOrDefaultMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().FirstOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).FirstOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).FirstOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(null));
+        }
+
+        [Test]
+        public void SingleMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Single(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Single(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Single(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Single(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single(null));
+        }
+
+        [Test]
+        public void SingleOrDefaultMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().SingleOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).SingleOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).SingleOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(null));
+        }
+
+        [Test]
+        public void AnyMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Any(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Any(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Any(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Any(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Any(null));
+        }
+
+        [Test]
+        public void AllMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().All(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).All(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).All(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).All(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).All(null));
+        }
+
+        [Test]
+        public void CountMethods()
+        {
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Count(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Count(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Count(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Count(null));
+            Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count(null));
+        }
+
+        [Test]
         public void LowCostEnumerableMethods()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(0, -1));

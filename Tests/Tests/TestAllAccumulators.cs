@@ -39,8 +39,32 @@ namespace Tests
                 input.Count(),
                 input.AsLowCostLinq().Count()
             );
-        }
 
+            Assert.AreEqual(
+                // ReSharper disable once UseCollectionCountProperty
+                input.Select(i => i).Count(),
+                input.AsLowCostLinq().Select(i => i).Count()
+            );
+
+            Assert.AreEqual(
+                // ReSharper disable once UseCollectionCountProperty
+                input.Select(i => i).Select(i => i).Count(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Count()
+            );
+
+            Assert.AreEqual(
+                // ReSharper disable once UseCollectionCountProperty
+                input.Select(i => i).Select(i => i).Select(i => i).Count(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Count()
+            );
+
+            Assert.AreEqual(
+                // ReSharper disable once UseCollectionCountProperty
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count()
+            );
+        }
+        
         [TestCaseSource(nameof(TestCasesArray))]
         public void CountWhere(int[] input)
         {
@@ -48,14 +72,54 @@ namespace Tests
                 input.Count(Predicate),
                 input.AsLowCostLinq().Count(Predicate)
             );
-        }
 
+            Assert.AreEqual(
+                input.Select(i => i).Count(Predicate),
+                input.AsLowCostLinq().Select(i => i).Count(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Count(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Count(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Count(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Count(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count(Predicate)
+            );
+        }
+        
         [TestCaseSource(nameof(TestCasesArray))]
         public void FirstOrDefault(int[] input)
         {
             Assert.AreEqual(
                 input.FirstOrDefault(),
                 input.AsLowCostLinq().FirstOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).FirstOrDefault(),
+                input.AsLowCostLinq().Select(i => i).FirstOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).FirstOrDefault(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).FirstOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).FirstOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).FirstOrDefault()
             );
         }
 
@@ -65,6 +129,26 @@ namespace Tests
             Assert.AreEqual(
                 input.FirstOrDefault(Predicate),
                 input.AsLowCostLinq().FirstOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).FirstOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).FirstOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).FirstOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).FirstOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).FirstOrDefault(Predicate)
             );
         }
 
@@ -76,6 +160,10 @@ namespace Tests
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Assert.Throws<InvalidOperationException>(() => input.First());
                 Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().First());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).First());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).First());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).First());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).First());
 
                 return;
             }
@@ -83,6 +171,26 @@ namespace Tests
             Assert.AreEqual(
                 input.First(),
                 input.AsLowCostLinq().First()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).First(),
+                input.AsLowCostLinq().Select(i => i).First()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).First(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).First()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).First(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).First()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).First(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).First()
             );
         }
 
@@ -94,6 +202,10 @@ namespace Tests
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Assert.Throws<InvalidOperationException>(() => input.First(Predicate));
                 Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().First(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).First(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).First(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).First(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).First(Predicate));
 
                 return;
             }
@@ -101,6 +213,26 @@ namespace Tests
             Assert.AreEqual(
                 input.First(Predicate),
                 input.AsLowCostLinq().First(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).First(Predicate),
+                input.AsLowCostLinq().Select(i => i).First(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).First(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).First(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).First(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).First(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).First(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).First(Predicate)
             );
         }
 
@@ -112,6 +244,10 @@ namespace Tests
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Assert.Throws<InvalidOperationException>(() => input.SingleOrDefault());
                 Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().SingleOrDefault());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).SingleOrDefault());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).SingleOrDefault());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).SingleOrDefault());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault());
 
                 return;
             }
@@ -119,6 +255,26 @@ namespace Tests
             Assert.AreEqual(
                 input.SingleOrDefault(),
                 input.AsLowCostLinq().SingleOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).SingleOrDefault(),
+                input.AsLowCostLinq().Select(i => i).SingleOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).SingleOrDefault(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).SingleOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).SingleOrDefault()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault()
             );
         }
 
@@ -130,6 +286,10 @@ namespace Tests
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Assert.Throws<InvalidOperationException>(() => input.SingleOrDefault(Predicate));
                 Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().SingleOrDefault(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).SingleOrDefault(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).SingleOrDefault(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(Predicate));
 
                 return;
             }
@@ -137,6 +297,26 @@ namespace Tests
             Assert.AreEqual(
                 input.SingleOrDefault(Predicate),
                 input.AsLowCostLinq().SingleOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).SingleOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).SingleOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).SingleOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).SingleOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).SingleOrDefault(Predicate)
             );
         }
 
@@ -148,6 +328,10 @@ namespace Tests
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Assert.Throws<InvalidOperationException>(() => input.Single());
                 Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Single());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Single());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Single());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Single());
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single());
 
                 return;
             }
@@ -155,6 +339,26 @@ namespace Tests
             Assert.AreEqual(
                 input.Single(),
                 input.AsLowCostLinq().Single()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Single(),
+                input.AsLowCostLinq().Select(i => i).Single()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Single(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Single()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Single(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Single()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single()
             );
         }
 
@@ -166,6 +370,10 @@ namespace Tests
                 // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Assert.Throws<InvalidOperationException>(() => input.Single(Predicate));
                 Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Single(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Single(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Single(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Single(Predicate));
+                Assert.Throws<InvalidOperationException>(() => input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single(Predicate));
 
                 return;
             }
@@ -173,6 +381,26 @@ namespace Tests
             Assert.AreEqual(
                 input.Single(Predicate),
                 input.AsLowCostLinq().Single(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Single(Predicate),
+                input.AsLowCostLinq().Select(i => i).Single(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Single(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Single(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Single(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Single(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Single(Predicate)
             );
         }
 
@@ -183,6 +411,26 @@ namespace Tests
                 input.Any(),
                 input.AsLowCostLinq().Any()
             );
+
+            Assert.AreEqual(
+                input.Select(i => i).Any(),
+                input.AsLowCostLinq().Select(i => i).Any()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Any(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Any()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Any(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Any()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).Any(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Any()
+            );
         }
 
         [TestCaseSource(nameof(TestCasesArray))]
@@ -191,6 +439,26 @@ namespace Tests
             Assert.AreEqual(
                 input.Any(Predicate),
                 input.AsLowCostLinq().Any(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Any(Predicate),
+                input.AsLowCostLinq().Select(i => i).Any(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Any(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Any(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Any(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Any(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).Any(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Any(Predicate)
             );
         }
         
@@ -201,6 +469,26 @@ namespace Tests
                 input.All(Predicate),
                 input.AsLowCostLinq().All(Predicate)
             );
+
+            Assert.AreEqual(
+                input.Select(i => i).All(Predicate),
+                input.AsLowCostLinq().Select(i => i).All(Predicate)
+            );
+            
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).All(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).All(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).All(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).All(Predicate)
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).All(Predicate),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).All(Predicate)
+            );
         }
 
         [TestCaseSource(nameof(TestCasesArray))]
@@ -209,6 +497,26 @@ namespace Tests
             Assert.AreEqual(
                 input.ToArray(),
                 input.AsLowCostLinq().ToArray()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).ToArray(),
+                input.AsLowCostLinq().Select(i => i).ToArray()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).ToArray(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).ToArray()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).ToArray(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).ToArray()
+            );
+
+            Assert.AreEqual(
+                input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).ToArray(),
+                input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).ToArray()
             );
         }
     }
