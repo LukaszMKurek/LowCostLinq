@@ -6,12 +6,13 @@ namespace LowCostLinq
 {
     public static class LowCostEnumerable
     {
-        public static RangeW Range(int start, int count)
+        public static LowCostLinq<int, RangeW, RangeW.Iterator> Range(int start, int count)
         {
             if (count < 0) ThrowHelper.ArgumentCountCannotBeLessThanZero();
-            if (start < Int32.MaxValue - count) ThrowHelper.InvalidRangeArgument();
+            if ((((long)start) + count) > Int32.MaxValue) ThrowHelper.InvalidRangeArgument();
 
-            return new RangeW(start, unchecked(start + count));
+            var range = new RangeW(start, unchecked(start + count));
+            return new LowCostLinq<int, RangeW, RangeW.Iterator>(range);
         }
     }
 }

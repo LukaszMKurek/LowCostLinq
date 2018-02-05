@@ -88,9 +88,8 @@ namespace Tests
         public void LowCostEnumerableMethods()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(0, -1));
-            Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(-10, Int32.MaxValue));
-            Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(Int32.MinValue, 0));
-            Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(Int32.MinValue, 10));
+            Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(1, Int32.MaxValue));
+            Assert.Throws<ArgumentOutOfRangeException>(() => LowCostEnumerable.Range(10, Int32.MaxValue));
         }
     }
 }
