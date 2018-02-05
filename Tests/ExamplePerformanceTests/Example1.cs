@@ -26,7 +26,7 @@ namespace PerformanceTests
         {
             var collection = _array;
             int preventOptimize = 0;
-           
+
             for (int n = 0; n < Iterations; n++)
             {
                 var result = collection
@@ -105,7 +105,7 @@ namespace PerformanceTests
             var collection = _array;
             Func<int, bool> filter1 = x => x != 0;
             Func<int, int> select = x => x + 2;
-            
+
             const int toSkip = 16;
             const int toTake = 32;
 
@@ -141,7 +141,7 @@ namespace PerformanceTests
 
             return preventOptimize;
         }
-        
+
         [Benchmark(Baseline = true)]
         public int NearOptimalSolution()
         {
@@ -174,7 +174,7 @@ namespace PerformanceTests
                             break;
                     }
                 }
-                
+
                 preventOptimize += result[0]; // result not always have 32 element but it was most performant
             }
 

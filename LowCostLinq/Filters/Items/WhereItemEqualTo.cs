@@ -8,10 +8,10 @@ namespace LowCostLinq.Filters.Items
     public /*readonly */struct WhereItemEqualTo<TItem> : IFilter<TItem, TItem>
         where TItem : IEquatable<TItem>
     {
-        private /*readonly */TItem _param;
+        private /*readonly */ TItem _param;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public WhereItemEqualTo(/*in*/ TItem param)
+        public WhereItemEqualTo( /*in*/ TItem param)
         {
             _param = param;
         }
@@ -28,19 +28,19 @@ namespace LowCostLinq.Filters.Items
 
                 return _param.Equals(input);
             }
-            
+
             return input == null;
         }
     }
-    
+
     [StructLayout(LayoutKind.Auto)]
     public /*readonly */struct WhereItemEqualToNullable<TItem> : IFilter<TItem?, TItem?>
         where TItem : struct, IEquatable<TItem>
     {
-        private /*readonly */TItem? _param;
+        private /*readonly */ TItem? _param;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public WhereItemEqualToNullable(/*in*/ TItem? param)
+        public WhereItemEqualToNullable( /*in*/ TItem? param)
         {
             _param = param;
         }
@@ -57,7 +57,7 @@ namespace LowCostLinq.Filters.Items
 
                 return _param.Value.Equals(input.Value);
             }
-            
+
             return input == null;
         }
     }

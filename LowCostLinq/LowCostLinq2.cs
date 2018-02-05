@@ -56,7 +56,7 @@ namespace LowCostLinq
                 {
                     if (_iterator.MoveNext(ref input))
                     {
-                        bool willBreak = false; 
+                        bool willBreak = false;
 
                         if (_filter1.Filter(ref input, out var mid1, ref willBreak))
                         {
@@ -95,7 +95,7 @@ namespace LowCostLinq
             public void Dispose()
             {
                 //if (_work)
-                    _iterator.Dispose();
+                _iterator.Dispose();
                 //_current = default;
             }
         }
@@ -117,7 +117,7 @@ namespace LowCostLinq
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public LowCostLinq<TIn,  TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TOut, Where<TOut>, TOut> Where(Func<TOut, bool> @where)
+        public LowCostLinq<TIn, TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TOut, Where<TOut>, TOut> Where(Func<TOut, bool> @where)
         {
             if (@where == null) ThrowHelper.WhereDelegateIsNull();
 

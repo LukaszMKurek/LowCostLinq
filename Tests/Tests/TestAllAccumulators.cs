@@ -64,7 +64,7 @@ namespace Tests
                 input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count()
             );
         }
-        
+
         [TestCaseSource(nameof(TestCasesArray))]
         public void CountWhere(int[] input)
         {
@@ -93,7 +93,7 @@ namespace Tests
                 input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Count(Predicate)
             );
         }
-        
+
         [TestCaseSource(nameof(TestCasesArray))]
         public void FirstOrDefault(int[] input)
         {
@@ -461,7 +461,7 @@ namespace Tests
                 input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).Any(Predicate)
             );
         }
-        
+
         [TestCaseSource(nameof(TestCasesArray))]
         public void AllWhere(int[] input)
         {
@@ -474,7 +474,7 @@ namespace Tests
                 input.Select(i => i).All(Predicate),
                 input.AsLowCostLinq().Select(i => i).All(Predicate)
             );
-            
+
             Assert.AreEqual(
                 input.Select(i => i).Select(i => i).All(Predicate),
                 input.AsLowCostLinq().Select(i => i).Select(i => i).All(Predicate)

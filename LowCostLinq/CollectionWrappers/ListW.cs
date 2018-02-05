@@ -20,7 +20,7 @@ namespace LowCostLinq.CollectionWrappers
         {
             return new Iterator(_list);
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Iterate<TAcc>(ref TAcc acc)
             where TAcc : struct, IAccumulator<TIn>
@@ -29,8 +29,8 @@ namespace LowCostLinq.CollectionWrappers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Iterate<TFilter1, TOut, TAcc>(in TFilter1 filter1, ref TAcc acc) 
-            where TFilter1 : struct, IFilter<TIn, TOut> 
+        public void Iterate<TFilter1, TOut, TAcc>(in TFilter1 filter1, ref TAcc acc)
+            where TFilter1 : struct, IFilter<TIn, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
             IterateListWithChecksHelper.IterateListWithChecks<TIn, TFilter1, TOut, TAcc>(_list, filter1, ref acc);
@@ -93,8 +93,8 @@ namespace LowCostLinq.CollectionWrappers
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Dispose()
             {
-               // _listEnumerator.Dispose();
-               // _listEnumerator = EmptyEnumerator;
+                // _listEnumerator.Dispose();
+                // _listEnumerator = EmptyEnumerator;
             }
         }
     }

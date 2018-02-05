@@ -7,9 +7,9 @@ namespace Tests
     [TestFixture]
     public sealed class ItemFilterTests
     {
-        private static int[] _items = {0, 1, 2, 3, 4, 3, 5, 5, 6, -1, 7};
-        private static int?[] _nullableItems = {0, 1, null, 2, 3, 4, 3, null, 5, 5, null, 6, -1, 7};
-        private static string[] _stringItems = {"0", "1", null, "2", "3", "4", "3", null, "5", "5", null, "6", "-1", "7"};
+        private static int[] _items = { 0, 1, 2, 3, 4, 3, 5, 5, 6, -1, 7 };
+        private static int?[] _nullableItems = { 0, 1, null, 2, 3, 4, 3, null, 5, 5, null, 6, -1, 7 };
+        private static string[] _stringItems = { "0", "1", null, "2", "3", "4", "3", null, "5", "5", null, "6", "-1", "7" };
 
         [Test]
         public void IsNull()
@@ -64,7 +64,7 @@ namespace Tests
                 _items.Where(i => i == x)
                 ,
                 _items.AsLowCostLinq().Where(Items.AreEqualTo(x)) // x cannot be nullable type when _items is array of nonnullable
-                );
+            );
 
             CollectionAssert.AreEqual(
                 _nullableItems.Where(i => i == x)
@@ -105,13 +105,13 @@ namespace Tests
             CollectionAssert.AreEqual(
                 _nullableItems.Where(i => i != x)
                 ,
-                _nullableItems.AsLowCostLinq().Where(Items.AreNotEqualTo((int?)x))  // unfortunately C# is not enough smart currently, so we need use explicit cast to nullable
+                _nullableItems.AsLowCostLinq().Where(Items.AreNotEqualTo((int?)x)) // unfortunately C# is not enough smart currently, so we need use explicit cast to nullable
             );
 
             CollectionAssert.AreEqual(
                 _nullableItems.Where(i => i != null)
                 ,
-                _nullableItems.AsLowCostLinq().Where(Items.AreNotEqualTo((int?)null))  // unfortunately C# is not enough smart currently, so we need use explicit cast to nullable
+                _nullableItems.AsLowCostLinq().Where(Items.AreNotEqualTo((int?)null)) // unfortunately C# is not enough smart currently, so we need use explicit cast to nullable
             );
 
             CollectionAssert.AreEqual(

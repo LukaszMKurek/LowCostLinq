@@ -200,14 +200,14 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
-            foreach (var item in collection) 
+            foreach (var item in collection)
             {
                 x++;
             }
 
             return x;
         }
-        
+
         public /*readonly*/ struct SimpleFilter1 : IFilter<T, T> //todo dotnet benchmark sobie nie radzi!!!
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

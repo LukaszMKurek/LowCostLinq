@@ -5,7 +5,7 @@ namespace LowCostLinq.Internals.IterateHeplers
 {
     internal static class IterateListWithoutChecksHelper
     {
-       // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void IterateListWithoutChecks<TIn, TAcc>(List<TIn> list, ref TAcc acc)
             where TAcc : struct, IAccumulator<TIn>
         {
@@ -116,6 +116,5 @@ namespace LowCostLinq.Internals.IterateHeplers
                     break;
             }
         }
-
     }
 }

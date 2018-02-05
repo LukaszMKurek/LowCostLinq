@@ -104,7 +104,7 @@ namespace Tests
                 tested.AsLowCostLinq()
                     .Where(1, (param, item) => item == param)
             );
-            
+
             CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)

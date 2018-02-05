@@ -9,7 +9,7 @@ namespace LowCostLinq.Accumulators
     {
         private T[] items;
         private int count;
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Accumulate(ref T item)
         {

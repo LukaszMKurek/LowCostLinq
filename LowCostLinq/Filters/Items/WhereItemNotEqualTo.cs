@@ -57,7 +57,7 @@ namespace LowCostLinq.Filters.Items
 
                 return _param.Value.Equals(input.Value) == false;
             }
-            
+
             return input != null;
         }
     }

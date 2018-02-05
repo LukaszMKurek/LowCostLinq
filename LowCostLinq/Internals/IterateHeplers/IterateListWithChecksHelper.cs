@@ -17,7 +17,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             }
         }
 
-        internal static void IterateListWithChecks<TIn, TFilter1, TOut, TAcc>(List<TIn> list, TFilter1 filter1, ref TAcc acc) 
+        internal static void IterateListWithChecks<TIn, TFilter1, TOut, TAcc>(List<TIn> list, TFilter1 filter1, ref TAcc acc)
             where TFilter1 : struct, IFilter<TIn, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
@@ -116,6 +116,5 @@ namespace LowCostLinq.Internals.IterateHeplers
                     break;
             }
         }
-
     }
 }

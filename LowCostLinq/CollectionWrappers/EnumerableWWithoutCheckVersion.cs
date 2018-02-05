@@ -44,8 +44,8 @@ namespace LowCostLinq.CollectionWrappers
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public void Iterate<TFilter1, TOut, TAcc>(in TFilter1 filter1, ref TAcc acc) 
-            where TFilter1 : struct, IFilter<TIn, TOut> 
+        public void Iterate<TFilter1, TOut, TAcc>(in TFilter1 filter1, ref TAcc acc)
+            where TFilter1 : struct, IFilter<TIn, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
             if (_enumerable is TIn[] array)
@@ -133,7 +133,7 @@ namespace LowCostLinq.CollectionWrappers
             private readonly TIn[] _array;
             private readonly List<TIn> _list;
             private IEnumerator<TIn> _enumerator; // todo te 3 pola mogą się ukryć pod unią
-            
+
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal Iterator(TEnumerable enumerable)
             {

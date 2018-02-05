@@ -25,7 +25,7 @@ namespace PerformanceTests
         {
             var collection = _array;
             int preventOptimize = 0;
-            
+
             for (int n = 0; n < Iterations; n++)
             {
                 int p1 = n;
@@ -53,7 +53,7 @@ namespace PerformanceTests
         {
             var collection = _array;
             int preventOptimize = 0;
-            
+
             for (int n = 0; n < Iterations; n++)
             {
                 int p1 = n;

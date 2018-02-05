@@ -148,7 +148,7 @@ namespace PerformanceTests
 
             return x;
         }
-        
+
         [Benchmark(Baseline = true)]
         public int For()
         {

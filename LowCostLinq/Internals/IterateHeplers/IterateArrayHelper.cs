@@ -4,11 +4,11 @@ namespace LowCostLinq.Internals.IterateHeplers
 {
     internal static class IterateArrayHelper
     {
-       // [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void IterateArray<TIn, TAcc>(TIn[] array, ref TAcc acc)
             where TAcc : struct, IAccumulator<TIn>
         {
-            for (uint i = 0; i < unchecked((uint) array.Length); i = unchecked(i + 1))
+            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
                 if (acc.Accumulate(ref array[i]))
                     break;
@@ -21,7 +21,7 @@ namespace LowCostLinq.Internals.IterateHeplers
         {
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint) array.Length); i = unchecked(i + 1))
+            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
                 if (filter1.Filter(ref array[i], out var current, ref willBreak))
                 {
@@ -41,7 +41,7 @@ namespace LowCostLinq.Internals.IterateHeplers
         {
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint) array.Length); i = unchecked(i + 1))
+            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
                 if (filter1.Filter(ref array[i], out var mid1, ref willBreak))
                 {
@@ -65,7 +65,7 @@ namespace LowCostLinq.Internals.IterateHeplers
         {
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint) array.Length); i = unchecked(i + 1))
+            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
                 if (filter1.Filter(ref array[i], out var mid1, ref willBreak))
                 {
@@ -93,7 +93,7 @@ namespace LowCostLinq.Internals.IterateHeplers
         {
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint) array.Length); i = unchecked(i + 1))
+            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
                 if (filter1.Filter(ref array[i], out var mid1, ref willBreak))
                 {

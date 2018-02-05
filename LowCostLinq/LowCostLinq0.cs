@@ -49,7 +49,7 @@ namespace LowCostLinq
                 Dispose();
                 return false;
             }
-            
+
             public void Reset()
             {
                 throw new NotImplementedException();
@@ -66,7 +66,7 @@ namespace LowCostLinq
             public void Dispose()
             {
                 //if (_disposed == false)
-                    _iterator.Dispose();
+                _iterator.Dispose();
                 //_current = default;
             }
         }
@@ -216,7 +216,7 @@ namespace LowCostLinq
         {
             var acc = new FirstAccumulator<T>();
             _collection.Iterate(ref acc);
-            
+
             return acc.Item;
         }
 
@@ -240,7 +240,7 @@ namespace LowCostLinq
 
             var acc = new FirstWhereAccumulator<T>(@where);
             _collection.Iterate(ref acc);
-            
+
             return acc.Item;
         }
 
@@ -299,7 +299,7 @@ namespace LowCostLinq
         {
             var acc = new AnyAccumulator<T>();
             _collection.Iterate(ref acc);
-            
+
             return acc.Any;
         }
 
@@ -313,7 +313,7 @@ namespace LowCostLinq
 
             return acc.Any;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool All(Func<T, bool> @where)
         {

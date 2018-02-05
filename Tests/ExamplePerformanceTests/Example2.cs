@@ -26,7 +26,7 @@ namespace PerformanceTests
         {
             var collection = _array;
             int preventOptimize = 0;
-            
+
             for (int n = 0; n < Iterations; n++)
             {
                 var result = collection
@@ -56,7 +56,7 @@ namespace PerformanceTests
                     .Where(i => i != 2)
                     .Where(i => i != 3)
                     .First(i => i > SomeMagicNumber);
-                
+
                 preventOptimize += result;
             }
 
@@ -84,7 +84,7 @@ namespace PerformanceTests
 
             return preventOptimize;
         }
-        
+
         [Benchmark]
         public int NearOptimalSolutionUsingDelegates()
         {

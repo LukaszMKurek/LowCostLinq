@@ -57,7 +57,7 @@ namespace LowCostLinq
                         {
                             return true;
                         }
-                        
+
                         if (willBreak)
                             break;
                     }
@@ -69,7 +69,7 @@ namespace LowCostLinq
                 Dispose();
                 return false;
             }
-            
+
             public void Reset()
             {
                 throw new NotImplementedException();
@@ -82,11 +82,11 @@ namespace LowCostLinq
             }
 
             object IEnumerator.Current => Current;
-            
+
             public void Dispose()
             {
                 //if (_work)
-                    _iterator.Dispose();
+                _iterator.Dispose();
                 //_current = default;
             }
         }

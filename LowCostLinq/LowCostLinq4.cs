@@ -110,7 +110,7 @@ namespace LowCostLinq
             public void Dispose()
             {
                 //if (_work)
-                    _iterator.Dispose();
+                _iterator.Dispose();
                 //_current = default;
             }
         }
@@ -394,7 +394,7 @@ namespace LowCostLinq
 
             return acc.All;
         }
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TOut[] ToArray()
         {

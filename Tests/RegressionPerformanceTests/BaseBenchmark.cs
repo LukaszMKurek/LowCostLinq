@@ -40,7 +40,7 @@ namespace PerformanceTests
         private const int I_9 = 1000;
         private const int I_10 = 10000;
         private const int I_11 = 100000;
-        
+
         public IEnumerable<IParam> Parameters()
         {
             yield return new CustomParam(0, I_0);
@@ -87,6 +87,5 @@ namespace PerformanceTests
                 new T[I_0], new T[I_1], new T[I_2], new T[I_3], new T[I_4], new T[I_5], new T[I_6], new T[I_7], new T[I_8], new T[I_9], new T[I_10], new T[I_11]
             }
             .Select(i => new List<T>(i).AsReadOnly()).ToArray();
-        
     }
 }

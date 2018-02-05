@@ -45,7 +45,7 @@ namespace LowCostLinq.CollectionWrappers
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Iterate<TFilter1, TOut, TAcc>(in TFilter1 filter1, ref TAcc acc)
-            where TFilter1 : struct, IFilter<TIn, TOut> 
+            where TFilter1 : struct, IFilter<TIn, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
             if (_enumerable is TIn[] array)

@@ -260,7 +260,7 @@ namespace Tests
             Func<int, int> select2 = i => i * 5;
             Func<int, int> select3 = i => i * 7;
             Func<int, int> select4 = i => i * 11;
-            
+
             CollectionAssert.AreEqual(
                 Enumerable.Range(startFrom, count).Select(select1).TakeWhile(takeWhilePredicate).Select(select2),
                 LowCostEnumerable.Range(startFrom, count).Select(select1).TakeWhile(takeWhilePredicate).Select(select2)
@@ -331,7 +331,7 @@ namespace Tests
             Func<int, int> select2 = i => i * 5;
             Func<int, int> select3 = i => i * 7;
             Func<int, int> select4 = i => i * 11;
-            
+
             CollectionAssert.AreEqual(
                 Enumerable.Range(startFrom, count).Select(select1).Select(select2).Select(select3).TakeWhile(takeWhilePredicate).Select(select4),
                 LowCostEnumerable.Range(startFrom, count).Select(select1).Select(select2).Select(select3).TakeWhile(takeWhilePredicate).Select(select4)

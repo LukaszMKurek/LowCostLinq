@@ -45,7 +45,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TAcc : struct, IAccumulator<TOut>
         {
             bool willBreak = false;
-            
+
             foreach (var item in enumerable)
             {
                 var input = item;

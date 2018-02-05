@@ -46,7 +46,7 @@ namespace PerformanceTests
 
             return preventOptimize;
         }
-        
+
         [Benchmark]
         public int EvenBetterLowCostLinqExample()
         {

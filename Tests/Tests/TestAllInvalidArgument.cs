@@ -20,7 +20,7 @@ namespace Tests
 
             Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)null).AsLowCostLinq());
             Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)null).AsLowCostLinqWithoutChecks());
-            
+
             Assert.Throws<ArgumentNullException>(() => ((List<int>)null).AsLowCostLinqGeneric<int, List<int>>());
             Assert.Throws<ArgumentNullException>(() => ((List<int>)null).AsLowCostLinqWithoutChecksGeneric<int, List<int>>());
         }

@@ -17,7 +17,7 @@ namespace Tests
         {
             var possibleValues = new[] { 1, 2, 3, 4, 5, 6, 7, 11, 12, 13, 14, 15, 16, 17 };
 
-            TestCasesArray.Add(new [] { new int[0] });
+            TestCasesArray.Add(new[] { new int[0] });
 
             foreach (var pv in possibleValues)
             {
@@ -88,12 +88,12 @@ namespace Tests
             AssertThatResultCorespondingModel(GetExpectedOutput5(input), testedEnumerable5, testedEnumerable5.ToArray(), testedEnumerable5.FirstOrDefault());
 
             var testedEnumerable6 = input.AsLowCostLinq()
-                    .Filter<int, TestFilter>(new TestFilter(1, 11))
-                    .Filter<int, TestFilter>(new TestFilter(2, 12))
-                    .Filter<int, TestFilter>(new TestFilter(3, 13))
-                    .Filter<int, TestFilter>(new TestFilter(4, 14))
-                    .Filter<int, TestFilter>(new TestFilter(5, 15))
-                    .Filter<int, TestFilter>(new TestFilter(6, 16));
+                .Filter<int, TestFilter>(new TestFilter(1, 11))
+                .Filter<int, TestFilter>(new TestFilter(2, 12))
+                .Filter<int, TestFilter>(new TestFilter(3, 13))
+                .Filter<int, TestFilter>(new TestFilter(4, 14))
+                .Filter<int, TestFilter>(new TestFilter(5, 15))
+                .Filter<int, TestFilter>(new TestFilter(6, 16));
             AssertThatResultCorespondingModel(GetExpectedOutput6(input), testedEnumerable6, testedEnumerable6.ToArray(), testedEnumerable6.FirstOrDefault());
         }
 
@@ -136,12 +136,12 @@ namespace Tests
             AssertThatResultCorespondingModel(GetExpectedOutput5(input), testedEnumerable5, testedEnumerable5.ToArray(), testedEnumerable5.FirstOrDefault());
 
             var testedEnumerable6 = input.AsLowCostLinq()
-                    .Filter<int, TestFilter>(new TestFilter(1, 11))
-                    .Filter<int, TestFilter>(new TestFilter(2, 12))
-                    .Filter<int, TestFilter>(new TestFilter(3, 13))
-                    .Filter<int, TestFilter>(new TestFilter(4, 14))
-                    .Filter<int, TestFilter>(new TestFilter(5, 15))
-                    .Filter<int, TestFilter>(new TestFilter(6, 16));
+                .Filter<int, TestFilter>(new TestFilter(1, 11))
+                .Filter<int, TestFilter>(new TestFilter(2, 12))
+                .Filter<int, TestFilter>(new TestFilter(3, 13))
+                .Filter<int, TestFilter>(new TestFilter(4, 14))
+                .Filter<int, TestFilter>(new TestFilter(5, 15))
+                .Filter<int, TestFilter>(new TestFilter(6, 16));
             AssertThatResultCorespondingModel(GetExpectedOutput6(input), testedEnumerable6, testedEnumerable6.ToArray(), testedEnumerable6.FirstOrDefault());
         }
 
@@ -184,12 +184,12 @@ namespace Tests
             AssertThatResultCorespondingModel(GetExpectedOutput5(input), testedEnumerable5, testedEnumerable5.ToArray(), testedEnumerable5.FirstOrDefault());
 
             var testedEnumerable6 = input.AsLowCostLinqWithoutChecks()
-                    .Filter<int, TestFilter>(new TestFilter(1, 11))
-                    .Filter<int, TestFilter>(new TestFilter(2, 12))
-                    .Filter<int, TestFilter>(new TestFilter(3, 13))
-                    .Filter<int, TestFilter>(new TestFilter(4, 14))
-                    .Filter<int, TestFilter>(new TestFilter(5, 15))
-                    .Filter<int, TestFilter>(new TestFilter(6, 16));
+                .Filter<int, TestFilter>(new TestFilter(1, 11))
+                .Filter<int, TestFilter>(new TestFilter(2, 12))
+                .Filter<int, TestFilter>(new TestFilter(3, 13))
+                .Filter<int, TestFilter>(new TestFilter(4, 14))
+                .Filter<int, TestFilter>(new TestFilter(5, 15))
+                .Filter<int, TestFilter>(new TestFilter(6, 16));
             AssertThatResultCorespondingModel(GetExpectedOutput6(input), testedEnumerable6, testedEnumerable6.ToArray(), testedEnumerable6.FirstOrDefault());
         }
 
@@ -233,12 +233,12 @@ namespace Tests
             AssertThatResultCorespondingModel(GetExpectedOutput5(input), testedEnumerable5, testedEnumerable5.ToArray(), testedEnumerable5.FirstOrDefault());
 
             var testedEnumerable6 = input.AsLowCostLinq()
-                    .Filter<int, TestFilter>(new TestFilter(1, 11))
-                    .Filter<int, TestFilter>(new TestFilter(2, 12))
-                    .Filter<int, TestFilter>(new TestFilter(3, 13))
-                    .Filter<int, TestFilter>(new TestFilter(4, 14))
-                    .Filter<int, TestFilter>(new TestFilter(5, 15))
-                    .Filter<int, TestFilter>(new TestFilter(6, 16));
+                .Filter<int, TestFilter>(new TestFilter(1, 11))
+                .Filter<int, TestFilter>(new TestFilter(2, 12))
+                .Filter<int, TestFilter>(new TestFilter(3, 13))
+                .Filter<int, TestFilter>(new TestFilter(4, 14))
+                .Filter<int, TestFilter>(new TestFilter(5, 15))
+                .Filter<int, TestFilter>(new TestFilter(6, 16));
             AssertThatResultCorespondingModel(GetExpectedOutput6(input), testedEnumerable6, testedEnumerable6.ToArray(), testedEnumerable6.FirstOrDefault());
         }
 
@@ -281,12 +281,12 @@ namespace Tests
             AssertThatResultCorespondingModel(GetExpectedOutput5(input), testedEnumerable5, testedEnumerable5.ToArray(), testedEnumerable5.FirstOrDefault());
 
             var testedEnumerable6 = input.AsLowCostLinqWithoutChecks()
-                    .Filter<int, TestFilter>(new TestFilter(1, 11))
-                    .Filter<int, TestFilter>(new TestFilter(2, 12))
-                    .Filter<int, TestFilter>(new TestFilter(3, 13))
-                    .Filter<int, TestFilter>(new TestFilter(4, 14))
-                    .Filter<int, TestFilter>(new TestFilter(5, 15))
-                    .Filter<int, TestFilter>(new TestFilter(6, 16));
+                .Filter<int, TestFilter>(new TestFilter(1, 11))
+                .Filter<int, TestFilter>(new TestFilter(2, 12))
+                .Filter<int, TestFilter>(new TestFilter(3, 13))
+                .Filter<int, TestFilter>(new TestFilter(4, 14))
+                .Filter<int, TestFilter>(new TestFilter(5, 15))
+                .Filter<int, TestFilter>(new TestFilter(6, 16));
             AssertThatResultCorespondingModel(GetExpectedOutput6(input), testedEnumerable6, testedEnumerable6.ToArray(), testedEnumerable6.FirstOrDefault());
         }
 

@@ -19,7 +19,7 @@ namespace Tests
             AssertToArrayBehaviour(() => collection.AsLowCostLinqWithoutChecks().ToArray(), count, count);
             AssertIEnumerableBehaviour(() => collection.AsLowCostLinq(), count, count);
             AssertIEnumerableBehaviour(() => collection.AsLowCostLinqWithoutChecks(), count, count);
-            
+
             AssertToArrayBehaviour(() => collection.AsLowCostLinq().Where(i => i == 0).ToArray(), count, count);
             AssertToArrayBehaviour(() => collection.AsLowCostLinqWithoutChecks().Where(i => i == 0).ToArray(), count, count);
             AssertIEnumerableBehaviour(() => collection.AsLowCostLinq().Where(i => i == 0), count, count);
@@ -185,7 +185,7 @@ namespace Tests
                     Assert.AreEqual(tested.Current, tested.Current);
                 }
             }
-            
+
             Assert.False(tested.MoveNext(), "tested.MoveNext()");
             Assert.AreEqual(tested.Current, tested.Current);
 
@@ -204,7 +204,7 @@ namespace Tests
                 count++;
                 sum += i;
             }
-            
+
             return (count, sum);
         }
 
