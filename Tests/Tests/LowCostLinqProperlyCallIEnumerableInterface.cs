@@ -147,6 +147,8 @@ namespace Tests
 
             AssertCorrectEnumeratorBehaviour(testedAction().GetEnumerator());
             StubCollection.VeryfiEnumerateBechaviourAndReset(inputCount);
+
+            Assert.Throws<NotImplementedException>(() => testedAction().GetEnumerator().Reset());
         }
 
         public void AssertEarlyBreakIEnumerableBehaviour(Func<IEnumerable<int>> testedAction, int inputCount, int breakAfter)
@@ -163,6 +165,8 @@ namespace Tests
 
             AssertCorrectEnumeratorBehaviour(testedAction().GetEnumerator());
             StubCollection.VeryfiEnumerateBechaviourAfterEarlyBreakAndReset(inputCount, breakAfter);
+
+            Assert.Throws<NotImplementedException>(() => testedAction().GetEnumerator().Reset());
         }
 
         private static void AssertCorrectEnumeratorBehaviour(IEnumerator<int> tested)

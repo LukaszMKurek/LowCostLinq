@@ -18,14 +18,6 @@ namespace LowCostLinq
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static LowCostLinq<T, ArrayW<T>, ArrayW<T>.Iterator, Where<T>, T> LowCostWhere<T>(this T[] array, Func<T, bool> @where)
-        {
-            if (@where == null) ThrowHelper.WhereDelegateIsNull();
-            
-            return new LowCostLinq<T, ArrayW<T>, ArrayW<T>.Iterator, Where<T>, T>(new ArrayW<T>(array), new Where<T>(@where));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LowCostLinq<T, ListW<T>, ListW<T>.Iterator> AsLowCostLinq<T>(this List<T> list)
         {
             if (list == null) ThrowHelper.CollectionIsNull();
@@ -90,6 +82,53 @@ namespace LowCostLinq
             if (enumerable == null) ThrowHelper.CollectionIsNull();
 
             return new LowCostLinq<T, EnumerableWWithoutCheckVersion<T, TEnumerable>, EnumerableWWithoutCheckVersion<T, TEnumerable>.Iterator>(new EnumerableWWithoutCheckVersion<T, TEnumerable>(enumerable));
+        }
+
+        // --------------------------------------------
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LowCostLinq<T, ArrayW<T>, ArrayW<T>.Iterator, Where<T>, T> LowCostWhere<T>(this T[] array, Func<T, bool> @where)
+        {
+            if (array == null) ThrowHelper.CollectionIsNull();
+            if (@where == null) ThrowHelper.WhereDelegateIsNull();
+
+            return new LowCostLinq<T, ArrayW<T>, ArrayW<T>.Iterator, Where<T>, T>(new ArrayW<T>(array), new Where<T>(@where));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LowCostLinq<T, ListW<T>, ListW<T>.Iterator, Where<T>, T> LowCostWhere<T>(this List<T> list, Func<T, bool> @where)
+        {
+            if (list == null) ThrowHelper.CollectionIsNull();
+            if (@where == null) ThrowHelper.WhereDelegateIsNull();
+
+            return new LowCostLinq<T, ListW<T>, ListW<T>.Iterator, Where<T>, T>(new ListW<T>(list), new Where<T>(@where));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LowCostLinq<T, ListWWithoutCheckVersion<T>, ListWWithoutCheckVersion<T>.Iterator, Where<T>, T> LowCostWhereWithoutChecks<T>(this List<T> list, Func<T, bool> @where)
+        {
+            if (list == null) ThrowHelper.CollectionIsNull();
+            if (@where == null) ThrowHelper.WhereDelegateIsNull();
+
+            return new LowCostLinq<T, ListWWithoutCheckVersion<T>, ListWWithoutCheckVersion<T>.Iterator, Where<T>, T>(new ListWWithoutCheckVersion<T>(list), new Where<T>(@where));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LowCostLinq<T, EnumerableW<T, IEnumerable<T>>, EnumerableW<T, IEnumerable<T>>.Iterator, Where<T>, T> LowCostWhere<T>(this IEnumerable<T> enumerable, Func<T, bool> @where)
+        {
+            if (enumerable == null) ThrowHelper.CollectionIsNull();
+            if (@where == null) ThrowHelper.WhereDelegateIsNull();
+
+            return new LowCostLinq<T, EnumerableW<T, IEnumerable<T>>, EnumerableW<T, IEnumerable<T>>.Iterator, Where<T>, T>(new EnumerableW<T, IEnumerable<T>>(enumerable), new Where<T>(@where));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LowCostLinq<T, EnumerableWWithoutCheckVersion<T, IEnumerable<T>>, EnumerableWWithoutCheckVersion<T, IEnumerable<T>>.Iterator, Where<T>, T> LowCostWhereWithoutChecks<T>(this IEnumerable<T> enumerable, Func<T, bool> @where)
+        {
+            if (enumerable == null) ThrowHelper.CollectionIsNull();
+            if (@where == null) ThrowHelper.WhereDelegateIsNull();
+
+            return new LowCostLinq<T, EnumerableWWithoutCheckVersion<T, IEnumerable<T>>, EnumerableWWithoutCheckVersion<T, IEnumerable<T>>.Iterator, Where<T>, T>(new EnumerableWWithoutCheckVersion<T, IEnumerable<T>>(enumerable), new Where<T>(@where));
         }
     }
 }

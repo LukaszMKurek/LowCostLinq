@@ -47,6 +47,21 @@ namespace Tests
         [Test]
         public void WhereNewApiMethods()
         {
+            Assert.Throws<ArgumentNullException>(() => ((int[])null).LowCostWhere(null));
+            Assert.Throws<ArgumentNullException>(() => Array.LowCostWhere(null));
+
+            Assert.Throws<ArgumentNullException>(() => ((List<int>)null).LowCostWhere(null));
+            Assert.Throws<ArgumentNullException>(() => new List<int>().LowCostWhere(null));
+
+            Assert.Throws<ArgumentNullException>(() => ((List<int>)null).LowCostWhereWithoutChecks(null));
+            Assert.Throws<ArgumentNullException>(() => new List<int>().LowCostWhereWithoutChecks(null));
+
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)null).LowCostWhere(null));
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)new List<int>()).LowCostWhere(null));
+
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)null).LowCostWhereWithoutChecks(null));
+            Assert.Throws<ArgumentNullException>(() => ((IEnumerable<int>)new List<int>()).LowCostWhereWithoutChecks(null));
+
             Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Where(1, null));
             Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Where(1, null));
             Assert.Throws<ArgumentNullException>(() => Array.AsLowCostLinq().Select(i => i).Select(i => i).Where(0, null));

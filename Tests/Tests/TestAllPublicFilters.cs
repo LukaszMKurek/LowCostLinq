@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using LowCostLinq;
 using NUnit.Framework;
 
@@ -103,7 +104,7 @@ namespace Tests
                 tested.AsLowCostLinq()
                     .Where(1, (param, item) => item == param)
             );
-
+            
             CollectionAssert.AreEqual(
                 tested
                     .Select(i => i)
@@ -592,6 +593,78 @@ namespace Tests
                     .Select(i => i)
                     .Select(i => i)
                     .SkipWhile(i => i != 4)
+            );
+        }
+
+        [Test]
+        public void LowCostWhereTest()
+        {
+            var testedArray = new[] { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
+            var testedList = new List<int> { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
+            var testedEnumerable = new List<int> { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
+
+            CollectionAssert.AreEqual(
+                testedArray
+                    .Where(item => item == 1)
+                ,
+                testedArray
+                    .LowCostWhere(item => item == 1)
+            );
+
+            CollectionAssert.AreEqual(
+                testedList
+                    .Where(item => item == 1)
+                ,
+                testedList
+                    .LowCostWhere(item => item == 1)
+            );
+
+            CollectionAssert.AreEqual(
+                testedList
+                    .Where(item => item == 1)
+                ,
+                testedList
+                    .LowCostWhereWithoutChecks(item => item == 1)
+            );
+
+            CollectionAssert.AreEqual(
+                testedEnumerable
+                    .Where(item => item == 1)
+                ,
+                testedEnumerable
+                    .LowCostWhere(item => item == 1)
+            );
+
+            CollectionAssert.AreEqual(
+                testedEnumerable
+                    .Where(item => item == 1)
+                ,
+                testedEnumerable
+                    .LowCostWhereWithoutChecks(item => item == 1)
+            );
+        }
+
+        [Test]
+        public void AsLowCostLinqGenericTests()
+        {
+            var tested = new List<int> { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Where(item => item == 1)
+                ,
+                tested
+                    .AsLowCostLinqGeneric<int, List<int>>()
+                    .Where(item => item == 1)
+            );
+
+            CollectionAssert.AreEqual(
+                tested
+                    .Where(item => item == 1)
+                ,
+                tested
+                    .AsLowCostLinqWithoutChecksGeneric<int, List<int>>()
+                    .Where(item => item == 1)
             );
         }
     }
