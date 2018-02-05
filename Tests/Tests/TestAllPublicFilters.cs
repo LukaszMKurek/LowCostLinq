@@ -601,7 +601,7 @@ namespace Tests
         {
             var testedArray = new[] { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
             var testedList = new List<int> { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
-            var testedEnumerable = new List<int> { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
+            IEnumerable<int> testedEnumerable = new List<int> { 0, 1, 1, 0, 0, 0, 1, 1, 0, 1 };
 
             CollectionAssert.AreEqual(
                 testedArray
