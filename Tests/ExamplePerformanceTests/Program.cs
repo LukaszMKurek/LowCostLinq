@@ -11,6 +11,8 @@ namespace ExamplePerformanceTests
             BenchmarkRunner.Run<Example2>();
             BenchmarkRunner.Run<Example3>();
             BenchmarkRunner.Run<Example4>();
+            BenchmarkRunner.Run<Example5>();
+            BenchmarkRunner.Run<Example6>();
         }
     }
 }

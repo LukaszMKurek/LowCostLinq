@@ -11,9 +11,9 @@ Frequency=3914065 Hz, Resolution=255.4889 ns, Timer=TSC
 ```
 |                            Method |        Mean |      Error |     StdDev | Scaled | ScaledSD |     Gen 0 | Allocated |
 |---------------------------------- |------------:|-----------:|-----------:|-------:|---------:|----------:|----------:|
-|                       LinqExample | 14,354.8 us | 13.8292 us | 11.5480 us |  18.16 |     0.02 | 1828.1250 | 7680000 B |
-|                LowCostLinqExample | 10,168.0 us |  5.6586 us |  5.0162 us |  12.86 |     0.01 |  671.8750 | 2880000 B |
-|      EvenBetterLowCostLinqExample | 10,921.9 us |  2.0310 us |  1.4686 us |  13.82 |     0.01 |         - |       0 B |
-|            BestLowCostLinqExample |  2,951.8 us | 16.7860 us | 14.8803 us |   3.73 |     0.02 |         - |       0 B |
-| NearOptimalSolutionUsingDelegates |  5,994.3 us |  2.0709 us |  1.8358 us |   7.58 |     0.01 |         - |       0 B |
-|               NearOptimalSolution |    790.5 us |  0.6989 us |  0.6196 us |   1.00 |     0.00 |         - |       0 B |
+|                       LinqExample | 14,525.8 us |  33.967 us |  31.773 us |  18.30 |     0.05 | 1828.1250 | 7680000 B |
+|                LowCostLinqExample | 10,303.9 us |  55.894 us |  52.284 us |  12.98 |     0.07 |  671.8750 | 2880000 B |
+|      EvenBetterLowCostLinqExample | 11,197.7 us | 157.538 us | 147.361 us |  14.11 |     0.18 |         - |       0 B |
+|            BestLowCostLinqExample |  2,949.1 us |   6.434 us |   6.018 us |   3.72 |     0.01 |         - |       0 B |
+| NearOptimalSolutionUsingDelegates |  6,068.2 us |  18.276 us |  14.269 us |   7.65 |     0.02 |         - |       0 B |
+|               NearOptimalSolution |    793.6 us |   1.906 us |   1.592 us |   1.00 |     0.00 |         - |       0 B |
