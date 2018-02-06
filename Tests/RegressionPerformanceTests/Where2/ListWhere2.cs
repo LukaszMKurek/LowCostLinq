@@ -8,6 +8,9 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
+    public class ListWhere2Int : ListWhere2<int>
+    { }
+
     [SuppressMessage("ReSharper", "UnusedVariable")]
     public class ListWhere2<T> : BaseBenchmark<T>
     {
@@ -154,7 +157,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            IEnumerable<T> newLinq = collection.AsLowCostLinq().Filter<T, SimpleFilter1>(new SimpleFilter1());
+            IEnumerable<T> newLinq = collection.AsLowCostLinq().Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1());
             foreach (var item in newLinq)
             {
                 x++;
@@ -169,7 +172,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Filter<T, SimpleFilter1>(new SimpleFilter1());
+            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1());
             foreach (var item in newLinq)
             {
                 x++;

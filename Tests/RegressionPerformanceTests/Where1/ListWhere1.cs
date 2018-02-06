@@ -8,6 +8,9 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
+    public class ListWhere1Int : ListWhere1<int>
+    { }
+
     [SuppressMessage("ReSharper", "UnusedVariable")]
     public class ListWhere1<T> : BaseBenchmark<T>
     {

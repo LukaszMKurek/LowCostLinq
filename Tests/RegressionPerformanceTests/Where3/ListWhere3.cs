@@ -8,34 +8,13 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
-    public class EnumerableArrayWhere2Int : EnumerableArrayWhere2<int>
+    public class ListWhere3Int : ListWhere3<int>
     { }
-
-    public class EnumerableArrayWhere2<T> : EnumerableWhere2Base<T>
-    {
-        protected override IEnumerable<T> _collection => EnumerableArray[CollectionSize];
-    }
-
-    public class EnumerableListWhere2Int : EnumerableListWhere2<int>
-    { }
-
-    public class EnumerableListWhere2<T> : EnumerableWhere2Base<T>
-    {
-        protected override IEnumerable<T> _collection => EnumerableList[CollectionSize];
-    }
-
-    public class EnumerableReadonlyCollectionWhere2Int : EnumerableReadonlyCollectionWhere2<int>
-    { }
-
-    public class EnumerableReadonlyCollectionWhere2<T> : EnumerableWhere2Base<T>
-    {
-        protected override IEnumerable<T> _collection => EnumerableReadonlyCollection[CollectionSize];
-    }
 
     [SuppressMessage("ReSharper", "UnusedVariable")]
-    public abstract class EnumerableWhere2Base<T> : BaseBenchmark<T>
+    public class ListWhere3<T> : BaseBenchmark<T>
     {
-        protected abstract IEnumerable<T> _collection { get; }
+        private List<T> _collection => List[CollectionSize];
 
         [Benchmark]
         public int Linq()
@@ -43,7 +22,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var enumerable = collection.Where(i => true).Where(i => true);
+            var enumerable = collection.Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in enumerable)
             {
                 x++;
@@ -58,7 +37,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinq().Where(i => true).Where(i => true);
+            var newLinq = collection.AsLowCostLinq().Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in newLinq)
             {
                 x++;
@@ -73,7 +52,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true);
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in newLinq)
             {
                 x++;
@@ -88,7 +67,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinq().Where(true, (param, i) => param).Where(true, (param, i) => param);
+            var newLinq = collection.AsLowCostLinq().Where(true, (param, i) => param).Where(true, (param, i) => param).Where(true, (param, i) => param);
             foreach (var item in newLinq)
             {
                 x++;
@@ -103,7 +82,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(true, (param, i) => param).Where(true, (param, i) => param);
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(true, (param, i) => param).Where(true, (param, i) => param).Where(true, (param, i) => param);
             foreach (var item in newLinq)
             {
                 x++;
@@ -118,7 +97,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             foreach (var item in newLinq)
             {
                 x++;
@@ -133,7 +112,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             foreach (var item in newLinq)
             {
                 x++;
@@ -148,7 +127,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            IEnumerable<T> newLinq = collection.AsLowCostLinq().Where(i => true).Where(i => true);
+            IEnumerable<T> newLinq = collection.AsLowCostLinq().Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in newLinq)
             {
                 x++;
@@ -163,7 +142,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true);
+            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in newLinq)
             {
                 x++;
@@ -178,7 +157,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            IEnumerable<T> newLinq = collection.AsLowCostLinq().Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1());
+            IEnumerable<T> newLinq = collection.AsLowCostLinq().Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1());
             foreach (var item in newLinq)
             {
                 x++;
@@ -193,7 +172,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1());
+            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1()).Filter<T, SimpleFilter1>(new SimpleFilter1());
             foreach (var item in newLinq)
             {
                 x++;
@@ -207,7 +186,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.Where(i => true).Where(i => true);
+            var enumerable = collection.Where(i => true).Where(i => true).Where(i => true);
             return enumerable.Count();
         }
 
@@ -216,7 +195,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinq().Where(i => true).Where(i => true);
+            var newLinq = collection.AsLowCostLinq().Where(i => true).Where(i => true).Where(i => true);
             return newLinq.Count();
         }
 
@@ -225,7 +204,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true);
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true).Where(i => true);
             return newLinq.Count();
         }
 
@@ -234,7 +213,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             return newLinq.Count();
         }
 
@@ -243,7 +222,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             return newLinq.Count();
         }
 
@@ -252,16 +231,16 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.Where(i => true).Where(i => true);
+            var enumerable = collection.Where(i => true).Where(i => true).Where(i => true);
             return enumerable.ToArray();
         }
-
+        
         [Benchmark]
         public T[] LowCostLinqWithDelegateToArray()
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinq().Where(i => true).Where(i => true);
+            var enumerable = collection.AsLowCostLinq().Where(i => true).Where(i => true).Where(i => true);
             return enumerable.ToArray();
         }
 
@@ -270,7 +249,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true);
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true).Where(i => true);
             return enumerable.ToArray();
         }
 
@@ -279,7 +258,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             return enumerable.ToArray();
         }
 
@@ -288,7 +267,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             return enumerable.ToArray();
         }
 
@@ -298,7 +277,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var enumerable = collection.Where(i => true).Where(i => true);
+            var enumerable = collection.Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in enumerable.Take(20))
             {
                 x++;
@@ -313,7 +292,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinq().Where(i => true).Where(i => true);
+            var enumerable = collection.AsLowCostLinq().Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in enumerable.Take(20))
             {
                 x++;
@@ -328,7 +307,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true);
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true).Where(i => true);
             foreach (var item in enumerable.Take(20))
             {
                 x++;
@@ -343,7 +322,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             foreach (var item in enumerable.Take(20))
             {
                 x++;
@@ -358,7 +337,7 @@ namespace PerformanceTests
             int x = 0;
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             foreach (var item in enumerable.Take(20))
             {
                 x++;
@@ -372,7 +351,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.Where(i => true).Where(i => true);
+            var enumerable = collection.Where(i => true).Where(i => true).Where(i => true);
             return enumerable.Skip(20).Take(1).SingleOrDefault();
         }
 
@@ -381,7 +360,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinq().Where(i => true).Where(i => true);
+            var enumerable = collection.AsLowCostLinq().Where(i => true).Where(i => true).Where(i => true);
             return enumerable.Skip(20).Take(1).SingleOrDefault();
         }
 
@@ -390,7 +369,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true);
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true).Where(i => true).Where(i => true);
             return enumerable.Skip(20).Take(1).SingleOrDefault();
         }
 
@@ -399,7 +378,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             return enumerable.Skip(20).Take(1).SingleOrDefault();
         }
 
@@ -408,7 +387,7 @@ namespace PerformanceTests
         {
             var collection = _collection;
 
-            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1());
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1()).Where(new SimpleFilter1()).Where(new SimpleFilter1());
             return enumerable.Skip(20).Take(1).SingleOrDefault();
         }
 
@@ -418,18 +397,19 @@ namespace PerformanceTests
             int x = 0;
             Func<T, bool> condition1 = i => true;
             Func<T, bool> condition2 = i => true;
+            Func<T, bool> condition3 = i => true;
             var collection = _collection;
 
             foreach (var item in collection)
             {
-                if (condition1(item) && condition2(item))
+                if (condition1(item) && condition2(item) && condition3(item))
                     x++;
             }
 
             return x;
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark]
         public int Foreach()
         {
             int x = 0;
@@ -442,7 +422,22 @@ namespace PerformanceTests
 
             return x;
         }
-        
+
+        [Benchmark(Baseline = true)]
+        public int For()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            for (var index = 0; index < collection.Count; index++)
+            {
+                //var item = _collection[index];
+                x++;
+            }
+
+            return x;
+        }
+
         public /*readonly*/ struct SimpleFilter1 : IFilter<T, T> //todo dotnet benchmark sobie nie radzi!!!
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

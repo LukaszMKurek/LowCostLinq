@@ -8,15 +8,24 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
+    public class EnumerableArrayWhere1Int : EnumerableArrayWhere1<int>
+    { }
+
     public class EnumerableArrayWhere1<T> : EnumerableWhere1Base<T>
     {
         protected override IEnumerable<T> _collection => EnumerableArray[CollectionSize];
     }
 
+    public class EnumerableListWhere1Int : EnumerableListWhere1<int>
+    { }
+
     public class EnumerableListWhere1<T> : EnumerableWhere1Base<T>
     {
         protected override IEnumerable<T> _collection => EnumerableList[CollectionSize];
     }
+
+    public class EnumerableReadonlyCollectionWhere1Int : EnumerableReadonlyCollectionWhere1<int>
+    { }
 
     public class EnumerableReadonlyCollectionWhere1<T> : EnumerableWhere1Base<T>
     {
