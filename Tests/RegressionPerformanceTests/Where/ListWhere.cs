@@ -12,10 +12,11 @@ namespace PerformanceTests
         private List<T> _collection => List[CollectionSize];
 
         [Benchmark]
-        public int LINQ()
+        public int Linq()
         {
             int x = 0;
             var collection = _collection;
+
             var enumerable = collection.Where(i => true);
             foreach (var item in enumerable)
             {
@@ -26,26 +27,11 @@ namespace PerformanceTests
         }
 
         [Benchmark]
-        public int LinqCount()
-        {
-            var collection = _collection;
-            var enumerable = collection.Where(i => true);
-            return enumerable.Count();
-        }
-
-        [Benchmark]
-        public T[] LinqToArray()
-        {
-            var collection = _collection;
-            var enumerable = collection.Where(i => true);
-            return enumerable.ToArray();
-        }
-
-        [Benchmark]
         public int LowCostLinqWithDelegate()
         {
             int x = 0;
             var collection = _collection;
+
             var newLinq = collection.AsLowCostLinq().Where(i => true);
             foreach (var item in newLinq)
             {
@@ -53,22 +39,6 @@ namespace PerformanceTests
             }
 
             return x;
-        }
-
-        [Benchmark]
-        public int LowCostLinqWithDelegateCount()
-        {
-            var collection = _collection;
-            var newLinq = collection.AsLowCostLinq().Where(i => true);
-            return newLinq.Count();
-        }
-
-        [Benchmark]
-        public T[] LowCostLinqWithDelegateToArray()
-        {
-            var collection = _collection;
-            var enumerable = collection.AsLowCostLinq().Where(i => true);
-            return enumerable.ToArray();
         }
 
         [Benchmark]
@@ -76,6 +46,7 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
+
             var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true);
             foreach (var item in newLinq)
             {
@@ -86,11 +57,33 @@ namespace PerformanceTests
         }
 
         [Benchmark]
-        public int LowCostLinqWithoutChecksWithDelegateCount()
+        public int LowCostLinqWithDelegate2()
         {
+            int x = 0;
             var collection = _collection;
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true);
-            return newLinq.Count();
+
+            var newLinq = collection.AsLowCostLinq().Where(true, (param, i) => param);
+            foreach (var item in newLinq)
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LowCostLinqWithoutChecksWithDelegate2()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(true, (param, i) => param);
+            foreach (var item in newLinq)
+            {
+                x++;
+            }
+
+            return x;
         }
 
         [Benchmark]
@@ -98,6 +91,7 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
+
             var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1());
             foreach (var item in newLinq)
             {
@@ -105,14 +99,6 @@ namespace PerformanceTests
             }
 
             return x;
-        }
-
-        [Benchmark]
-        public int LowCostLinqWithStructWhereCount()
-        {
-            var collection = _collection;
-            var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1());
-            return newLinq.Count();
         }
 
         [Benchmark]
@@ -120,6 +106,7 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
+
             var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1());
             foreach (var item in newLinq)
             {
@@ -130,19 +117,27 @@ namespace PerformanceTests
         }
 
         [Benchmark]
-        public int LowCostLinqWithoutChecksWithStructWhereCount()
-        {
-            var collection = _collection;
-            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1());
-            return newLinq.Count();
-        }
-
-        [Benchmark]
         public int LowCostLinqWithDelegateCastToIEnumerable()
         {
             int x = 0;
             var collection = _collection;
+
             IEnumerable<T> newLinq = collection.AsLowCostLinq().Where(i => true);
+            foreach (var item in newLinq)
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LowCostLinqWithoutChecksWithDelegateCastToIEnumerable()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true);
             foreach (var item in newLinq)
             {
                 x++;
@@ -156,6 +151,7 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
+
             IEnumerable<T> newLinq = collection.AsLowCostLinq().Filter<T, SimpleFilter1>(new SimpleFilter1());
             foreach (var item in newLinq)
             {
@@ -166,11 +162,237 @@ namespace PerformanceTests
         }
 
         [Benchmark]
+        public int LowCostLinqWithoutChecksWithStructFilterCastToIEnumerable()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            IEnumerable<T> newLinq = collection.AsLowCostLinqWithoutChecks().Filter<T, SimpleFilter1>(new SimpleFilter1());
+            foreach (var item in newLinq)
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LinqCount()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.Where(i => true);
+            return enumerable.Count();
+        }
+
+        [Benchmark]
+        public int LowCostLinqWithDelegateCount()
+        {
+            var collection = _collection;
+
+            var newLinq = collection.AsLowCostLinq().Where(i => true);
+            return newLinq.Count();
+        }
+
+        [Benchmark]
+        public int LowCostLinqWithoutChecksWithDelegateCount()
+        {
+            var collection = _collection;
+
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(i => true);
+            return newLinq.Count();
+        }
+
+        [Benchmark]
+        public int LowCostLinqWithStructWhereCount()
+        {
+            var collection = _collection;
+
+            var newLinq = collection.AsLowCostLinq().Where(new SimpleFilter1());
+            return newLinq.Count();
+        }
+
+        [Benchmark]
+        public int LowCostLinqWithoutChecksWithStructWhereCount()
+        {
+            var collection = _collection;
+
+            var newLinq = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1());
+            return newLinq.Count();
+        }
+
+        [Benchmark]
+        public T[] LinqToArray()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.Where(i => true);
+            return enumerable.ToArray();
+        }
+        
+        [Benchmark]
+        public T[] LowCostLinqWithDelegateToArray()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinq().Where(i => true);
+            return enumerable.ToArray();
+        }
+
+        [Benchmark]
+        public T[] LowCostLinqWithoutChecksWithDelegateToArray()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true);
+            return enumerable.ToArray();
+        }
+
+        [Benchmark]
+        public T[] LowCostLinqWithStructToArray()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1());
+            return enumerable.ToArray();
+        }
+
+        [Benchmark]
+        public T[] LowCostLinqWithoutChecksWithStructToArray()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1());
+            return enumerable.ToArray();
+        }
+
+        [Benchmark]
+        public int Take()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            var enumerable = collection.Where(i => true);
+            foreach (var item in enumerable.Take(20))
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LowCostTake()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinq().Where(i => true);
+            foreach (var item in enumerable.Take(20))
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LowCostTakeWithoutChecks()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true);
+            foreach (var item in enumerable.Take(20))
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LowCostTakeWithStruct()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1());
+            foreach (var item in enumerable.Take(20))
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public int LowCostTakeWithStructWithoutChecks()
+        {
+            int x = 0;
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1());
+            foreach (var item in enumerable.Take(20))
+            {
+                x++;
+            }
+
+            return x;
+        }
+
+        [Benchmark]
+        public T SkipTakeSingle()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.Where(i => true);
+            return enumerable.Skip(20).Take(1).SingleOrDefault();
+        }
+
+        [Benchmark]
+        public T LowCostSkipTakeSingle()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinq().Where(i => true);
+            return enumerable.Skip(20).Take(1).SingleOrDefault();
+        }
+
+        [Benchmark]
+        public T LowCostSkipTakeSingleWithoutChecks()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(i => true);
+            return enumerable.Skip(20).Take(1).SingleOrDefault();
+        }
+
+        [Benchmark]
+        public T LowCostSkipTakeSingleWithStruct()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinq().Where(new SimpleFilter1());
+            return enumerable.Skip(20).Take(1).SingleOrDefault();
+        }
+
+        [Benchmark]
+        public T LowCostSkipTakeSingleWithStructWithoutChecks()
+        {
+            var collection = _collection;
+
+            var enumerable = collection.AsLowCostLinqWithoutChecks().Where(new SimpleFilter1());
+            return enumerable.Skip(20).Take(1).SingleOrDefault();
+        }
+
+        [Benchmark]
         public int ForeachDelegate()
         {
             int x = 0;
             Func<T, bool> condition = i => true;
             var collection = _collection;
+
             foreach (var item in collection)
             {
                 if (condition(item))
@@ -185,25 +407,10 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
-            foreach (var item in collection) // niestety ale foreach dla listy nie jest zbyt wydajny. Wołanie Dispose i sprawdzanie czy lista nie została zmodyfikowana prawie 10x razy zmniejsza wydajność!!!
+
+            foreach (var item in collection)
             {
                 x++;
-            }
-
-            return x;
-        }
-
-        [Benchmark]
-        public int ForDelegate()
-        {
-            int x = 0;
-            Func<T, bool> condition = i => true;
-            var collection = _collection;
-            for (var index = 0; index < collection.Count; index++)
-            {
-                var item = collection[index];
-                if (condition(item))
-                    x++;
             }
 
             return x;
@@ -214,6 +421,7 @@ namespace PerformanceTests
         {
             int x = 0;
             var collection = _collection;
+
             for (var index = 0; index < collection.Count; index++)
             {
                 //var item = _collection[index];
