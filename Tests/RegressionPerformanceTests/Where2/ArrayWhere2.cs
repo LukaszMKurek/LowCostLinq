@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
@@ -7,6 +8,7 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
+    [SuppressMessage("ReSharper", "UnusedVariable")]
     public class ArrayWhere2<T> : BaseBenchmark<T>
     {
         private T[] _collection => Array[CollectionSize];

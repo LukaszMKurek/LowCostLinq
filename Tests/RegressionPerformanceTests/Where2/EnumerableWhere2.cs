@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using BenchmarkDotNet.Attributes;
@@ -22,6 +23,7 @@ namespace PerformanceTests
         protected override IEnumerable<T> _collection => EnumerableReadonlyCollection[CollectionSize];
     }
 
+    [SuppressMessage("ReSharper", "UnusedVariable")]
     public abstract class EnumerableWhere2Base<T> : BaseBenchmark<T>
     {
         protected abstract IEnumerable<T> _collection { get; }
