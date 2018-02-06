@@ -7,7 +7,7 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
-    public class ListWhere<T> : BaseBenchmark<T>
+    public class ListWhere1<T> : BaseBenchmark<T>
     {
         private List<T> _collection => List[CollectionSize];
 

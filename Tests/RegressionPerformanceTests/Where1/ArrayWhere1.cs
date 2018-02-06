@@ -7,7 +7,7 @@ using LowCostLinq;
 
 namespace PerformanceTests
 {
-    public class ArrayWhere<T> : BaseBenchmark<T>
+    public class ArrayWhere1<T> : BaseBenchmark<T>
     {
         private T[] _collection => Array[CollectionSize];
 
