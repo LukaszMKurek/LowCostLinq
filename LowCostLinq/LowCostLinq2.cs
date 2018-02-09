@@ -52,29 +52,31 @@ namespace LowCostLinq
             {
                 TIn input = default;
 
-                while (_work)
+                if (_work)
                 {
-                    if (_iterator.MoveNext(ref input))
-                    {
-                        bool willBreak = false;
+                    bool willBreak = false;
 
-                        if (_filter1.Filter(ref input, out var mid1, ref willBreak))
+                    do
+                    {
+                        if (_iterator.MoveNext(ref input))
                         {
-                            if (_filter2.Filter(ref mid1, out _current, ref willBreak))
+                            if (_filter1.Filter(ref input, out var mid1, ref willBreak))
                             {
-                                return true;
+                                if (_filter2.Filter(ref mid1, out _current, ref willBreak))
+                                {
+                                    return true;
+                                }
                             }
                         }
-
-                        if (willBreak)
+                        else
                             break;
                     }
-                    else
-                        break;
+                    while (willBreak == false);
+
+                    _work = false;
+                    Dispose();
                 }
 
-                _work = false;
-                Dispose();
                 return false;
             }
 
@@ -82,7 +84,6 @@ namespace LowCostLinq
             {
                 throw new NotImplementedException();
             }
-
 
             public TOut Current
             {
@@ -94,7 +95,6 @@ namespace LowCostLinq
 
             public void Dispose()
             {
-                //if (_work)
                 _iterator.Dispose();
                 //_current = default;
             }

@@ -46,27 +46,29 @@ namespace LowCostLinq
             public bool MoveNext()
             {
                 TIn input = default;
-
-                while (_work)
+                
+                if (_work)
                 {
-                    if (_iterator.MoveNext(ref input))
+                    bool willBreak = false;
+
+                    do
                     {
-                        bool willBreak = false; // maby is way that we not need 2 variable willBreak and _work - curently it is not efficient
-
-                        if (_filter1.Filter(ref input, out _current, ref willBreak))
+                        if (_iterator.MoveNext(ref input)) // it look weard but in dotnet core 2.0 is the fastest options
                         {
-                            return true;
+                            if (_filter1.Filter(ref input, out _current, ref willBreak))
+                            {
+                                return true;
+                            }
                         }
-
-                        if (willBreak)
+                        else
                             break;
                     }
-                    else
-                        break;
+                    while (willBreak == false);
+
+                    _work = false;
+                    Dispose();
                 }
 
-                _work = false;
-                Dispose();
                 return false;
             }
 
@@ -85,7 +87,6 @@ namespace LowCostLinq
 
             public void Dispose()
             {
-                //if (_work)
                 _iterator.Dispose();
                 //_current = default;
             }

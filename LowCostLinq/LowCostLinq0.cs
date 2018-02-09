@@ -40,13 +40,17 @@ namespace LowCostLinq
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext()
             {
-                if (_work && _iterator.MoveNext(ref _current))
+                if (_work)
                 {
-                    return true;
+                    if (_iterator.MoveNext(ref _current))
+                    {
+                        return true;
+                    }
+
+                    _work = false;
+                    Dispose();
                 }
 
-                _work = false;
-                Dispose();
                 return false;
             }
 
@@ -65,7 +69,6 @@ namespace LowCostLinq
 
             public void Dispose()
             {
-                //if (_disposed == false)
                 _iterator.Dispose();
                 //_current = default;
             }

@@ -2,99 +2,99 @@
 
 BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.214)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
-Frequency=3914063 Hz, Resolution=255.4890 ns, Timer=TSC
+Frequency=3914068 Hz, Resolution=255.4887 ns, Timer=TSC
 .NET Core SDK=2.1.4
   [Host]     : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
   DefaultJob : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
 
 
 ```
-|                                       Method | CollectionSize |         Mean |     Error |    StdDev | Scaled | ScaledSD |
-|--------------------------------------------- |--------------- |-------------:|----------:|----------:|-------:|---------:|
-|                                         **Linq** |              **0** |    **21.446 ns** | **0.0692 ns** | **0.0647 ns** |   **7.33** |     **0.08** |
-|                      LowCostLinqWithDelegate |              0 |    18.663 ns | 0.0026 ns | 0.0023 ns |   6.38 |     0.07 |
-|                     LowCostLinqWithDelegate2 |              0 |    27.246 ns | 0.0106 ns | 0.0099 ns |   9.31 |     0.10 |
-|                   LowCostLinqWithStructWhere |              0 |    20.516 ns | 0.0015 ns | 0.0014 ns |   7.01 |     0.07 |
-|     LowCostLinqWithDelegateCastToIEnumerable |              0 |    35.203 ns | 0.1277 ns | 0.1194 ns |  12.04 |     0.13 |
-| LowCostLinqWithStructFilterCastToIEnumerable |              0 |    35.976 ns | 0.0136 ns | 0.0114 ns |  12.30 |     0.13 |
-|                                    LinqCount |              0 |    24.301 ns | 0.0080 ns | 0.0071 ns |   8.31 |     0.09 |
-|                 LowCostLinqWithDelegateCount |              0 |    14.864 ns | 0.0054 ns | 0.0048 ns |   5.08 |     0.05 |
-|              LowCostLinqWithStructWhereCount |              0 |    15.188 ns | 0.0014 ns | 0.0012 ns |   5.19 |     0.05 |
-|                                  LinqToArray |              0 |    22.571 ns | 0.0272 ns | 0.0241 ns |   7.72 |     0.08 |
-|               LowCostLinqWithDelegateToArray |              0 |    19.846 ns | 0.2838 ns | 0.2516 ns |   6.79 |     0.11 |
-|                 LowCostLinqWithStructToArray |              0 |    19.328 ns | 0.3048 ns | 0.2702 ns |   6.61 |     0.11 |
-|                                         Take |              0 |    25.843 ns | 0.2817 ns | 0.2635 ns |   8.84 |     0.13 |
-|                                  LowCostTake |              0 |    26.106 ns | 0.1083 ns | 0.1013 ns |   8.93 |     0.10 |
-|                        LowCostTakeWithStruct |              0 |    27.508 ns | 0.0845 ns | 0.0749 ns |   9.40 |     0.10 |
-|                               SkipTakeSingle |              0 |    37.994 ns | 0.3574 ns | 0.3168 ns |  12.99 |     0.17 |
-|                        LowCostSkipTakeSingle |              0 |    29.243 ns | 0.1164 ns | 0.1032 ns |  10.00 |     0.11 |
-|              LowCostSkipTakeSingleWithStruct |              0 |    38.467 ns | 0.2179 ns | 0.2039 ns |  13.15 |     0.15 |
-|                              ForeachDelegate |              0 |     5.980 ns | 0.1286 ns | 0.1203 ns |   2.04 |     0.04 |
-|                                      Foreach |              0 |     2.890 ns | 0.0125 ns | 0.0104 ns |   0.99 |     0.01 |
-|                                          For |              0 |     2.925 ns | 0.0349 ns | 0.0310 ns |   1.00 |     0.00 |
-|                                              |                |              |           |           |        |          |
-|                                         **Linq** |           **1000** | **6,122.808 ns** | **3.7478 ns** | **3.5057 ns** |  **24.47** |     **0.01** |
-|                      LowCostLinqWithDelegate |           1000 | 2,650.713 ns | 0.7449 ns | 0.5816 ns |  10.59 |     0.00 |
-|                     LowCostLinqWithDelegate2 |           1000 | 3,179.229 ns | 6.9844 ns | 6.5333 ns |  12.70 |     0.03 |
-|                   LowCostLinqWithStructWhere |           1000 | 1,463.228 ns | 0.3929 ns | 0.3483 ns |   5.85 |     0.00 |
-|     LowCostLinqWithDelegateCastToIEnumerable |           1000 | 8,033.211 ns | 1.3885 ns | 1.2988 ns |  32.10 |     0.01 |
-| LowCostLinqWithStructFilterCastToIEnumerable |           1000 | 6,346.288 ns | 3.9124 ns | 3.4682 ns |  25.36 |     0.01 |
-|                                    LinqCount |           1000 | 1,482.030 ns | 1.3835 ns | 1.2941 ns |   5.92 |     0.01 |
-|                 LowCostLinqWithDelegateCount |           1000 | 2,405.177 ns | 0.5540 ns | 0.4911 ns |   9.61 |     0.00 |
-|              LowCostLinqWithStructWhereCount |           1000 | 1,324.593 ns | 0.0740 ns | 0.0618 ns |   5.29 |     0.00 |
-|                                  LinqToArray |           1000 | 3,008.447 ns | 2.7909 ns | 2.6106 ns |  12.02 |     0.01 |
-|               LowCostLinqWithDelegateToArray |           1000 | 4,136.553 ns | 5.4538 ns | 4.8347 ns |  16.53 |     0.02 |
-|                 LowCostLinqWithStructToArray |           1000 | 2,217.907 ns | 3.5054 ns | 3.1074 ns |   8.86 |     0.01 |
-|                                         Take |           1000 |   294.129 ns | 0.0560 ns | 0.0496 ns |   1.18 |     0.00 |
-|                                  LowCostTake |           1000 |    96.931 ns | 0.0184 ns | 0.0144 ns |   0.39 |     0.00 |
-|                        LowCostTakeWithStruct |           1000 |    61.057 ns | 0.0351 ns | 0.0329 ns |   0.24 |     0.00 |
-|                               SkipTakeSingle |           1000 |   183.923 ns | 0.1073 ns | 0.1004 ns |   0.73 |     0.00 |
-|                        LowCostSkipTakeSingle |           1000 |    88.370 ns | 0.0800 ns | 0.0709 ns |   0.35 |     0.00 |
-|              LowCostSkipTakeSingleWithStruct |           1000 |    54.649 ns | 0.0183 ns | 0.0172 ns |   0.22 |     0.00 |
-|                              ForeachDelegate |           1000 | 1,441.366 ns | 0.0881 ns | 0.0735 ns |   5.76 |     0.00 |
-|                                      Foreach |           1000 |   335.034 ns | 0.1180 ns | 0.1104 ns |   1.34 |     0.00 |
-|                                          For |           1000 |   250.246 ns | 0.0236 ns | 0.0209 ns |   1.00 |     0.00 |
-|                                              |                |              |           |           |        |          |
-|                                         **Linq** |              **5** |    **65.548 ns** | **1.2786 ns** | **1.5221 ns** |  **15.57** |     **0.35** |
-|                      LowCostLinqWithDelegate |              5 |    33.332 ns | 0.3390 ns | 0.3171 ns |   7.92 |     0.07 |
-|                     LowCostLinqWithDelegate2 |              5 |    43.758 ns | 0.7746 ns | 0.7246 ns |  10.39 |     0.17 |
-|                   LowCostLinqWithStructWhere |              5 |    27.864 ns | 0.0285 ns | 0.0238 ns |   6.62 |     0.01 |
-|     LowCostLinqWithDelegateCastToIEnumerable |              5 |    76.860 ns | 1.1583 ns | 1.0268 ns |  18.25 |     0.24 |
-| LowCostLinqWithStructFilterCastToIEnumerable |              5 |    68.129 ns | 0.0689 ns | 0.0576 ns |  16.18 |     0.02 |
-|                                    LinqCount |              5 |    39.470 ns | 0.1275 ns | 0.1193 ns |   9.37 |     0.03 |
-|                 LowCostLinqWithDelegateCount |              5 |    27.616 ns | 0.0155 ns | 0.0121 ns |   6.56 |     0.01 |
-|              LowCostLinqWithStructWhereCount |              5 |    18.180 ns | 0.0112 ns | 0.0099 ns |   4.32 |     0.00 |
-|                                  LinqToArray |              5 |    97.089 ns | 0.3408 ns | 0.3188 ns |  23.06 |     0.08 |
-|               LowCostLinqWithDelegateToArray |              5 |    68.237 ns | 0.0671 ns | 0.0627 ns |  16.21 |     0.02 |
-|                 LowCostLinqWithStructToArray |              5 |    56.556 ns | 0.2233 ns | 0.2089 ns |  13.43 |     0.05 |
-|                                         Take |              5 |   124.077 ns | 0.0519 ns | 0.0485 ns |  29.47 |     0.03 |
-|                                  LowCostTake |              5 |    41.139 ns | 0.0119 ns | 0.0111 ns |   9.77 |     0.01 |
-|                        LowCostTakeWithStruct |              5 |    36.120 ns | 0.0457 ns | 0.0428 ns |   8.58 |     0.01 |
-|                               SkipTakeSingle |              5 |   111.245 ns | 0.1254 ns | 0.1173 ns |  26.42 |     0.04 |
-|                        LowCostSkipTakeSingle |              5 |    39.177 ns | 0.0047 ns | 0.0044 ns |   9.30 |     0.01 |
-|              LowCostSkipTakeSingleWithStruct |              5 |    36.217 ns | 0.0031 ns | 0.0027 ns |   8.60 |     0.01 |
-|                              ForeachDelegate |              5 |    13.019 ns | 0.0023 ns | 0.0020 ns |   3.09 |     0.00 |
-|                                      Foreach |              5 |     4.275 ns | 0.0041 ns | 0.0039 ns |   1.02 |     0.00 |
-|                                          For |              5 |     4.211 ns | 0.0045 ns | 0.0042 ns |   1.00 |     0.00 |
-|                                              |                |              |           |           |        |          |
-|                                         **Linq** |             **50** |   **345.953 ns** | **0.0929 ns** | **0.0776 ns** |  **20.83** |     **0.01** |
-|                      LowCostLinqWithDelegate |             50 |   156.276 ns | 0.1144 ns | 0.1014 ns |   9.41 |     0.01 |
-|                     LowCostLinqWithDelegate2 |             50 |   188.137 ns | 0.0231 ns | 0.0193 ns |  11.33 |     0.00 |
-|                   LowCostLinqWithStructWhere |             50 |    92.122 ns | 0.1118 ns | 0.1046 ns |   5.55 |     0.01 |
-|     LowCostLinqWithDelegateCastToIEnumerable |             50 |   444.392 ns | 0.2139 ns | 0.2001 ns |  26.76 |     0.01 |
-| LowCostLinqWithStructFilterCastToIEnumerable |             50 |   360.574 ns | 0.2675 ns | 0.2502 ns |  21.71 |     0.02 |
-|                                    LinqCount |             50 |   116.782 ns | 0.1419 ns | 0.1328 ns |   7.03 |     0.01 |
-|                 LowCostLinqWithDelegateCount |             50 |   139.682 ns | 0.1613 ns | 0.1509 ns |   8.41 |     0.01 |
-|              LowCostLinqWithStructWhereCount |             50 |    66.306 ns | 0.0051 ns | 0.0046 ns |   3.99 |     0.00 |
-|                                  LinqToArray |             50 |   367.412 ns | 0.4541 ns | 0.4026 ns |  22.12 |     0.02 |
-|               LowCostLinqWithDelegateToArray |             50 |   321.512 ns | 0.6031 ns | 0.5036 ns |  19.36 |     0.03 |
-|                 LowCostLinqWithStructToArray |             50 |   204.544 ns | 0.5155 ns | 0.4822 ns |  12.32 |     0.03 |
-|                                         Take |             50 |   294.183 ns | 0.0422 ns | 0.0374 ns |  17.71 |     0.00 |
-|                                  LowCostTake |             50 |    94.260 ns | 0.0552 ns | 0.0461 ns |   5.68 |     0.00 |
-|                        LowCostTakeWithStruct |             50 |    61.052 ns | 0.0129 ns | 0.0108 ns |   3.68 |     0.00 |
-|                               SkipTakeSingle |             50 |   184.148 ns | 0.3385 ns | 0.3166 ns |  11.09 |     0.02 |
-|                        LowCostSkipTakeSingle |             50 |    89.662 ns | 0.0125 ns | 0.0110 ns |   5.40 |     0.00 |
-|              LowCostSkipTakeSingleWithStruct |             50 |    53.740 ns | 0.0193 ns | 0.0181 ns |   3.24 |     0.00 |
-|                              ForeachDelegate |             50 |    81.544 ns | 0.0213 ns | 0.0178 ns |   4.91 |     0.00 |
-|                                      Foreach |             50 |    18.094 ns | 0.0840 ns | 0.0786 ns |   1.09 |     0.00 |
-|                                          For |             50 |    16.607 ns | 0.0056 ns | 0.0044 ns |   1.00 |     0.00 |
+|                                       Method | CollectionSize |         Mean |      Error |     StdDev | Scaled | ScaledSD |
+|--------------------------------------------- |--------------- |-------------:|-----------:|-----------:|-------:|---------:|
+|                                         **Linq** |              **0** |    **20.328 ns** |  **0.0275 ns** |  **0.0244 ns** |   **7.07** |     **0.01** |
+|                      LowCostLinqWithDelegate |              0 |    18.679 ns |  0.0127 ns |  0.0119 ns |   6.49 |     0.01 |
+|                     LowCostLinqWithDelegate2 |              0 |    27.270 ns |  0.0207 ns |  0.0183 ns |   9.48 |     0.02 |
+|                   LowCostLinqWithStructWhere |              0 |    20.563 ns |  0.0527 ns |  0.0493 ns |   7.15 |     0.02 |
+|     LowCostLinqWithDelegateCastToIEnumerable |              0 |    34.504 ns |  0.0419 ns |  0.0392 ns |  11.99 |     0.02 |
+| LowCostLinqWithStructFilterCastToIEnumerable |              0 |    36.229 ns |  0.0482 ns |  0.0402 ns |  12.59 |     0.02 |
+|                                    LinqCount |              0 |    24.605 ns |  0.0832 ns |  0.0778 ns |   8.55 |     0.03 |
+|                 LowCostLinqWithDelegateCount |              0 |    15.166 ns |  0.0420 ns |  0.0372 ns |   5.27 |     0.02 |
+|              LowCostLinqWithStructWhereCount |              0 |    15.213 ns |  0.0242 ns |  0.0226 ns |   5.29 |     0.01 |
+|                                  LinqToArray |              0 |    23.058 ns |  0.0282 ns |  0.0250 ns |   8.01 |     0.02 |
+|               LowCostLinqWithDelegateToArray |              0 |    19.906 ns |  0.0605 ns |  0.0566 ns |   6.92 |     0.02 |
+|                 LowCostLinqWithStructToArray |              0 |    18.450 ns |  0.0671 ns |  0.0628 ns |   6.41 |     0.02 |
+|                                         Take |              0 |    24.408 ns |  0.0359 ns |  0.0319 ns |   8.48 |     0.02 |
+|                                  LowCostTake |              0 |    25.807 ns |  0.0240 ns |  0.0213 ns |   8.97 |     0.02 |
+|                        LowCostTakeWithStruct |              0 |    33.307 ns |  0.0098 ns |  0.0092 ns |  11.58 |     0.02 |
+|                               SkipTakeSingle |              0 |    37.826 ns |  0.0461 ns |  0.0409 ns |  13.15 |     0.03 |
+|                        LowCostSkipTakeSingle |              0 |    29.181 ns |  0.0996 ns |  0.0931 ns |  10.14 |     0.04 |
+|              LowCostSkipTakeSingleWithStruct |              0 |    31.028 ns |  0.0041 ns |  0.0036 ns |  10.78 |     0.02 |
+|                              ForeachDelegate |              0 |     5.874 ns |  0.0165 ns |  0.0154 ns |   2.04 |     0.01 |
+|                                      Foreach |              0 |     2.728 ns |  0.0140 ns |  0.0124 ns |   0.95 |     0.00 |
+|                                          For |              0 |     2.877 ns |  0.0054 ns |  0.0048 ns |   1.00 |     0.00 |
+|                                              |                |              |            |            |        |          |
+|                                         **Linq** |           **1000** | **5,157.825 ns** | **73.8549 ns** | **69.0839 ns** |  **20.52** |     **0.27** |
+|                      LowCostLinqWithDelegate |           1000 | 2,689.320 ns |  4.9380 ns |  4.1234 ns |  10.70 |     0.02 |
+|                     LowCostLinqWithDelegate2 |           1000 | 2,933.969 ns |  7.9713 ns |  7.4563 ns |  11.67 |     0.03 |
+|                   LowCostLinqWithStructWhere |           1000 | 1,481.786 ns |  0.9019 ns |  0.7041 ns |   5.89 |     0.01 |
+|     LowCostLinqWithDelegateCastToIEnumerable |           1000 | 7,496.390 ns | 10.4323 ns |  8.7114 ns |  29.82 |     0.06 |
+| LowCostLinqWithStructFilterCastToIEnumerable |           1000 | 5,541.925 ns | 14.5691 ns | 12.9151 ns |  22.05 |     0.06 |
+|                                    LinqCount |           1000 | 1,490.658 ns |  1.8349 ns |  1.7164 ns |   5.93 |     0.01 |
+|                 LowCostLinqWithDelegateCount |           1000 | 2,205.828 ns |  1.6457 ns |  1.3742 ns |   8.77 |     0.01 |
+|              LowCostLinqWithStructWhereCount |           1000 | 1,328.615 ns |  0.3020 ns |  0.2677 ns |   5.29 |     0.01 |
+|                                  LinqToArray |           1000 | 2,864.356 ns | 21.8868 ns | 20.4729 ns |  11.39 |     0.08 |
+|               LowCostLinqWithDelegateToArray |           1000 | 3,959.281 ns |  7.2707 ns |  6.8010 ns |  15.75 |     0.04 |
+|                 LowCostLinqWithStructToArray |           1000 | 2,269.767 ns | 15.1197 ns | 14.1430 ns |   9.03 |     0.06 |
+|                                         Take |           1000 |   292.459 ns |  0.3652 ns |  0.3238 ns |   1.16 |     0.00 |
+|                                  LowCostTake |           1000 |    92.406 ns |  0.5786 ns |  0.5412 ns |   0.37 |     0.00 |
+|                        LowCostTakeWithStruct |           1000 |    61.544 ns |  0.0995 ns |  0.0882 ns |   0.24 |     0.00 |
+|                               SkipTakeSingle |           1000 |   187.139 ns |  0.3540 ns |  0.3311 ns |   0.74 |     0.00 |
+|                        LowCostSkipTakeSingle |           1000 |    89.985 ns |  0.1190 ns |  0.0994 ns |   0.36 |     0.00 |
+|              LowCostSkipTakeSingleWithStruct |           1000 |    55.423 ns |  0.0721 ns |  0.0639 ns |   0.22 |     0.00 |
+|                              ForeachDelegate |           1000 | 1,687.191 ns |  1.9071 ns |  1.5925 ns |   6.71 |     0.01 |
+|                                      Foreach |           1000 |   488.193 ns |  0.6908 ns |  0.5768 ns |   1.94 |     0.00 |
+|                                          For |           1000 |   251.387 ns |  0.4514 ns |  0.4002 ns |   1.00 |     0.00 |
+|                                              |                |              |            |            |        |          |
+|                                         **Linq** |              **5** |    **62.218 ns** |  **0.7309 ns** |  **0.6479 ns** |  **14.61** |     **0.15** |
+|                      LowCostLinqWithDelegate |              5 |    33.589 ns |  0.0692 ns |  0.0614 ns |   7.89 |     0.02 |
+|                     LowCostLinqWithDelegate2 |              5 |    42.853 ns |  0.1226 ns |  0.1147 ns |  10.07 |     0.03 |
+|                   LowCostLinqWithStructWhere |              5 |    27.872 ns |  0.0546 ns |  0.0484 ns |   6.55 |     0.01 |
+|     LowCostLinqWithDelegateCastToIEnumerable |              5 |    74.114 ns |  0.2279 ns |  0.2132 ns |  17.41 |     0.05 |
+| LowCostLinqWithStructFilterCastToIEnumerable |              5 |    65.025 ns |  0.3239 ns |  0.3030 ns |  15.27 |     0.07 |
+|                                    LinqCount |              5 |    41.390 ns |  0.1826 ns |  0.1708 ns |   9.72 |     0.04 |
+|                 LowCostLinqWithDelegateCount |              5 |    27.335 ns |  0.1031 ns |  0.0861 ns |   6.42 |     0.02 |
+|              LowCostLinqWithStructWhereCount |              5 |    18.293 ns |  0.0271 ns |  0.0253 ns |   4.30 |     0.01 |
+|                                  LinqToArray |              5 |    96.475 ns |  0.4087 ns |  0.3623 ns |  22.66 |     0.08 |
+|               LowCostLinqWithDelegateToArray |              5 |    69.691 ns |  0.4290 ns |  0.4013 ns |  16.37 |     0.09 |
+|                 LowCostLinqWithStructToArray |              5 |    58.229 ns |  0.2736 ns |  0.2425 ns |  13.68 |     0.06 |
+|                                         Take |              5 |   127.173 ns |  0.8404 ns |  0.7861 ns |  29.87 |     0.18 |
+|                                  LowCostTake |              5 |    41.585 ns |  0.1187 ns |  0.1110 ns |   9.77 |     0.03 |
+|                        LowCostTakeWithStruct |              5 |    50.482 ns |  0.0584 ns |  0.0546 ns |  11.86 |     0.02 |
+|                               SkipTakeSingle |              5 |   112.337 ns |  0.4323 ns |  0.3610 ns |  26.38 |     0.08 |
+|                        LowCostSkipTakeSingle |              5 |    39.451 ns |  0.1267 ns |  0.1185 ns |   9.27 |     0.03 |
+|              LowCostSkipTakeSingleWithStruct |              5 |    36.382 ns |  0.0757 ns |  0.0709 ns |   8.55 |     0.02 |
+|                              ForeachDelegate |              5 |    14.010 ns |  0.0993 ns |  0.0929 ns |   3.29 |     0.02 |
+|                                      Foreach |              5 |     5.502 ns |  0.0181 ns |  0.0161 ns |   1.29 |     0.00 |
+|                                          For |              5 |     4.258 ns |  0.0045 ns |  0.0037 ns |   1.00 |     0.00 |
+|                                              |                |              |            |            |        |          |
+|                                         **Linq** |             **50** |   **308.299 ns** |  **1.1797 ns** |  **1.1035 ns** |  **18.85** |     **0.15** |
+|                      LowCostLinqWithDelegate |             50 |   154.925 ns |  0.7800 ns |  0.6915 ns |   9.47 |     0.08 |
+|                     LowCostLinqWithDelegate2 |             50 |   179.197 ns |  0.8647 ns |  0.7665 ns |  10.96 |     0.09 |
+|                   LowCostLinqWithStructWhere |             50 |    91.260 ns |  0.2691 ns |  0.2517 ns |   5.58 |     0.04 |
+|     LowCostLinqWithDelegateCastToIEnumerable |             50 |   420.429 ns |  3.5624 ns |  3.1580 ns |  25.71 |     0.26 |
+| LowCostLinqWithStructFilterCastToIEnumerable |             50 |   328.490 ns |  4.5452 ns |  4.0292 ns |  20.09 |     0.28 |
+|                                    LinqCount |             50 |   117.365 ns |  0.3859 ns |  0.3421 ns |   7.18 |     0.06 |
+|                 LowCostLinqWithDelegateCount |             50 |   129.503 ns |  0.5164 ns |  0.4312 ns |   7.92 |     0.06 |
+|              LowCostLinqWithStructWhereCount |             50 |    67.165 ns |  0.0237 ns |  0.0185 ns |   4.11 |     0.03 |
+|                                  LinqToArray |             50 |   360.752 ns |  1.1746 ns |  1.0988 ns |  22.06 |     0.17 |
+|               LowCostLinqWithDelegateToArray |             50 |   300.905 ns |  2.3831 ns |  2.1125 ns |  18.40 |     0.18 |
+|                 LowCostLinqWithStructToArray |             50 |   207.061 ns |  2.3219 ns |  2.0583 ns |  12.66 |     0.15 |
+|                                         Take |             50 |   291.570 ns |  1.2940 ns |  1.0806 ns |  17.83 |     0.14 |
+|                                  LowCostTake |             50 |    92.227 ns |  0.0667 ns |  0.0591 ns |   5.64 |     0.04 |
+|                        LowCostTakeWithStruct |             50 |    61.141 ns |  0.0697 ns |  0.0582 ns |   3.74 |     0.03 |
+|                               SkipTakeSingle |             50 |   186.924 ns |  2.0708 ns |  1.8358 ns |  11.43 |     0.14 |
+|                        LowCostSkipTakeSingle |             50 |    90.188 ns |  0.1680 ns |  0.1489 ns |   5.52 |     0.04 |
+|              LowCostSkipTakeSingleWithStruct |             50 |    54.934 ns |  0.1243 ns |  0.1102 ns |   3.36 |     0.03 |
+|                              ForeachDelegate |             50 |    94.644 ns |  0.0883 ns |  0.0737 ns |   5.79 |     0.04 |
+|                                      Foreach |             50 |    27.445 ns |  0.1064 ns |  0.0995 ns |   1.68 |     0.01 |
+|                                          For |             50 |    16.354 ns |  0.1479 ns |  0.1235 ns |   1.00 |     0.00 |
