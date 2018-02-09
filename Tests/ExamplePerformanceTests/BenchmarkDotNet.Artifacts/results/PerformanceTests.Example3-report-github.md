@@ -2,17 +2,17 @@
 
 BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.214)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
-Frequency=3914065 Hz, Resolution=255.4889 ns, Timer=TSC
+Frequency=3914068 Hz, Resolution=255.4887 ns, Timer=TSC
 .NET Core SDK=2.1.4
   [Host]     : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
   DefaultJob : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
 
 
 ```
-|                            Method |        Mean |     Error |    StdDev | Scaled | ScaledSD |    Gen 0 | Allocated |
-|---------------------------------- |------------:|----------:|----------:|-------:|---------:|---------:|----------:|
-|                       LinqExample | 11,763.2 us | 32.398 us | 28.720 us |  16.15 |     0.05 | 109.3750 |  480000 B |
-|                LowCostLinqExample | 11,345.6 us | 64.219 us | 60.070 us |  15.57 |     0.08 |        - |       0 B |
-|      EvenBetterLowCostLinqExample |  2,695.9 us | 16.479 us | 15.415 us |   3.70 |     0.02 |        - |       0 B |
-| NearOptimalSolutionUsingDelegates |  6,023.1 us | 24.216 us | 22.652 us |   8.27 |     0.03 |        - |       0 B |
-|               NearOptimalSolution |    728.5 us |  1.460 us |  1.365 us |   1.00 |     0.00 |        - |       0 B |
+|                            Method |        Mean |     Error |     StdDev | Scaled | ScaledSD |    Gen 0 | Allocated |
+|---------------------------------- |------------:|----------:|-----------:|-------:|---------:|---------:|----------:|
+|                       LinqExample | 11,746.0 us | 93.227 us | 87.2050 us |  16.29 |     0.12 | 109.3750 |  480000 B |
+|                LowCostLinqExample |  8,674.3 us | 25.834 us | 24.1653 us |  12.03 |     0.04 |        - |       0 B |
+|      EvenBetterLowCostLinqExample |  2,739.1 us |  1.619 us |  1.5144 us |   3.80 |     0.00 |        - |       0 B |
+| NearOptimalSolutionUsingDelegates |  5,978.8 us |  4.903 us |  4.5863 us |   8.29 |     0.01 |        - |       0 B |
+|               NearOptimalSolution |    721.2 us |  1.072 us |  0.8952 us |   1.00 |     0.00 |        - |       0 B |
