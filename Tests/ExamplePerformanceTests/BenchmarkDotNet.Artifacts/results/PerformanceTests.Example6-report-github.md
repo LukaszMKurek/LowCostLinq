@@ -1,18 +1,18 @@
 ``` ini
 
-BenchmarkDotNet=v0.10.12, OS=Windows 10 Redstone 3 [1709, Fall Creators Update] (10.0.16299.214)
-Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical cores and 4 physical cores
-Frequency=3914068 Hz, Resolution=255.4887 ns, Timer=TSC
-.NET Core SDK=2.1.4
-  [Host]     : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
-  DefaultJob : .NET Core 2.0.5 (Framework 4.6.26020.03), 64bit RyuJIT
+BenchmarkDotNet=v0.11.0, OS=Windows 10.0.17134.228 (1803/April2018Update/Redstone4)
+Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
+Frequency=3914070 Hz, Resolution=255.4885 ns, Timer=TSC
+.NET Core SDK=2.1.302
+  [Host]     : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT
+  DefaultJob : .NET Core 2.1.2 (CoreCLR 4.6.26628.05, CoreFX 4.6.26629.01), 64bit RyuJIT
 
 
 ```
-|                            Method |        Mean |     Error |    StdDev | Scaled | ScaledSD |    Gen 0 | Allocated |
-|---------------------------------- |------------:|----------:|----------:|-------:|---------:|---------:|----------:|
-|                       LinqExample | 10,355.3 us | 1.1865 us | 1.0518 us |  39.12 |     0.02 | 218.7500 |  960000 B |
-|                LowCostLinqExample |  2,694.9 us | 0.5174 us | 0.4321 us |  10.18 |     0.00 |        - |       0 B |
-|      EvenBetterLowCostLinqExample |  1,731.1 us | 0.1981 us | 0.1756 us |   6.54 |     0.00 |        - |       0 B |
-| NearOptimalSolutionUsingDelegates |  1,547.0 us | 0.1009 us | 0.0788 us |   5.84 |     0.00 |        - |       0 B |
-|               NearOptimalSolution |    264.7 us | 0.1535 us | 0.1282 us |   1.00 |     0.00 |        - |       0 B |
+|                            Method |       Mean |     Error |    StdDev | Scaled | ScaledSD |    Gen 0 | Allocated |
+|---------------------------------- |-----------:|----------:|----------:|-------:|---------:|---------:|----------:|
+|                       LinqExample | 9,500.2 us | 1.4362 us | 1.2731 us |  35.84 |     0.02 | 218.7500 |  960000 B |
+|                LowCostLinqExample | 2,954.6 us | 1.4645 us | 1.2982 us |  11.15 |     0.01 |        - |       0 B |
+|      EvenBetterLowCostLinqExample | 1,761.0 us | 0.2287 us | 0.2139 us |   6.64 |     0.00 |        - |       0 B |
+| NearOptimalSolutionUsingDelegates | 1,569.5 us | 1.7803 us | 1.5782 us |   5.92 |     0.01 |        - |       0 B |
+|               NearOptimalSolution |   265.1 us | 0.1488 us | 0.1391 us |   1.00 |     0.00 |        - |       0 B |
