@@ -13,7 +13,7 @@ namespace PerformanceTests
 
     public class EnumerableArrayWhere3<T> : EnumerableWhere3Base<T>
     {
-        protected override IEnumerable<T> _collection => EnumerableArray[CollectionSize];
+        protected override IEnumerable<T> _collection => EnumerableArray[CollectionSize.Value];
     }
 
     public class EnumerableListWhere3Int : EnumerableListWhere3<int>
@@ -21,7 +21,7 @@ namespace PerformanceTests
 
     public class EnumerableListWhere3<T> : EnumerableWhere3Base<T>
     {
-        protected override IEnumerable<T> _collection => EnumerableList[CollectionSize];
+        protected override IEnumerable<T> _collection => EnumerableList[CollectionSize.Value];
     }
 
     public class EnumerableReadonlyCollectionWhere3Int : EnumerableReadonlyCollectionWhere3<int>
@@ -29,7 +29,7 @@ namespace PerformanceTests
 
     public class EnumerableReadonlyCollectionWhere3<T> : EnumerableWhere3Base<T>
     {
-        protected override IEnumerable<T> _collection => EnumerableReadonlyCollection[CollectionSize];
+        protected override IEnumerable<T> _collection => EnumerableReadonlyCollection[CollectionSize.Value];
     }
 
     [SuppressMessage("ReSharper", "UnusedVariable")]

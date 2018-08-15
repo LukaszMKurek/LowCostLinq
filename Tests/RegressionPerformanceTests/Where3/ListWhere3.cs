@@ -14,7 +14,7 @@ namespace PerformanceTests
     [SuppressMessage("ReSharper", "UnusedVariable")]
     public class ListWhere3<T> : BaseBenchmark<T>
     {
-        private List<T> _collection => List[CollectionSize];
+        private List<T> _collection => List[CollectionSize.Value];
 
         [Benchmark]
         public int Linq()

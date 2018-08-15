@@ -14,7 +14,7 @@ namespace PerformanceTests
     [SuppressMessage("ReSharper", "UnusedVariable")]
     public class ArrayWhere4<T> : BaseBenchmark<T>
     {
-        private T[] _collection => Array[CollectionSize];
+        private T[] _collection => Array[CollectionSize.Value];
 
         [Benchmark]
         public int Linq()

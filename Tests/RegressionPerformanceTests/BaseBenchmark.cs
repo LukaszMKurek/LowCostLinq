@@ -6,27 +6,27 @@ using BenchmarkDotNet.Diagnosers;
 
 namespace PerformanceTests
 {
+    public class CustomParam
+    {
+        private readonly int index;
+        private readonly int size;
+
+        public CustomParam(int index, int size)
+        {
+            this.index = index;
+            this.size = size;
+        }
+
+        public int Value => index;
+
+        public override string ToString() => $"[{size}]";
+    }
+
     //[MemoryDiagnoser]
     //[HardwareCounters(HardwareCounter.BranchMispredictions)]
     public abstract class BaseBenchmark<T>
     {
-        public class CustomParam : IParam
-        {
-            private readonly int index;
-            private readonly int size;
-
-            public CustomParam(int index, int size)
-            {
-                this.index = index;
-                this.size = size;
-            }
-
-            public object Value => index;
-
-            public string DisplayText => $"{size}";
-
-            public string ToSourceCode() => $"{index}";
-        }
+       
 
         private const int I_0 = 0;
         private const int I_1 = 1;
@@ -41,7 +41,7 @@ namespace PerformanceTests
         private const int I_10 = 10000;
         private const int I_11 = 100000;
 
-        public IEnumerable<IParam> Parameters()
+        public IEnumerable<CustomParam> Parameters()
         {
             yield return new CustomParam(0, I_0);
             //yield return new CustomParam(1, I_1);
@@ -58,7 +58,7 @@ namespace PerformanceTests
         }
         
         [ParamsSource(nameof(Parameters))]
-        public int CollectionSize { get; set; }
+        public CustomParam CollectionSize { get; set; }
 
         public static readonly T[][] Array = new[]
         {
