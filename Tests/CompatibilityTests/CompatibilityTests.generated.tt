@@ -105,10 +105,10 @@
 	void SaveOutput(string outputFileName)
 	{
 		string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
-		if (Directory.Exists(templateDirectory) == false)
-			Directory.CreateDirectory(templateDirectory);
-
 		string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+		if (Directory.Exists(Path.GetDirectoryName(outputFilePath)) == false)
+			Directory.CreateDirectory(Path.GetDirectoryName(outputFilePath));
+		
 		File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
 
 		this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
