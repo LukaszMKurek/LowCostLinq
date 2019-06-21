@@ -31,7 +31,7 @@ namespace LowCostLinq
             private TCollectionIterator _iterator;
             private TFilter1 _filter1;
             private TOut _current;
-            private bool _work;
+            private bool _end;
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal Enumerator(in TCollectionWrapper collection, in TFilter1 filter1)
@@ -39,33 +39,30 @@ namespace LowCostLinq
                 _iterator = collection.GetIteratorWrapper();
                 _filter1 = filter1;
                 _current = default;
-                _work = true;
+                _end = false;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext()
             {
                 TIn input = default;
-                
-                if (_work)
-                {
-                    bool willBreak = false;
 
+                if (_end == false)
+                {
                     do
                     {
-                        if (_iterator.MoveNext(ref input)) // it look weard but in dotnet core 2.0 is the fastest options
+                        if (_iterator.MoveNext(ref input))
                         {
-                            if (_filter1.Filter(ref input, out _current, ref willBreak))
+                            if (_filter1.Filter(ref input, out _current, ref _end))
                             {
                                 return true;
                             }
                         }
                         else
-                            break;
+                            _end = true;
                     }
-                    while (willBreak == false);
+                    while (_end == false);
 
-                    _work = false;
                     Dispose();
                 }
 

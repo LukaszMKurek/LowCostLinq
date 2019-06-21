@@ -137,22 +137,22 @@ namespace LowCostLinq.CollectionWrappers
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal Iterator(TEnumerable enumerable)
             {
+                _currentIndex = 0u;
                 _array = enumerable as TIn[];
-                _currentIndex = 0;
                 if (_array != null)
                 {
-                    _case = 0;
+                    _case = 0u;
                     _enumerator = null;
                 }
                 else if (enumerable is List<TIn> list)
                 {
-                    _case = 1;
+                    _case = 1u;
                     _listEnumerator = list.GetEnumerator();
                     _enumerator = null;
                 }
                 else
                 {
-                    _case = 2;
+                    _case = 2u;
                     _enumerator = enumerable.GetEnumerator();
                 }
             }
@@ -162,16 +162,19 @@ namespace LowCostLinq.CollectionWrappers
             {
                 switch (_case)
                 {
-                    case 0:
+                    case 0u:
 
-                        if (_currentIndex < unchecked((uint)_array.Length))
+                        var currentIndex = unchecked(_currentIndex++);
+                        var array = _array;
+
+                        if (currentIndex < (uint)array.Length)
                         {
-                            output = _array[unchecked(_currentIndex++)];
+                            output = array[currentIndex]; // todo ref?
                             return true;
                         }
 
                         break;
-                    case 1:
+                    case 1u:
 
                         if (_listEnumerator.MoveNext())
                         {
@@ -180,7 +183,7 @@ namespace LowCostLinq.CollectionWrappers
                         }
 
                         break;
-                    //case 2:
+                    //case 2u:
                     default:
 
                         if (_enumerator.MoveNext())

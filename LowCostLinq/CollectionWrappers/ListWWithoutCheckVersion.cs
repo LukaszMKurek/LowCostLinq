@@ -69,22 +69,25 @@ namespace LowCostLinq.CollectionWrappers
         [StructLayout(LayoutKind.Auto)]
         public struct Iterator : ICollectionIterator<TIn>
         {
-            private readonly List<TIn> _list;
             private int _currentIndex;
-
+            private readonly List<TIn> _list;
+            
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal Iterator(List<TIn> list)
             {
-                _list = list;
                 _currentIndex = 0;
+                _list = list;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext(ref TIn output)
             {
-                if (_currentIndex < _list.Count)
+                var currentIndex = unchecked(_currentIndex++);
+                var list = _list;
+
+                if (currentIndex < list.Count)
                 {
-                    output = _list[unchecked(_currentIndex++)];
+                    output = list[currentIndex];
                     return true;
                 }
 

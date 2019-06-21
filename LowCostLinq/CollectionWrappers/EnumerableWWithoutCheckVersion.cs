@@ -128,6 +128,7 @@ namespace LowCostLinq.CollectionWrappers
         [StructLayout(LayoutKind.Auto)]
         public struct Iterator : ICollectionIterator<TIn>
         {
+            private uint _currentIndexU;
             private int _currentIndex;
             private readonly uint _case;
             private readonly TIn[] _array;
@@ -137,22 +138,23 @@ namespace LowCostLinq.CollectionWrappers
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal Iterator(TEnumerable enumerable)
             {
+                _currentIndexU = 0u;
+                _currentIndex = 0;
                 _array = enumerable as TIn[];
                 _list = enumerable as List<TIn>;
-                _currentIndex = 0;
                 if (_array != null)
                 {
-                    _case = 0;
+                    _case = 0u;
                     _enumerator = null;
                 }
                 else if (_list != null)
                 {
-                    _case = 1;
+                    _case = 1u;
                     _enumerator = null;
                 }
                 else
                 {
-                    _case = 2;
+                    _case = 2u;
                     _enumerator = enumerable.GetEnumerator();
                 }
             }
@@ -162,25 +164,31 @@ namespace LowCostLinq.CollectionWrappers
             {
                 switch (_case)
                 {
-                    case 0:
+                    case 0u:
 
-                        if (unchecked((uint)_currentIndex) < unchecked((uint)_array.Length))
+                        var currentIndexU = unchecked(_currentIndexU++);
+                        var array = _array;
+
+                        if (currentIndexU < (uint)array.Length)
                         {
-                            output = _array[unchecked(_currentIndex++)];
+                            output = array[currentIndexU]; // todo ref?
                             return true;
                         }
 
                         break;
-                    case 1:
+                    case 1u:
 
-                        if (_currentIndex < _list.Count)
+                        var currentIndex = unchecked(_currentIndex++);
+                        var list = _list;
+
+                        if (currentIndex < list.Count)
                         {
-                            output = _list[unchecked(_currentIndex++)];
+                            output = list[currentIndex];
                             return true;
                         }
 
                         break;
-                    //case 2:
+                    //case 2u:
                     default:
 
                         if (_enumerator.MoveNext())
