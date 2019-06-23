@@ -26,11 +26,13 @@ namespace LowCostLinq.CollectionWrappers
         public void Iterate<TAcc>(ref TAcc acc)
             where TAcc : struct, IAccumulator<int>
         {
+            TAcc accLocal = acc;
             for (int i = _start; i < _max; i = unchecked(i + 1))
             {
-                if (acc.Accumulate(ref i))
+                if (accLocal.Accumulate(ref i))
                     break;
             }
+            acc = accLocal;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -38,18 +40,20 @@ namespace LowCostLinq.CollectionWrappers
             where TFilter1 : struct, IFilter<int, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (int i = _start; i < _max; i = unchecked(i + 1))
             {
                 if (filter1.Filter(ref i, out var current, ref willBreak))
                 {
-                    willBreak = acc.Accumulate(ref current);
+                    willBreak = accLocal.Accumulate(ref current);
                 }
 
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -58,6 +62,7 @@ namespace LowCostLinq.CollectionWrappers
             where TFilter2 : struct, IFilter<TMid1, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (int i = _start; i < _max; i = unchecked(i + 1))
@@ -66,13 +71,14 @@ namespace LowCostLinq.CollectionWrappers
                 {
                     if (filter2.Filter(ref mid1, out var output, ref willBreak))
                     {
-                        willBreak = acc.Accumulate(ref output);
+                        willBreak = accLocal.Accumulate(ref output);
                     }
                 }
 
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -82,6 +88,7 @@ namespace LowCostLinq.CollectionWrappers
             where TFilter3 : struct, IFilter<TMid2, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (int i = _start; i < _max; i = unchecked(i + 1))
@@ -92,7 +99,7 @@ namespace LowCostLinq.CollectionWrappers
                     {
                         if (filter3.Filter(ref mid2, out var output, ref willBreak))
                         {
-                            willBreak = acc.Accumulate(ref output);
+                            willBreak = accLocal.Accumulate(ref output);
                         }
                     }
                 }
@@ -100,6 +107,7 @@ namespace LowCostLinq.CollectionWrappers
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -110,6 +118,7 @@ namespace LowCostLinq.CollectionWrappers
             where TFilter4 : struct, IFilter<TMid3, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (int i = _start; i < _max; i = unchecked(i + 1))
@@ -122,7 +131,7 @@ namespace LowCostLinq.CollectionWrappers
                         {
                             if (filter4.Filter(ref mid3, out var output, ref willBreak))
                             {
-                                willBreak = acc.Accumulate(ref output);
+                                willBreak = accLocal.Accumulate(ref output);
                             }
                         }
                     }
@@ -131,6 +140,7 @@ namespace LowCostLinq.CollectionWrappers
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         [StructLayout(LayoutKind.Auto)]

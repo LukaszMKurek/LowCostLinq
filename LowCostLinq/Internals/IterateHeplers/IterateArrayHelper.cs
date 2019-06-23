@@ -8,29 +8,33 @@ namespace LowCostLinq.Internals.IterateHeplers
         internal static void IterateArray<TIn, TAcc>(TIn[] array, ref TAcc acc)
             where TAcc : struct, IAccumulator<TIn>
         {
+            TAcc accLocal = acc;
             for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
-                if (acc.Accumulate(ref array[i]))
+                if (accLocal.Accumulate(ref array[i]))
                     break;
             }
+            acc = accLocal;
         }
 
         internal static void IterateArray<TIn, TFilter1, TOut, TAcc>(TIn[] array, TFilter1 filter1, ref TAcc acc)
             where TFilter1 : struct, IFilter<TIn, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
             {
                 if (filter1.Filter(ref array[i], out var current, ref willBreak))
                 {
-                    willBreak = acc.Accumulate(ref current);
+                    willBreak = accLocal.Accumulate(ref current);
                 }
 
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         internal static void IterateArray<TIn, TFilter1, TMid1, TFilter2, TOut, TAcc>(TIn[] array, TFilter1 filter1,
@@ -39,6 +43,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TFilter2 : struct, IFilter<TMid1, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
@@ -47,13 +52,14 @@ namespace LowCostLinq.Internals.IterateHeplers
                 {
                     if (filter2.Filter(ref mid1, out var output, ref willBreak))
                     {
-                        willBreak = acc.Accumulate(ref output);
+                        willBreak = accLocal.Accumulate(ref output);
                     }
                 }
 
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         internal static void IterateArray<TIn, TFilter1, TMid1, TFilter2, TMid2, TFilter3, TOut, TAcc>(TIn[] array,
@@ -63,6 +69,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TFilter3 : struct, IFilter<TMid2, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
@@ -73,7 +80,7 @@ namespace LowCostLinq.Internals.IterateHeplers
                     {
                         if (filter3.Filter(ref mid2, out var output, ref willBreak))
                         {
-                            willBreak = acc.Accumulate(ref output);
+                            willBreak = accLocal.Accumulate(ref output);
                         }
                     }
                 }
@@ -81,6 +88,7 @@ namespace LowCostLinq.Internals.IterateHeplers
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
 
         internal static void IterateArray<TIn, TFilter1, TMid1, TFilter2, TMid2, TFilter3, TMid3, TFilter4, TOut, TAcc>(
@@ -91,6 +99,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TFilter4 : struct, IFilter<TMid3, TOut>
             where TAcc : struct, IAccumulator<TOut>
         {
+            TAcc accLocal = acc;
             bool willBreak = false;
 
             for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
@@ -103,7 +112,7 @@ namespace LowCostLinq.Internals.IterateHeplers
                         {
                             if (filter4.Filter(ref mid3, out var output, ref willBreak))
                             {
-                                willBreak = acc.Accumulate(ref output);
+                                willBreak = accLocal.Accumulate(ref output);
                             }
                         }
                     }
@@ -112,6 +121,7 @@ namespace LowCostLinq.Internals.IterateHeplers
                 if (willBreak)
                     break;
             }
+            acc = accLocal;
         }
     }
 }
