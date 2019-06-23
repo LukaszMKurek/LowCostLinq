@@ -129,7 +129,6 @@ namespace LowCostLinq.CollectionWrappers
         public struct Iterator : ICollectionIterator<TIn>
         {
             private uint _currentIndex;
-            private readonly uint _case;
             private readonly TIn[] _array;
             private IEnumerator<TIn> _enumerator;
             private List<TIn>.Enumerator _listEnumerator;
@@ -139,60 +138,53 @@ namespace LowCostLinq.CollectionWrappers
             {
                 _currentIndex = 0u;
                 _array = enumerable as TIn[];
-                if (_array != null)
+                _enumerator = null;
+                if (_array == null)
                 {
-                    _case = 0u;
-                    _enumerator = null;
-                }
-                else if (enumerable is List<TIn> list)
-                {
-                    _case = 1u;
-                    _listEnumerator = list.GetEnumerator();
-                    _enumerator = null;
-                }
-                else
-                {
-                    _case = 2u;
-                    _enumerator = enumerable.GetEnumerator();
+                    if (enumerable is List<TIn> list)
+                    {
+                        _listEnumerator = list.GetEnumerator();
+                    }
+                    else
+                    {
+                        _enumerator = enumerable.GetEnumerator();
+                    }
                 }
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext(ref TIn output)
             {
-                switch (_case)
+                var array = _array;
+                if (array != null)
                 {
-                    case 0u:
+                    var currentIndex = unchecked(_currentIndex++);
 
-                        var currentIndex = unchecked(_currentIndex++);
-                        var array = _array;
-
-                        if (currentIndex < (uint)array.Length)
-                        {
-                            output = array[currentIndex]; // todo ref?
-                            return true;
-                        }
-
-                        break;
-                    case 1u:
-
+                    if (currentIndex < (uint)array.Length)
+                    {
+                        output = array[currentIndex]; // todo ref?
+                        return true;
+                    }
+                }
+                else
+                {
+                    var enumerator = _enumerator;
+                    if (enumerator == null)
+                    {
                         if (_listEnumerator.MoveNext())
                         {
                             output = _listEnumerator.Current;
                             return true;
                         }
-
-                        break;
-                    //case 2u:
-                    default:
-
-                        if (_enumerator.MoveNext())
+                    }
+                    else
+                    {
+                        if (enumerator.MoveNext())
                         {
-                            output = _enumerator.Current;
+                            output = enumerator.Current;
                             return true;
                         }
-
-                        break;
+                    }
                 }
 
                 return false;
@@ -204,7 +196,6 @@ namespace LowCostLinq.CollectionWrappers
                 _enumerator?.Dispose();
                 _enumerator = null;
                 //_listEnumerator.Dispose();
-                //_case = 3;
             }
         }
     }
