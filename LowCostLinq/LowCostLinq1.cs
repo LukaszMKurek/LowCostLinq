@@ -348,7 +348,16 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public TOut[] ToArray()
         {
-            var acc = new ToArrayAccumulator<TOut>();
+            var acc = new ToArrayAccumulatorOptimizedForDefault<TOut>(4u);
+            _collection.Iterate<TFilter1, TOut, ToArrayAccumulatorOptimizedForDefault<TOut>>(_filter1, ref acc);
+
+            return acc.ToArray();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public TOut[] ToArray(uint expectedCapacity)
+        {
+            var acc = new ToArrayAccumulator<TOut>(expectedCapacity);
             _collection.Iterate<TFilter1, TOut, ToArrayAccumulator<TOut>>(_filter1, ref acc);
 
             return acc.ToArray();
