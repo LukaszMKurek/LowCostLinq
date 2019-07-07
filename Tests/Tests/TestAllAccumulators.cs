@@ -29,6 +29,13 @@ namespace Tests
             TestCasesArray.Add(new[] { new[] { 1, 4, 5, 1 } });
             TestCasesArray.Add(new[] { new[] { 1, 4, 5, 1, 5 } });
             TestCasesArray.Add(new[] { new[] { 1, 2, 3, 4, 5, 6, 7, 1, 2, 3, 4, 7, 1, 1, 2, 3, 2, 3, 2, 7 } });
+
+            var rnd = new Random();
+            var longRandomArray = new int[rnd.Next(100, 200)];
+            for (int i = 0; i < longRandomArray.Length; i++)
+                longRandomArray[i] = rnd.Next() * (rnd.Next(0, 2) == 0 ? 1 : -1);
+
+            TestCasesArray.Add(new[] { longRandomArray });
         }
 
         [TestCaseSource(nameof(TestCasesArray))]
@@ -518,6 +525,38 @@ namespace Tests
                 input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).ToArray(),
                 input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).ToArray()
             );
+        }
+
+        [TestCaseSource(nameof(TestCasesArray))]
+        public void ToArrayWithOutputSizeHint(int[] input)
+        {
+            foreach (var sizeHint in new uint[] { 0, 1, 2, 3, 4, 5, 6, 40, 77, 10215 })
+            {
+                Assert.AreEqual(
+                    input.ToArray(),
+                    input.AsLowCostLinq().ToArray(expectedCapacity: sizeHint)
+                );
+
+                Assert.AreEqual(
+                    input.Select(i => i).ToArray(),
+                    input.AsLowCostLinq().Select(i => i).ToArray(expectedCapacity: sizeHint)
+                );
+
+                Assert.AreEqual(
+                    input.Select(i => i).Select(i => i).ToArray(),
+                    input.AsLowCostLinq().Select(i => i).Select(i => i).ToArray(expectedCapacity: sizeHint)
+                );
+
+                Assert.AreEqual(
+                    input.Select(i => i).Select(i => i).Select(i => i).ToArray(),
+                    input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).ToArray(expectedCapacity: sizeHint)
+                );
+
+                Assert.AreEqual(
+                    input.Select(i => i).Select(i => i).Select(i => i).Select(i => i).ToArray(),
+                    input.AsLowCostLinq().Select(i => i).Select(i => i).Select(i => i).Select(i => i).ToArray(expectedCapacity: sizeHint)
+                );
+            }
         }
     }
 }
