@@ -331,7 +331,16 @@ namespace LowCostLinq
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T[] ToArray()
         {
-            var acc = new ToArrayAccumulator<T>();
+            var acc = new ToArrayAccumulatorOptimizedForDefault<T>(4u);
+            _collection.Iterate(ref acc);
+
+            return acc.ToArray();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public T[] ToArray(uint expectedCapacity)
+        {
+            var acc = new ToArrayAccumulator<T>(expectedCapacity);
             _collection.Iterate(ref acc);
 
             return acc.ToArray();
