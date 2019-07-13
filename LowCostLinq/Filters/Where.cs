@@ -7,7 +7,7 @@ namespace LowCostLinq.Filters
     [StructLayout(LayoutKind.Auto)]
     public readonly struct Where<TIn> : IFilter<TIn, TIn>
     {
-        private readonly Func<TIn, bool> _where;
+        internal readonly Func<TIn, bool> _where;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Where(Func<TIn, bool> @where)

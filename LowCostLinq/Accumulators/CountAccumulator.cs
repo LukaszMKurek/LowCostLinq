@@ -1,12 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 namespace LowCostLinq.Accumulators
 {
-    [StructLayout(LayoutKind.Auto)]
     internal struct CountAccumulator<T> : IAccumulator<T>
     {
-        public int Count { get; private set; }
+        internal int Count;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Accumulate(ref T item)

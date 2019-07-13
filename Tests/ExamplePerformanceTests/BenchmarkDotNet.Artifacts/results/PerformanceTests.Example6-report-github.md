@@ -10,8 +10,8 @@ Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
 ```
 |                            Method |        Mean |     Error |    StdDev | Ratio | RatioSD |    Gen 0 | Gen 1 | Gen 2 | Allocated |
 |---------------------------------- |------------:|----------:|----------:|------:|--------:|---------:|------:|------:|----------:|
-|                       LinqExample | 10,359.4 us | 2.8206 us | 2.6383 us | 39.10 |    0.03 | 218.7500 |     - |     - |  960000 B |
-|                LowCostLinqExample |  2,922.3 us | 0.4400 us | 0.4116 us | 11.03 |    0.01 |        - |     - |     - |         - |
-|      EvenBetterLowCostLinqExample |  1,737.6 us | 0.1771 us | 0.1656 us |  6.56 |    0.00 |        - |     - |     - |         - |
-| NearOptimalSolutionUsingDelegates |  1,784.7 us | 0.2314 us | 0.2165 us |  6.74 |    0.00 |        - |     - |     - |         - |
-|               NearOptimalSolution |    264.9 us | 0.1760 us | 0.1561 us |  1.00 |    0.00 |        - |     - |     - |         - |
+|                       LinqExample | 10,356.7 us | 3.3757 us | 2.8188 us | 39.07 |    0.03 | 218.7500 |     - |     - |  960000 B |
+|                LowCostLinqExample |  2,934.5 us | 0.6059 us | 0.5668 us | 11.07 |    0.01 |        - |     - |     - |         - |
+|      EvenBetterLowCostLinqExample |  1,737.5 us | 0.2780 us | 0.2601 us |  6.55 |    0.00 |        - |     - |     - |         - |
+| NearOptimalSolutionUsingDelegates |  1,784.9 us | 0.2982 us | 0.2490 us |  6.73 |    0.00 |        - |     - |     - |         - |
+|               NearOptimalSolution |    265.1 us | 0.1571 us | 0.1469 us |  1.00 |    0.00 |        - |     - |     - |         - |

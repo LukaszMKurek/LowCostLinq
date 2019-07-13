@@ -223,6 +223,11 @@ namespace CompatibilityTests
 			AssertThatTypeIsStruct(testedEnumerator);
 
 			AssertCorrectEnumeratorBehaviour(referenceEnumerator, testedEnumerator);
+
+			var referenceEnumerator2 = reference.GetEnumerator();
+			AssertLowCostMethod(((IEnumerable<int>)tested).GetEnumerator);
+            var testedEnumerator2 = ((IEnumerable<int>)tested).GetEnumerator();
+            AssertCorrectEnumeratorBehaviour(referenceEnumerator2, testedEnumerator2);
         }
 
 

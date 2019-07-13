@@ -10,9 +10,9 @@ Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
 ```
 |                            Method |        Mean |      Error |     StdDev | Ratio | RatioSD |    Gen 0 | Gen 1 | Gen 2 | Allocated |
 |---------------------------------- |------------:|-----------:|-----------:|------:|--------:|---------:|------:|------:|----------:|
-|                       LinqExample | 1,343.67 us |  0.7022 us |  0.6225 us | 25.48 |    0.01 | 457.0313 |     - |     - | 1920000 B |
-|                LowCostLinqExample |   646.40 us | 12.7777 us | 18.3254 us | 12.22 |    0.32 |        - |     - |     - |         - |
-|           ShortLowCostLinqExample |   585.86 us |  1.1043 us |  0.9789 us | 11.11 |    0.02 |        - |     - |     - |         - |
-|      EvenBetterLowCostLinqExample |   328.41 us |  0.2001 us |  0.1774 us |  6.23 |    0.00 |        - |     - |     - |         - |
-| NearOptimalSolutionUsingDelegates |   317.24 us |  0.7690 us |  0.6817 us |  6.02 |    0.01 |        - |     - |     - |         - |
-|               NearOptimalSolution |    52.73 us |  0.0103 us |  0.0092 us |  1.00 |    0.00 |        - |     - |     - |         - |
+|                       LinqExample | 1,341.89 us |  1.2289 us |  1.0894 us | 25.56 |    0.02 | 457.0313 |     - |     - | 1920000 B |
+|                LowCostLinqExample |   608.74 us | 11.1790 us | 10.4568 us | 11.59 |    0.20 |        - |     - |     - |         - |
+|           ShortLowCostLinqExample |   629.44 us | 10.7856 us |  9.5612 us | 11.99 |    0.18 |        - |     - |     - |         - |
+|      EvenBetterLowCostLinqExample |   332.67 us |  0.0522 us |  0.0488 us |  6.34 |    0.00 |        - |     - |     - |         - |
+| NearOptimalSolutionUsingDelegates |   315.25 us |  0.0521 us |  0.0462 us |  6.00 |    0.00 |        - |     - |     - |         - |
+|               NearOptimalSolution |    52.51 us |  0.0088 us |  0.0082 us |  1.00 |    0.00 |        - |     - |     - |         - |

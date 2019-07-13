@@ -5,13 +5,19 @@ using LowCostLinq.Internals.IterateHeplers;
 
 namespace LowCostLinq.CollectionWrappers
 {
+    internal interface IEnumerableWithoutCheckVersionWrapper<TIn> : IEnumerableWrapper<TIn>
+    {
+    }
+
     /// <summary>
     /// For better performance this implementation neglect checking internal version in List
     /// </summary>
-    public readonly struct EnumerableWWithoutCheckVersion<TIn, TEnumerable> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, EnumerableWWithoutCheckVersion<TIn, TEnumerable>.Iterator>
+    public readonly struct EnumerableWWithoutCheckVersion<TIn, TEnumerable> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, EnumerableWWithoutCheckVersion<TIn, TEnumerable>.Iterator>, IEnumerableWithoutCheckVersionWrapper<TIn>
         where TEnumerable : IEnumerable<TIn>
     {
         private readonly TEnumerable _enumerable;
+
+        IEnumerable<TIn> IEnumerableWrapper<TIn>.Enumerable => _enumerable;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal EnumerableWWithoutCheckVersion(TEnumerable enumerable)

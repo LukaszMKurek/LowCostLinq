@@ -5,13 +5,20 @@ using LowCostLinq.Internals.IterateHeplers;
 
 namespace LowCostLinq.CollectionWrappers
 {
+    internal interface IEnumerableWrapper<TIn>
+    {
+        IEnumerable<TIn> Enumerable { get; }
+    }
+
     /// <summary>
     /// Slower than EnumerableWWithoutCheckVersion but identical behaviour like LINQ
     /// </summary>
-    public readonly struct EnumerableW<TIn, TEnumerable> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, EnumerableW<TIn, TEnumerable>.Iterator>
+    public readonly struct EnumerableW<TIn, TEnumerable> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, EnumerableW<TIn, TEnumerable>.Iterator>, IEnumerableWrapper<TIn>
         where TEnumerable : IEnumerable<TIn>
     {
         private readonly TEnumerable _enumerable;
+
+        IEnumerable<TIn> IEnumerableWrapper<TIn>.Enumerable => _enumerable;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal EnumerableW(TEnumerable enumerable)

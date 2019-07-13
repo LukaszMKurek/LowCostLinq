@@ -7,7 +7,7 @@ namespace LowCostLinq.CollectionWrappers
 {
     public readonly struct ListWWithoutCheckVersion<TIn> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, ListWWithoutCheckVersion<TIn>.Iterator>
     {
-        private readonly List<TIn> _list;
+        internal readonly List<TIn> _list;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal ListWWithoutCheckVersion(List<TIn> list)

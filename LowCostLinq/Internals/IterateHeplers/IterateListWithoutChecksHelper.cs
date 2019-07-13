@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using LowCostLinq.Filters;
 
 namespace LowCostLinq.Internals.IterateHeplers
 {
@@ -10,7 +11,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TAcc : struct, IAccumulator<TIn>
         {
             TAcc accLocal = acc;
-            for (int i = 0; i < list.Count; i = unchecked(i + 1))
+            for (int i = 0; i < list.Count; i++)
             {
                 var input = list[i];
                 if (accLocal.Accumulate(ref input))
@@ -24,19 +25,38 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TAcc : struct, IAccumulator<TOut>
         {
             TAcc accLocal = acc;
-            bool willBreak = false;
 
-            for (int i = 0; i < list.Count; i = unchecked(i + 1))
+            if (typeof(TFilter1) == typeof(Where<TOut>))
             {
-                var input = list[i];
-                if (filter1.Filter(ref input, out var current, ref willBreak))
-                {
-                    willBreak = accLocal.Accumulate(ref current);
-                }
+                var @where = ((Where<TOut>)(object)filter1)._where;
 
-                if (willBreak)
-                    break;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var current = (TOut)(object)list[i];
+                    if (@where(current))
+                    {
+                        if (accLocal.Accumulate(ref current))
+                            break;
+                    }
+                }
             }
+            else
+            {
+                bool willBreak = false;
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                    var input = list[i];
+                    if (filter1.Filter(ref input, out var current, ref willBreak))
+                    {
+                        willBreak = accLocal.Accumulate(ref current);
+                    }
+
+                    if (willBreak)
+                        break;
+                }
+            }
+
             acc = accLocal;
         }
 
@@ -48,7 +68,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = 0; i < list.Count; i = unchecked(i + 1))
+            for (int i = 0; i < list.Count; i++)
             {
                 var input = list[i];
                 if (filter1.Filter(ref input, out var mid1, ref willBreak))
@@ -74,7 +94,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = 0; i < list.Count; i = unchecked(i + 1))
+            for (int i = 0; i < list.Count; i++)
             {
                 var input = list[i];
                 if (filter1.Filter(ref input, out var mid1, ref willBreak))
@@ -104,7 +124,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = 0; i < list.Count; i = unchecked(i + 1))
+            for (int i = 0; i < list.Count; i++)
             {
                 var input = list[i];
                 if (filter1.Filter(ref input, out var mid1, ref willBreak))

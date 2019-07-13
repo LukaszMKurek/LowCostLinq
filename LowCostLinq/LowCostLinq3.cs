@@ -113,17 +113,281 @@ namespace LowCostLinq
         {
             return new Enumerator(_collection, _filter1, _filter2, _filter3);
         }
+        
+        private sealed class EnumeratorArray : IEnumerator<TOut> // todo ienumerable i ToEnumerabele
+        {
+            private uint _currentIndex;
+            private readonly TIn[] _array;
+            private TFilter1 _filter1;
+            private TFilter2 _filter2;
+            private TFilter3 _filter3;
+            private TOut _current;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            internal EnumeratorArray(TIn[] array, in TFilter1 filter1, in TFilter2 filter2, in TFilter3 filter3)
+            {
+                _currentIndex = 0u;
+                _array = array;
+                _filter1 = filter1;
+                _filter2 = filter2;
+                _filter3 = filter3;
+                _current = default;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public bool MoveNext()
+            {
+                bool willBreak = false;
+                do
+                {
+                    if (_currentIndex < (uint)_array.Length)
+                    {
+                        if (_filter1.Filter(ref _array[_currentIndex++], out var mid1, ref willBreak))
+                        {
+                            if (_filter2.Filter(ref mid1, out var mid2, ref willBreak))
+                            {
+                                if (_filter3.Filter(ref mid2, out _current, ref willBreak))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        break;
+                }
+                while (willBreak == false);
+
+                _currentIndex = UInt32.MaxValue;
+                return false;
+            }
+
+            public void Reset() => throw new NotImplementedException();
+
+            public TOut Current { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return _current; } }
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose() { }
+        }
+
+        private sealed class EnumeratorListWithoutCheckVersion : IEnumerator<TOut> // todo ienumerable i ToEnumerabele
+        {
+            private int _currentIndex;
+            private readonly List<TIn> _list;
+            private TFilter1 _filter1;
+            private TFilter2 _filter2;
+            private TFilter3 _filter3;
+            private TOut _current;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            internal EnumeratorListWithoutCheckVersion(List<TIn> list, in TFilter1 filter1, in TFilter2 filter2, in TFilter3 filter3)
+            {
+                _currentIndex = 0;
+                _list = list;
+                _filter1 = filter1;
+                _filter2 = filter2;
+                _filter3 = filter3;
+                _current = default;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public bool MoveNext()
+            {
+                bool willBreak = false;
+                do
+                {
+                    if (_currentIndex < _list.Count)
+                    {
+                        var input = _list[_currentIndex++];
+                        if (_filter1.Filter(ref input, out var mid1, ref willBreak))
+                        {
+                            if (_filter2.Filter(ref mid1, out var mid2, ref willBreak))
+                            {
+                                if (_filter3.Filter(ref mid2, out _current, ref willBreak))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        break;
+                }
+                while (willBreak == false);
+
+                _currentIndex = Int32.MaxValue;
+                return false;
+            }
+
+            public void Reset() => throw new NotImplementedException();
+
+            public TOut Current { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return _current; } }
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose() { }
+        }
+
+        private sealed class EnumeratorList : IEnumerator<TOut> // todo ienumerable i ToEnumerabele
+        {
+            private List<TIn>.Enumerator _listEnumerator;
+            private TFilter1 _filter1;
+            private TFilter2 _filter2;
+            private TFilter3 _filter3;
+            private TOut _current;
+            private bool _end;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            internal EnumeratorList(List<TIn> list, in TFilter1 filter1, in TFilter2 filter2, in TFilter3 filter3)
+            {
+                _listEnumerator = list.GetEnumerator();
+                _filter1 = filter1;
+                _filter2 = filter2;
+                _filter3 = filter3;
+                _current = default;
+                _end = false;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public bool MoveNext()
+            {
+                bool willBreak = _end;
+                while (willBreak == false)
+                {
+                    if (_listEnumerator.MoveNext())
+                    {
+                        var input = _listEnumerator.Current;
+                        if (_filter1.Filter(ref input, out var mid1, ref willBreak))
+                        {
+                            if (_filter2.Filter(ref mid1, out var mid2, ref willBreak))
+                            {
+                                if (_filter3.Filter(ref mid2, out _current, ref willBreak))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        break;
+                }
+
+                _end = true;
+                return false;
+            }
+
+            public void Reset() => throw new NotImplementedException();
+
+            public TOut Current { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return _current; } }
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose() { }
+        }
+
+        private sealed class EnumeratorEnumerable : IEnumerator<TOut> // todo ienumerable i ToEnumerabele
+        {
+            private IEnumerator<TIn> _enumerator;
+            private TFilter1 _filter1;
+            private TFilter2 _filter2;
+            private TFilter3 _filter3;
+            private TOut _current;
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            internal EnumeratorEnumerable(IEnumerable<TIn> enumerable, in TFilter1 filter1, in TFilter2 filter2, in TFilter3 filter3)
+            {
+                _enumerator = enumerable.GetEnumerator();
+                _filter1 = filter1;
+                _filter2 = filter2;
+                _filter3 = filter3;
+                _current = default;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public bool MoveNext()
+            {
+                if (_enumerator == null)
+                    return false;
+
+                bool willBreak = false;
+                do
+                {
+                    if (_enumerator.MoveNext())
+                    {
+                        var input = _enumerator.Current;
+                        if (_filter1.Filter(ref input, out var mid1, ref willBreak))
+                        {
+                            if (_filter2.Filter(ref mid1, out var mid2, ref willBreak))
+                            {
+                                if (_filter3.Filter(ref mid2, out _current, ref willBreak))
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                    else
+                        break;
+                }
+                while (willBreak == false);
+
+                Dispose();
+
+                return false;
+            }
+
+            public void Reset() => throw new NotImplementedException();
+
+            public TOut Current { [MethodImpl(MethodImplOptions.AggressiveInlining)] get { return _current; } }
+
+            object IEnumerator.Current => Current;
+
+            public void Dispose()
+            {
+                if (_enumerator == null)
+                    return;
+
+                _enumerator.Dispose();
+                _enumerator = null;
+            }
+        }
 
         IEnumerator<TOut> IEnumerable<TOut>.GetEnumerator()
         {
+            if (typeof(TCollectionWrapper) == typeof(CollectionWrappers.ArrayW<TIn>))
+                return new EnumeratorArray(((CollectionWrappers.ArrayW<TIn>)(object)_collection)._array, _filter1, _filter2, _filter3);
+
+            if (typeof(TCollectionWrapper) == typeof(CollectionWrappers.ListW<TIn>))
+                return new EnumeratorList(((CollectionWrappers.ListW<TIn>)(object)_collection)._list, _filter1, _filter2, _filter3);
+
+            if (typeof(TCollectionWrapper) == typeof(CollectionWrappers.ListWWithoutCheckVersion<TIn>))
+                return new EnumeratorListWithoutCheckVersion(((CollectionWrappers.ListWWithoutCheckVersion<TIn>)(object)_collection)._list, _filter1, _filter2, _filter3);
+
+            if (_collection is CollectionWrappers.IEnumerableWrapper<TIn>)
+            {
+                var enumerable = ((CollectionWrappers.IEnumerableWrapper<TIn>)_collection).Enumerable;
+                if (enumerable is TIn[])
+                    return new EnumeratorArray((TIn[])enumerable, _filter1, _filter2, _filter3);
+
+                if (enumerable is List<TIn>)
+                    if (_collection is CollectionWrappers.IEnumerableWithoutCheckVersionWrapper<TIn>)
+                        return new EnumeratorListWithoutCheckVersion((List<TIn>)enumerable, _filter1, _filter2, _filter3);
+                    else
+                        return new EnumeratorList((List<TIn>)enumerable, _filter1, _filter2, _filter3);
+
+                return new EnumeratorEnumerable(enumerable, _filter1, _filter2, _filter3);
+            }
+            // RangeW  is hard do implement
+
             return GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return ((IEnumerable<TOut>)this).GetEnumerator();
         }
-
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public LowCostLinq<TIn, TCollectionWrapper, TCollectionIterator, TFilter1, TM1, TFilter2, TM2, TFilter3, TOut, Where<TOut>, TOut> Where(Func<TOut, bool> @where)
         {

@@ -27,7 +27,7 @@ namespace LowCostLinq.CollectionWrappers
             where TAcc : struct, IAccumulator<int>
         {
             TAcc accLocal = acc;
-            for (int i = _start; i < _max; i = unchecked(i + 1))
+            for (int i = _start; i < _max; i++)
             {
                 if (accLocal.Accumulate(ref i))
                     break;
@@ -43,7 +43,7 @@ namespace LowCostLinq.CollectionWrappers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = _start; i < _max; i = unchecked(i + 1))
+            for (int i = _start; i < _max; i++)
             {
                 if (filter1.Filter(ref i, out var current, ref willBreak))
                 {
@@ -56,7 +56,6 @@ namespace LowCostLinq.CollectionWrappers
             acc = accLocal;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Iterate<TFilter1, TMid1, TFilter2, TOut, TAcc>(TFilter1 filter1, TFilter2 filter2, ref TAcc acc)
             where TFilter1 : struct, IFilter<int, TMid1>
             where TFilter2 : struct, IFilter<TMid1, TOut>
@@ -65,7 +64,7 @@ namespace LowCostLinq.CollectionWrappers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = _start; i < _max; i = unchecked(i + 1))
+            for (int i = _start; i < _max; i++)
             {
                 if (filter1.Filter(ref i, out var mid1, ref willBreak))
                 {
@@ -81,7 +80,6 @@ namespace LowCostLinq.CollectionWrappers
             acc = accLocal;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Iterate<TFilter1, TMid1, TFilter2, TMid2, TFilter3, TOut, TAcc>(TFilter1 filter1, TFilter2 filter2, TFilter3 filter3, ref TAcc acc)
             where TFilter1 : struct, IFilter<int, TMid1>
             where TFilter2 : struct, IFilter<TMid1, TMid2>
@@ -91,7 +89,7 @@ namespace LowCostLinq.CollectionWrappers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = _start; i < _max; i = unchecked(i + 1))
+            for (int i = _start; i < _max; i++)
             {
                 if (filter1.Filter(ref i, out var mid1, ref willBreak))
                 {
@@ -110,7 +108,6 @@ namespace LowCostLinq.CollectionWrappers
             acc = accLocal;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Iterate<TFilter1, TMid1, TFilter2, TMid2, TFilter3, TMid3, TFilter4, TOut, TAcc>(TFilter1 filter1, TFilter2 filter2, TFilter3 filter3, TFilter4 filter4, ref TAcc acc)
             where TFilter1 : struct, IFilter<int, TMid1>
             where TFilter2 : struct, IFilter<TMid1, TMid2>
@@ -121,7 +118,7 @@ namespace LowCostLinq.CollectionWrappers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (int i = _start; i < _max; i = unchecked(i + 1))
+            for (int i = _start; i < _max; i++)
             {
                 if (filter1.Filter(ref i, out var mid1, ref willBreak))
                 {
@@ -161,10 +158,10 @@ namespace LowCostLinq.CollectionWrappers
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool MoveNext(ref int output)
             {
-                var value = unchecked(_start + _currentIndex);
+                var value = _start + _currentIndex;
                 if (value < _max)
                 {
-                    unchecked { _currentIndex++; }
+                    _currentIndex++;
                     output = value;
                     return true;
                 }

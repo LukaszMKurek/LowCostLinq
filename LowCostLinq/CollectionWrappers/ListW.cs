@@ -7,7 +7,7 @@ namespace LowCostLinq.CollectionWrappers
 {
     public readonly struct ListW<TIn> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, ListW<TIn>.Iterator>
     {
-        private readonly List<TIn> _list;
+        internal readonly List<TIn> _list;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal ListW(List<TIn> list)

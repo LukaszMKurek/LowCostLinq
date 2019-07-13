@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using LowCostLinq.Filters;
 
 namespace LowCostLinq.Internals.IterateHeplers
 {
@@ -24,19 +25,35 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TAcc : struct, IAccumulator<TOut>
         {
             TAcc accLocal = acc;
-            bool willBreak = false;
 
-            foreach (var item in list) // można to uprościć chyba
+            if (typeof(TFilter1) == typeof(Where<TOut>))
             {
-                var input = item;
-                if (filter1.Filter(ref input, out var current, ref willBreak))
-                {
-                    willBreak = accLocal.Accumulate(ref current);
-                }
+                var @where = ((Where<TOut>)(object)filter1)._where;
 
-                if (willBreak)
-                    break;
+                foreach (var item in list)
+                {
+                    var current = (TOut)(object)item;
+                    if (@where(current))
+                    {
+                        if (accLocal.Accumulate(ref current))
+                            break;
+                    }
+                }
             }
+            else
+            {
+                bool willBreak = false;
+                var iterator = list.GetEnumerator();
+                while (iterator.MoveNext() && willBreak == false)
+                {
+                    var input = iterator.Current;
+                    if (filter1.Filter(ref input, out var current, ref willBreak))
+                    {
+                        willBreak = accLocal.Accumulate(ref current);
+                    }
+                }
+            }
+
             acc = accLocal;
         }
 

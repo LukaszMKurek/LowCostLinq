@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using LowCostLinq.Filters;
 
 namespace LowCostLinq.Internals.IterateHeplers
 {
@@ -9,7 +10,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TAcc : struct, IAccumulator<TIn>
         {
             TAcc accLocal = acc;
-            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
+            for (uint i = 0u; i < (uint)array.Length; i++)
             {
                 if (accLocal.Accumulate(ref array[i]))
                     break;
@@ -22,18 +23,34 @@ namespace LowCostLinq.Internals.IterateHeplers
             where TAcc : struct, IAccumulator<TOut>
         {
             TAcc accLocal = acc;
-            bool willBreak = false;
-
-            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
+            
+            if (typeof(TFilter1) == typeof(Where<TOut>))
             {
-                if (filter1.Filter(ref array[i], out var current, ref willBreak))
-                {
-                    willBreak = accLocal.Accumulate(ref current);
-                }
+                var @where = ((Where<TOut>)(object)filter1)._where;
 
-                if (willBreak)
-                    break;
+                for (uint i = 0u; i < (uint)array.Length; i++)
+                {
+                    var current = (TOut)(object)array[i];
+                    if (@where(current))
+                    {
+                        if (accLocal.Accumulate(ref current))
+                            break;
+                    }
+                }
             }
+            else
+            {
+                bool willBreak = false;
+
+                for (uint i = 0u; i < (uint)array.Length && willBreak == false; i++)
+                {
+                    if (filter1.Filter(ref array[i], out var current, ref willBreak))
+                    {
+                        willBreak = accLocal.Accumulate(ref current);
+                    }
+                }
+            }
+
             acc = accLocal;
         }
 
@@ -46,7 +63,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
+            for (uint i = 0u; i < (uint)array.Length && willBreak == false; i++)
             {
                 if (filter1.Filter(ref array[i], out var mid1, ref willBreak))
                 {
@@ -55,9 +72,6 @@ namespace LowCostLinq.Internals.IterateHeplers
                         willBreak = accLocal.Accumulate(ref output);
                     }
                 }
-
-                if (willBreak)
-                    break;
             }
             acc = accLocal;
         }
@@ -72,7 +86,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
+            for (uint i = 0u; i < (uint)array.Length && willBreak == false; i++)
             {
                 if (filter1.Filter(ref array[i], out var mid1, ref willBreak))
                 {
@@ -84,9 +98,6 @@ namespace LowCostLinq.Internals.IterateHeplers
                         }
                     }
                 }
-
-                if (willBreak)
-                    break;
             }
             acc = accLocal;
         }
@@ -102,7 +113,7 @@ namespace LowCostLinq.Internals.IterateHeplers
             TAcc accLocal = acc;
             bool willBreak = false;
 
-            for (uint i = 0; i < unchecked((uint)array.Length); i = unchecked(i + 1))
+            for (uint i = 0u; i < (uint)array.Length && willBreak == false; i++)
             {
                 if (filter1.Filter(ref array[i], out var mid1, ref willBreak))
                 {
@@ -117,9 +128,6 @@ namespace LowCostLinq.Internals.IterateHeplers
                         }
                     }
                 }
-
-                if (willBreak)
-                    break;
             }
             acc = accLocal;
         }

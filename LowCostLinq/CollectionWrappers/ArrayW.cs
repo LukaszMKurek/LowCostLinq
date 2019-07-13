@@ -6,7 +6,7 @@ namespace LowCostLinq.CollectionWrappers
 {
     public readonly struct ArrayW<TIn> : ICollectionWrapper<TIn>, ICollectionWrapper<TIn, ArrayW<TIn>.Iterator>
     {
-        private readonly TIn[] _array;
+        internal readonly TIn[] _array;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal ArrayW(TIn[] array)
