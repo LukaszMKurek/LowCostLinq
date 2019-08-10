@@ -26,7 +26,9 @@ namespace LowCostLinq.Filters.Items
                 /*if (input == null)
                     return true;*/
 
-                return _param.Equals(input) == false;
+                // Ternary operator returning true/false prevents redundant asm generation:
+                // https://github.com/dotnet/coreclr/issues/914
+                return _param.Equals(input) ? false : true;
             }
 
             return input != null;
@@ -55,7 +57,7 @@ namespace LowCostLinq.Filters.Items
                 if (input == null)
                     return true;
 
-                return _param.Value.Equals(input.Value) == false;
+                return _param.Value.Equals(input.Value) ? false : true;
             }
 
             return input != null;
