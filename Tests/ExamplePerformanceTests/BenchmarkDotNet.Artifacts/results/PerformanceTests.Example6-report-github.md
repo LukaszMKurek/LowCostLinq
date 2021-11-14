@@ -2,16 +2,16 @@
 
 BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19042.1165 (20H2/October2020Update)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
-.NET SDK=5.0.403
-  [Host]     : .NET 5.0.12 (5.0.1221.52207), X64 RyuJIT
-  DefaultJob : .NET 5.0.12 (5.0.1221.52207), X64 RyuJIT
+.NET SDK=6.0.100
+  [Host]     : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
+  DefaultJob : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
 
 
 ```
 |                            Method |       Mean |    Error |   StdDev | Ratio | RatioSD |    Gen 0 | Allocated |
 |---------------------------------- |-----------:|---------:|---------:|------:|--------:|---------:|----------:|
-|                       LinqExample | 9,340.8 μs | 11.57 μs | 10.25 μs | 18.94 |    0.02 | 218.7500 | 960,000 B |
-|                LowCostLinqExample | 2,016.7 μs |  1.90 μs |  1.78 μs |  4.09 |    0.00 |        - |         - |
-|      EvenBetterLowCostLinqExample | 1,868.4 μs | 24.33 μs | 22.76 μs |  3.79 |    0.05 |        - |         - |
-| NearOptimalSolutionUsingDelegates | 2,020.5 μs |  1.39 μs |  1.23 μs |  4.10 |    0.01 |        - |         - |
-|               NearOptimalSolution |   493.3 μs |  0.41 μs |  0.35 μs |  1.00 |    0.00 |        - |         - |
+|                       LinqExample | 8,806.2 μs | 16.52 μs | 14.64 μs | 33.07 |    0.11 | 218.7500 | 960,008 B |
+|                LowCostLinqExample | 2,221.0 μs |  5.91 μs |  5.24 μs |  8.34 |    0.03 |        - |       2 B |
+|      EvenBetterLowCostLinqExample | 1,627.4 μs |  3.29 μs |  3.08 μs |  6.11 |    0.02 |        - |       1 B |
+| NearOptimalSolutionUsingDelegates | 1,560.7 μs |  3.46 μs |  2.89 μs |  5.86 |    0.02 |        - |       1 B |
+|               NearOptimalSolution |   266.3 μs |  0.99 μs |  0.88 μs |  1.00 |    0.00 |        - |         - |
