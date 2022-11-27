@@ -7,7 +7,7 @@ namespace LowCostLinq.Accumulators
     [StructLayout(LayoutKind.Auto)]
     internal struct ToArrayAccumulator<T> : IAccumulator<T>
     {
-        private readonly static T[] empty = new T[0];
+        private readonly static T[] empty = Array.Empty<T>();
         private uint count;
         private readonly uint expectedCapacity;
         private T[] items;
@@ -28,18 +28,23 @@ namespace LowCostLinq.Accumulators
             }
             else
             {
-                var newLen = items == empty ? expectedCapacity : count * 2u;
-                var newItems = new T[newLen];
-                
-                Array.Copy(items, 0, newItems, 0, (int)count);
-                newItems[count] = item;
-
-                items = newItems;
+                ExtendAndAccumulate(ref item);
             }
 
             unchecked { count++; }
 
             return false;
+        }
+
+        private void ExtendAndAccumulate(ref T item)
+        {
+            var newLen = items == empty ? expectedCapacity : count * 2u;
+            var newItems = new T[newLen];
+
+            Array.Copy(items, 0, newItems, 0, (int)count);
+            newItems[count] = item;
+
+            items = newItems;
         }
 
         internal T[] ToArray()
@@ -57,7 +62,7 @@ namespace LowCostLinq.Accumulators
     [StructLayout(LayoutKind.Auto)]
     internal struct ToArrayAccumulatorOptimizedForDefault<T> : IAccumulator<T>
     {
-        private readonly static T[] empty = new T[0];
+        private readonly static T[] empty = Array.Empty<T>();
         private uint count;
         private T[] items;
 
@@ -76,18 +81,23 @@ namespace LowCostLinq.Accumulators
             }
             else
             {
-                var newLen = items == empty ? 4u : count * 2u;
-                var newItems = new T[newLen];
-
-                Array.Copy(items, 0, newItems, 0, (int)count);
-                newItems[count] = item;
-
-                items = newItems;
+                ExtendAndAccumulate(ref item);
             }
 
             unchecked { count++; }
 
             return false;
+        }
+
+        private void ExtendAndAccumulate(ref T item)
+        {
+            var newLen = items == empty ? 4u : count * 2u;
+            var newItems = new T[newLen];
+
+            Array.Copy(items, 0, newItems, 0, (int)count);
+            newItems[count] = item;
+
+            items = newItems;
         }
 
         internal T[] ToArray()
