@@ -1,17 +1,17 @@
 ``` ini
 
-BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19042.1165 (20H2/October2020Update)
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.2130 (21H2)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
-.NET SDK=6.0.100
-  [Host]     : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
-  DefaultJob : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
+.NET SDK=7.0.100
+  [Host]     : .NET 7.0.0 (7.0.22.51805), X64 RyuJIT
+  DefaultJob : .NET 7.0.0 (7.0.22.51805), X64 RyuJIT
 
 
 ```
-|                            Method |       Mean |     Error |    StdDev | Ratio | RatioSD |    Gen 0 | Allocated |
-|---------------------------------- |-----------:|----------:|----------:|------:|--------:|---------:|----------:|
-|                       LinqExample | 7,726.0 μs | 150.89 μs | 167.72 μs | 15.80 |    0.35 | 109.3750 | 480,008 B |
-|                LowCostLinqExample | 4,334.9 μs |   6.22 μs |   5.82 μs |  8.86 |    0.01 |        - |       4 B |
-|      EvenBetterLowCostLinqExample |   922.0 μs |   7.02 μs |   6.57 μs |  1.89 |    0.01 |        - |         - |
-| NearOptimalSolutionUsingDelegates | 3,722.0 μs |   2.24 μs |   2.10 μs |  7.61 |    0.01 |        - |       2 B |
-|               NearOptimalSolution |   489.1 μs |   0.43 μs |   0.40 μs |  1.00 |    0.00 |        - |         - |
+|                            Method |       Mean |     Error |    StdDev |     Median | Ratio | RatioSD |    Gen 0 | Allocated |
+|---------------------------------- |-----------:|----------:|----------:|-----------:|------:|--------:|---------:|----------:|
+|                       LinqExample | 9,528.3 μs | 262.42 μs | 748.69 μs | 9,478.6 μs | 21.62 |    1.88 | 109.3750 | 480,008 B |
+|                LowCostLinqExample | 4,250.8 μs |   2.60 μs |   2.43 μs | 4,250.3 μs |  9.43 |    0.49 |        - |         - |
+|      EvenBetterLowCostLinqExample |   515.1 μs |   0.07 μs |   0.06 μs |   515.1 μs |  1.15 |    0.06 |        - |         - |
+| NearOptimalSolutionUsingDelegates | 3,957.6 μs |   2.48 μs |   2.07 μs | 3,957.5 μs |  8.85 |    0.44 |        - |         - |
+|               NearOptimalSolution |   437.9 μs |   8.75 μs |  23.79 μs |   422.1 μs |  1.00 |    0.00 |        - |         - |

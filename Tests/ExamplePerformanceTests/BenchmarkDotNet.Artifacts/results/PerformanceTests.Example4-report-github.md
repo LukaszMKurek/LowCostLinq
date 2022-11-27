@@ -1,18 +1,18 @@
 ``` ini
 
-BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19042.1165 (20H2/October2020Update)
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.19044.2130 (21H2)
 Intel Core i7-6700K CPU 4.00GHz (Skylake), 1 CPU, 8 logical and 4 physical cores
-.NET SDK=6.0.100
-  [Host]     : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
-  DefaultJob : .NET 6.0.0 (6.0.21.52210), X64 RyuJIT
+.NET SDK=7.0.100
+  [Host]     : .NET 7.0.0 (7.0.22.51805), X64 RyuJIT
+  DefaultJob : .NET 7.0.0 (7.0.22.51805), X64 RyuJIT
 
 
 ```
-|                            Method |        Mean |     Error |    StdDev | Ratio | RatioSD |     Gen 0 |   Allocated |
-|---------------------------------- |------------:|----------:|----------:|------:|--------:|----------:|------------:|
-|                       LinqExample | 14,460.7 μs | 267.84 μs | 237.43 μs | 18.75 |    0.30 | 1828.1250 | 7,680,008 B |
-|                LowCostLinqExample |  7,199.4 μs |  14.92 μs |  11.65 μs |  9.33 |    0.03 |  687.5000 | 2,880,004 B |
-|      EvenBetterLowCostLinqExample |  7,403.9 μs |  12.07 μs |   9.42 μs |  9.60 |    0.03 |         - |         4 B |
-|            BestLowCostLinqExample |  1,840.5 μs |   6.71 μs |   6.28 μs |  2.39 |    0.01 |         - |         1 B |
-| NearOptimalSolutionUsingDelegates |  6,695.7 μs |  10.11 μs |   9.46 μs |  8.68 |    0.03 |         - |         4 B |
-|               NearOptimalSolution |    771.2 μs |   2.10 μs |   1.86 μs |  1.00 |    0.00 |         - |         1 B |
+|                            Method |        Mean |       Error |       StdDev | Ratio | RatioSD |     Gen 0 |   Allocated |
+|---------------------------------- |------------:|------------:|-------------:|------:|--------:|----------:|------------:|
+|                       LinqExample | 32,952.9 μs | 4,283.52 μs | 12,630.07 μs | 21.61 |    0.90 | 1812.5000 | 7,680,015 B |
+|                LowCostLinqExample |  8,450.5 μs |   166.87 μs |    462.40 μs | 11.27 |    0.40 |  687.5000 | 2,880,008 B |
+|      EvenBetterLowCostLinqExample |  7,917.2 μs |   141.51 μs |    138.98 μs |  9.84 |    0.24 |         - |           - |
+|            BestLowCostLinqExample |  1,964.3 μs |    39.01 μs |     54.69 μs |  2.47 |    0.06 |         - |           - |
+| NearOptimalSolutionUsingDelegates |  6,300.7 μs |    69.32 μs |     64.85 μs |  7.82 |    0.13 |         - |           - |
+|               NearOptimalSolution |    804.8 μs |     9.22 μs |      8.18 μs |  1.00 |    0.00 |         - |           - |
